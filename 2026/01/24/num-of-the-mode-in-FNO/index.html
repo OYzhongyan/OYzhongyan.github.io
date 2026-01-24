@@ -43,6 +43,45 @@
     
     
         
+            <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+        
     
 
 
@@ -136,71 +175,6 @@
                 <div class="container">
     
     
-        <div class="post-toc">
-    <div class="tocbot-list">
-    </div>
-    <div class="tocbot-list-menu">
-        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
-        <a onclick="go_top()">Back to top</a>
-        <a onclick="go_bottom()">Go to bottom</a>
-    </div>
-</div>
-
-<script>
-    var tocbot_timer;
-    var DEPTH_MAX = 6; // 为 6 时展开所有
-    var tocbot_default_config = {
-        tocSelector: '.tocbot-list',
-        contentSelector: '.post-content',
-        headingSelector: 'h1, h2, h3, h4, h5',
-        orderedList: false,
-        scrollSmooth: true,
-        onClick: extend_click,
-    };
-
-    function extend_click() {
-        clearTimeout(tocbot_timer);
-        tocbot_timer = setTimeout(function() {
-            tocbot.refresh(obj_merge(tocbot_default_config, {
-                hasInnerContainers: true
-            }));
-        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
-    }
-
-    document.ready(function() {
-        tocbot.init(obj_merge(tocbot_default_config, {
-            collapseDepth: 1
-        }));
-    });
-
-    function expand_toc() {
-        var b = document.querySelector('.tocbot-toc-expand');
-        var expanded = b.getAttribute('data-expanded');
-        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
-        tocbot.refresh(obj_merge(tocbot_default_config, {
-            collapseDepth: expanded ? 1 : DEPTH_MAX
-        }));
-        b.innerText = expanded ? 'Expand all' : 'Collapse all';
-    }
-
-    function go_top() {
-        window.scrollTo(0, 0);
-    }
-
-    function go_bottom() {
-        window.scrollTo(0, document.body.scrollHeight);
-    }
-
-    function obj_merge(target, source) {
-        for (var item in source) {
-            if (source.hasOwnProperty(item)) {
-                target[item] = source[item];
-            }
-        }
-        return target;
-    }
-</script>
-    
 
     
     <article class="post-wrap">
@@ -223,7 +197,7 @@
         </header>
 
         <div class="post-content">
-            <h1 id="The-Precise-Mathematical-Cause-of-Aliasing-From-the-Sampling-Operator-to-the-Frequency-Quotient-Space"><a href="#The-Precise-Mathematical-Cause-of-Aliasing-From-the-Sampling-Operator-to-the-Frequency-Quotient-Space" class="headerlink" title="The Precise Mathematical Cause of Aliasing: From the Sampling Operator to the Frequency Quotient Space"></a>The Precise Mathematical Cause of Aliasing: From the Sampling Operator to the Frequency Quotient Space</h1><p>Aliasing is not a numerical error or an engineering approximation problem, but a <strong>structural consequence of the mathematical non-invertibility of the uniform sampling linear operator</strong>. The fundamental reason is: once a continuous function is discretely sampled, the frequency space loses its original discriminative capacity and is compressed into a <strong>quotient space</strong>, rendering different continuous frequencies completely indistinguishable under discrete observation.</p>
+            <p>Aliasing is not a numerical error or an engineering approximation problem, but a <strong>structural consequence of the mathematical non-invertibility of the uniform sampling linear operator</strong>. The fundamental reason is: once a continuous function is discretely sampled, the frequency space loses its original discriminative capacity and is compressed into a <strong>quotient space</strong>, rendering different continuous frequencies completely indistinguishable under discrete observation.</p>
 <p>Let $f(x)$ be a periodic function defined on the interval $[0,1]$, sampled at $N$ equally spaced points:<br>$$<br>x_j &#x3D; \frac{j}{N}, \quad j &#x3D; 0, \dots, N-1.<br>$$</p>
 <p>This defines the linear sampling operator parameterized by $\mathbb{N}$:<br>$$<br>\mathcal S_N: f \longmapsto \big(f(x_0),\dots,f(x_{N-1})\big)\in\mathbb C^N.<br>$$</p>
 <p>Since the target space $\mathbb C^N$ is finite-dimensional while the space of continuous functions (or its Fourier expansion space) is infinite-dimensional, the operator $\mathcal S_N$ cannot be injective (单射) (Why?). Therefore, its kernel must be non-trivial.</p>
