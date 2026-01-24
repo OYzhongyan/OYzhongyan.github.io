@@ -204,51 +204,30 @@
         </header>
 
         <div class="post-content">
-            <p>Aliasing is not a numerical error or an engineering approximation problem, but a <strong>structural consequence of the mathematical non-invertibility of the uniform sampling linear operator</strong>. The fundamental reason is: once a continuous function is discretely sampled, the frequency space loses its original discriminative capacity and is compressed into a <strong>quotient space</strong>, rendering different continuous frequencies completely indistinguishable under discrete observation.</p>
-<p>Let $f(x)$ be a periodic function defined on the interval $[0,1]$, sampled at $N$ equally spaced points:</p>
-<p>$$<br>x_j &#x3D; \frac{j}{N}, \quad j &#x3D; 0, \dots, N-1.<br>$$</p>
-<p>This defines the linear sampling operator parameterized by $\mathbb{N}$:</p>
-<p>$$<br>\mathcal S_N: f \longmapsto \big(f(x_0),\dots,f(x_{N-1})\big)\in\mathbb C^N.<br>$$</p>
-<p>Since the target space $\mathbb C^N$ is finite-dimensional while the space of continuous functions (or its Fourier expansion space) is infinite-dimensional, the operator $\mathcal S_N$ cannot be injective (单射) (Why?). Therefore, its kernel must be non-trivial.</p>
+            <p>Aliasing is not a numerical error or an engineering approximation problem, but a <strong>structural consequence of the mathematical non-invertibility of the uniform sampling linear operator</strong>. The fundamental reason is: once a continuous function is discretely sampled, the frequency space loses its original discriminative capacity and is compressed into a <strong>quotient space</strong>, rendering different continuous frequencies completely indistinguishable under discrete observation.<br>Let $f(x)$ be a periodic function defined on the interval $[0,1]$, sampled at $N$ equally spaced points:</p>
+<p>$$<br>x_j &#x3D; \frac{j}{N}, \quad j &#x3D; 0, \dots, N-1.<br>$$This defines the linear sampling operator parameterized by $\mathbb{N}$:<br>$$<br>\mathcal S_N: f \longmapsto \big(f(x_0),\dots,f(x_{N-1})\big)\in\mathbb C^N.<br>$$Since the target space $\mathbb C^N$ is finite-dimensional while the space of continuous functions (or its Fourier expansion space) is infinite-dimensional, the operator $\mathcal S_N$ cannot be injective (单射) (Why?). Therefore, its kernel must be non-trivial.</p>
 <blockquote>
 <p><strong>Definition</strong>: The kernel of an operator is a set, which includes all the elements that can be mapped to zero by this operator. A non-trivial kernel means there exist nonzero elements that can be mapped to zero. A trivial kernel is a set only includes the zero element.</p>
 </blockquote>
 <p><strong>Aliasing originates precisely from this non-trivial kernel, not from empirical reasons like insufficient sampling precision.</strong></p>
-<p>To clarify the structure of the kernel, consider the continuous Fourier modes:</p>
-<p>$$<br>\phi_k(x)&#x3D;e^{2\pi i k x},\quad k\in\mathbb Z.<br>$$</p>
-<p>At the sampling points, their values are:</p>
-<p>$$<br>\phi_k(x_j)&#x3D;e^{2\pi i k j&#x2F;N}.<br>$$</p>
-<p>Here, a decisive identity emerges:</p>
-<p>$$<br>e^{2\pi i (k+mN) j&#x2F;N}&#x3D;e^{2\pi i k j&#x2F;N},\quad \forall j,\ \forall m\in\mathbb Z.<br>$$</p>
-<p>This identity directly implies:</p>
-<p>$$<br>\mathcal S_N(\phi_{k+mN})&#x3D;\mathcal S_N(\phi_k),<br>$$</p>
+<p>To clarify the structure of the kernel, consider the continuous Fourier modes:<br>$$<br>\phi_k(x)&#x3D;e^{2\pi i k x},\quad k\in\mathbb Z.<br>$$At the sampling points, their values are:</p>
+<p>$$<br>\phi_k(x_j)&#x3D;e^{2\pi i k j&#x2F;N}.<br>$$Here, a decisive identity emerges:<br>$$<br>e^{2\pi i (k+mN) j&#x2F;N}&#x3D;e^{2\pi i k j&#x2F;N},\quad \forall j,\ \forall m\in\mathbb Z.<br>$$This identity directly implies:<br>$$<br>\mathcal S_N(\phi_{k+mN})&#x3D;\mathcal S_N(\phi_k),<br>$$</p>
 <blockquote>
-<p><strong>Remark</strong>: Here briefly explain these equations. The function $\phi$ can be regarded as a feature extraction, or a mapping that the input is belongs to time domain, and the output is belongs to the frequency domain. These function is parameterised by k. The relation involving the operator $\mathcal S_N$ reveals a fundamental insight: <strong>Two distinct continuous functions can produce identical discrete samples after uniform sampling.</strong></p>
+<p><strong>Remark</strong>: The function $\phi$ can be regarded as a feature extraction, or a mapping from the time domain to the frequency domain. The relation involving the operator $\mathcal S_N$ reveals a fundamental insight: <strong>Two distinct continuous functions can produce identical discrete samples after uniform sampling.</strong></p>
 </blockquote>
-<p>or equivalently:</p>
-<p>$$<br>\phi_{k+mN}-\phi_k \in \ker(\mathcal S_N).<br>$$</p>
+<p>or equivalently:<br>$$<br>\phi_{k+mN}-\phi_k \in \ker(\mathcal S_N).<br>$$</p>
 <blockquote>
 <p><strong>Remark</strong> This relationship follows from the <strong>linearity</strong> of the sampling operator.</p>
 </blockquote>
-<p>Therefore, <strong>all frequencies that differ by integer multiples of $N$ are strictly indistinguishable under discrete sampling</strong>. This conclusion is not an approximation but is exactly guaranteed by the periodicity of the exponential function.</p>
-<p>From this, the set of integer frequencies $\mathbb Z$ (which contains the parameter $k$ of feature mapping function $\phi$) is partitioned into <strong>equivalence classes</strong> under the sampling operation:</p>
-<p>$$<br>[k]&#x3D;{k+mN\mid m\in\mathbb Z}.<br>$$</p>
-<p>After sampling, each equivalence class can only correspond to one discrete degree of freedom. From an algebraic perspective, the frequency space is compressed into the quotient space:</p>
+<p>Therefore, <strong>all frequencies that differ by integer multiples of $N$ are strictly indistinguishable under discrete sampling</strong>. This conclusion is not an approximation but is exactly guaranteed by the periodicity of the exponential function.<br>From this, the set of integer frequencies $\mathbb Z$ (which contains the parameter $k$ of feature mapping function $\phi$) is partitioned into <strong>equivalence classes</strong> under the sampling operation:<br>$$<br>[k]&#x3D;{k+mN\mid m\in\mathbb Z}.<br>$$After sampling, each equivalence class can only correspond to one discrete degree of freedom. From an algebraic perspective, the frequency space is compressed into the quotient space:</p>
 <p>$$<br>\mathbb Z &#x2F; N\mathbb Z.<br>$$</p>
 <blockquote>
-<p><strong>Definition</strong>: Given vector space $V$ and subspace $W \subset V$, the quotient $V&#x2F;W$ is defined as:$$<br>V&#x2F;W&#x3D;\lbrace[v] \mid v \in V \rbrace</p>
+<p><strong>Definition</strong>: Given vector space $V$ and subspace $W \subset V$, the quotient $V&#x2F;W$ is defined as:$$V&#x2F;W&#x3D;\lbrace[v] \mid v \in V \rbrace$$where the equivalence classes is $[v]&#x3D;v+W&#x3D;{ v+w \mid w \in W }$. The quotient space constructs new space by identifying equivalent elements.</p>
 </blockquote>
-<p>$$<br>where the equivalence classes is $[v]&#x3D;v+W&#x3D;{ v+w \mid w \in W }$. The quotient space constructs new space by identifying equivalent elements.</p>
-<p>To avoid the same discrete degree of freedom being represented multiple times, one must choose a canonical (最简洁的) representative set in this quotient space. When $N$ is even, the most natural choice is the so-called Nyquist interval:<br>$$</p>
-<p>\left\lbrace-\frac{N}{2}+1,\dots,\frac{N}{2}\right\rbrace.</p>
-<p>$$<br>This interval is not an empirical “frequency cutoff” but rather a <strong>fundamental domain</strong> of the frequency quotient space.</p>
-<p>The “folding formula” commonly seen in engineering and numerical analysis can also be derived naturally from this. Given any frequency $k\in\mathbb Z$, one can always find some integer $m$ such that:<br>$$</p>
-<p>k_{\text{alias}} &#x3D; k - mN</p>
-<p>$$<br>satisfies:<br>$$</p>
-<p>|k_{\text{alias}}|\le \frac{N}{2}.</p>
-<p>$$<br>The so-called “high frequency folding into low frequency” is not a physical process, but simply <strong>choosing a representative element within an equivalence class</strong>.</p>
-<p>From a linear algebra perspective, this structure is equally inevitable. The space spanned by continuous Fourier modes is infinite-dimensional, while the sampled discrete signal space $\mathbb C^N$ has only $N$ degrees of freedom. Therefore, any discrete representation can carry at most $N$ independent pieces of information. Modes beyond the Nyquist frequency cannot introduce new identifiable degrees of freedom; they can only reparameterize existing discrete information. In statistics and learning theory, this corresponds to <strong>non-identifiable parameters</strong>.</p>
-<p>In summary, the precise mathematical cause of aliasing can be stated as: <strong>The uniform sampling operator induces a quotient space structure on the frequency space, making Fourier modes that differ by integer multiples of the sampling rate completely equivalent under discrete observation.</strong> The Nyquist frequency is not an empirical rule, but the maximal canonical representative interval available in this quotient space. Any frequency exceeding the Nyquist limit does not correspond to a new physical or mathematical degree of freedom, but merely represents an alternative parameterization of existing low-frequency information. This fact forms the rigorous mathematical foundation for frequency truncation principles in spectral methods and Fourier Neural Operators.<br>$$</p>
+<p>To avoid the same discrete degree of freedom being represented multiple times, one must choose a canonical (最简洁的) representative set in this quotient space. When $N$ is even, the most natural choice is the so-called Nyquist interval:<br>$$<br>\left\lbrace-\frac{N}{2}+1,\dots,\frac{N}{2}\right\rbrace.<br>$$This interval is not an empirical “frequency cutoff” but rather a <strong>fundamental domain</strong> of the frequency quotient space.<br>The “folding formula” commonly seen in engineering and numerical analysis can also be derived naturally from this. Given any frequency $k\in\mathbb Z$, one can always find some integer $m$ such that:<br>$$<br>k_{\text{alias}} &#x3D; k - mN<br>$$satisfies:<br>$$<br>|k_{\text{alias}}|\le \frac{N}{2}.<br>$$The so-called “high frequency folding into low frequency” is not a physical process, but simply <strong>choosing a representative element within an equivalence class</strong>.<br>From a linear algebra perspective, this structure is equally inevitable. The space spanned by continuous Fourier modes is infinite-dimensional, while the sampled discrete signal space $\mathbb C^N$ has only $N$ degrees of freedom. Therefore, any discrete representation can carry at most $N$ independent pieces of information. Modes beyond the Nyquist frequency cannot introduce new identifiable degrees of freedom; they can only reparameterize existing discrete information. In statistics and learning theory, this corresponds to <strong>non-identifiable parameters</strong>.</p>
+<hr>
+<p>In summary, the precise mathematical cause of aliasing can be stated as: <strong>The uniform sampling operator induces a quotient space structure on the frequency space, making Fourier modes that differ by integer multiples of the sampling rate completely equivalent under discrete observation.</strong> The Nyquist frequency is not an empirical rule, but the maximal canonical representative interval available in this quotient space. Any frequency exceeding the Nyquist limit does not correspond to a new physical or mathematical degree of freedom, but merely represents an alternative parameterization of existing low-frequency information. This fact forms the rigorous mathematical foundation for frequency truncation principles in spectral methods and Fourier Neural Operators.</p>
+<p>Reference：<br><a target="_blank" rel="noopener" href="http://arxiv.org/abs/2512.01421">http://arxiv.org/abs/2512.01421</a></p>
 
         </div>
 
