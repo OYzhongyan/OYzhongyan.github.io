@@ -192,6 +192,13 @@
                         </span>
                     
                     
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/machine-learning/">machine learning</a>
+                            
+                        </span>
+                    
                 </div>
             
         </header>
@@ -229,18 +236,19 @@
 <p>After sampling, each equivalence class can only correspond to one discrete degree of freedom. From an algebraic perspective, the frequency space is compressed into the quotient space:</p>
 <p>$$<br>\mathbb Z &#x2F; N\mathbb Z.<br>$$</p>
 <blockquote>
-<p><strong>Definition</strong>: Given vector space $V$ and subspace $W \subset V$, the quotient $V&#x2F;W$ is defined as:$$<br>V&#x2F;W&#x3D;\lbrace[v] \mid v \in V \rbrace<br>$$where the equivalence classes is $[v]&#x3D;v+W&#x3D;{ v+w \mid w \in W }$. The quotient space constructs new space by identifying equivalent elements.</p>
+<p><strong>Definition</strong>: Given vector space $V$ and subspace $W \subset V$, the quotient $V&#x2F;W$ is defined as:$$<br>V&#x2F;W&#x3D;\lbrace[v] \mid v \in V \rbrace</p>
 </blockquote>
-<p>To avoid the same discrete degree of freedom being represented multiple times, one must choose a canonical (最简洁的) representative set in this quotient space. When $N$ is even, the most natural choice is the so-called Nyquist interval:</p>
-<p>$$<br>\left\lbrace-\frac{N}{2}+1,\dots,\frac{N}{2}\right\rbrace.<br>$$</p>
-<p>This interval is not an empirical “frequency cutoff” but rather a <strong>fundamental domain</strong> of the frequency quotient space.</p>
-<p>The “folding formula” commonly seen in engineering and numerical analysis can also be derived naturally from this. Given any frequency $k\in\mathbb Z$, one can always find some integer $m$ such that:</p>
-<p>$$<br>k_{\text{alias}} &#x3D; k - mN<br>$$</p>
-<p>satisfies:</p>
-<p>$$<br>|k_{\text{alias}}|\le \frac{N}{2}.<br>$$</p>
-<p>The so-called “high frequency folding into low frequency” is not a physical process, but simply <strong>choosing a representative element within an equivalence class</strong>.</p>
+<p>$$<br>where the equivalence classes is $[v]&#x3D;v+W&#x3D;{ v+w \mid w \in W }$. The quotient space constructs new space by identifying equivalent elements.</p>
+<p>To avoid the same discrete degree of freedom being represented multiple times, one must choose a canonical (最简洁的) representative set in this quotient space. When $N$ is even, the most natural choice is the so-called Nyquist interval:<br>$$</p>
+<p>\left\lbrace-\frac{N}{2}+1,\dots,\frac{N}{2}\right\rbrace.</p>
+<p>$$<br>This interval is not an empirical “frequency cutoff” but rather a <strong>fundamental domain</strong> of the frequency quotient space.</p>
+<p>The “folding formula” commonly seen in engineering and numerical analysis can also be derived naturally from this. Given any frequency $k\in\mathbb Z$, one can always find some integer $m$ such that:<br>$$</p>
+<p>k_{\text{alias}} &#x3D; k - mN</p>
+<p>$$<br>satisfies:<br>$$</p>
+<p>|k_{\text{alias}}|\le \frac{N}{2}.</p>
+<p>$$<br>The so-called “high frequency folding into low frequency” is not a physical process, but simply <strong>choosing a representative element within an equivalence class</strong>.</p>
 <p>From a linear algebra perspective, this structure is equally inevitable. The space spanned by continuous Fourier modes is infinite-dimensional, while the sampled discrete signal space $\mathbb C^N$ has only $N$ degrees of freedom. Therefore, any discrete representation can carry at most $N$ independent pieces of information. Modes beyond the Nyquist frequency cannot introduce new identifiable degrees of freedom; they can only reparameterize existing discrete information. In statistics and learning theory, this corresponds to <strong>non-identifiable parameters</strong>.</p>
-<p>In summary, the precise mathematical cause of aliasing can be stated as: <strong>The uniform sampling operator induces a quotient space structure on the frequency space, making Fourier modes that differ by integer multiples of the sampling rate completely equivalent under discrete observation.</strong> The Nyquist frequency is not an empirical rule, but the maximal canonical representative interval available in this quotient space. Any frequency exceeding the Nyquist limit does not correspond to a new physical or mathematical degree of freedom, but merely represents an alternative parameterization of existing low-frequency information. This fact forms the rigorous mathematical foundation for frequency truncation principles in spectral methods and Fourier Neural Operators.</p>
+<p>In summary, the precise mathematical cause of aliasing can be stated as: <strong>The uniform sampling operator induces a quotient space structure on the frequency space, making Fourier modes that differ by integer multiples of the sampling rate completely equivalent under discrete observation.</strong> The Nyquist frequency is not an empirical rule, but the maximal canonical representative interval available in this quotient space. Any frequency exceeding the Nyquist limit does not correspond to a new physical or mathematical degree of freedom, but merely represents an alternative parameterization of existing low-frequency information. This fact forms the rigorous mathematical foundation for frequency truncation principles in spectral methods and Fourier Neural Operators.<br>$$</p>
 
         </div>
 
