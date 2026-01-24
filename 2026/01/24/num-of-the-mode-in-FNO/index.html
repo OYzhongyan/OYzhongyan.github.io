@@ -204,7 +204,7 @@
 <p>$$<br>\mathcal S_N: f \longmapsto \big(f(x_0),\dots,f(x_{N-1})\big)\in\mathbb C^N.<br>$$</p>
 <p>Since the target space $\mathbb C^N$ is finite-dimensional while the space of continuous functions (or its Fourier expansion space) is infinite-dimensional, the operator $\mathcal S_N$ cannot be injective (单射) (Why?). Therefore, its kernel must be non-trivial.</p>
 <blockquote>
-<p><strong>Definition</strong> The kernel of an operator is a set, which includes all the elements that can be mapped to zero by this operator. A non-trivial kernel means there exist nonzero elements that can be mapped to zero. A trivial kernel is a set only includes the zero element.</p>
+<p><strong>Definition</strong>: The kernel of an operator is a set, which includes all the elements that can be mapped to zero by this operator. A non-trivial kernel means there exist nonzero elements that can be mapped to zero. A trivial kernel is a set only includes the zero element.</p>
 </blockquote>
 <p><strong>Aliasing originates precisely from this non-trivial kernel, not from empirical reasons like insufficient sampling precision.</strong></p>
 <p>To clarify the structure of the kernel, consider the continuous Fourier modes:</p>
@@ -216,7 +216,7 @@
 <p>This identity directly implies:</p>
 <p>$$<br>\mathcal S_N(\phi_{k+mN})&#x3D;\mathcal S_N(\phi_k),<br>$$</p>
 <blockquote>
-<p><strong>Remark</strong> Here briefly explain these equations. The function $\phi$ can be regarded as a feature extraction, or a mapping that the input is belongs to time domain, and the output is belongs to the frequency domain. These function is parameterised by k. The relation involving the operator $\mathcal S_N$ reveals a fundamental insight: <strong>Two distinct continuous functions can produce identical discrete samples after uniform sampling.</strong></p>
+<p><strong>Remark</strong>: Here briefly explain these equations. The function $\phi$ can be regarded as a feature extraction, or a mapping that the input is belongs to time domain, and the output is belongs to the frequency domain. These function is parameterised by k. The relation involving the operator $\mathcal S_N$ reveals a fundamental insight: <strong>Two distinct continuous functions can produce identical discrete samples after uniform sampling.</strong></p>
 </blockquote>
 <p>or equivalently:</p>
 <p>$$<br>\phi_{k+mN}-\phi_k \in \ker(\mathcal S_N).<br>$$</p>
@@ -229,10 +229,8 @@
 <p>After sampling, each equivalence class can only correspond to one discrete degree of freedom. From an algebraic perspective, the frequency space is compressed into the quotient space:</p>
 <p>$$<br>\mathbb Z &#x2F; N\mathbb Z.<br>$$</p>
 <blockquote>
-<p>Definition Given vector space $V$ and subspace $W \subset V$, the quotient $V&#x2F;W$ is defined as:</p>
+<p><strong>Definition</strong>: Given vector space $V$ and subspace $W \subset V$, the quotient $V&#x2F;W$ is defined as:$$<br>V&#x2F;W&#x3D;\lbrace[v] \mid v \in V \rbrace<br>$$where the equivalence classes is $[v]&#x3D;v+W&#x3D;{ v+w \mid w \in W }$. The quotient space constructs new space by identifying equivalent elements.</p>
 </blockquote>
-<p>$$<br>V&#x2F;W&#x3D;\lbrace[v] \mid v \in V \rbrace<br>$$</p>
-<p>where the equivalence classes is $[v]&#x3D;v+W&#x3D;{ v+w \mid w \in W }$. The quotient space constructs new space by identifying equivalent elements.</p>
 <p>To avoid the same discrete degree of freedom being represented multiple times, one must choose a canonical (最简洁的) representative set in this quotient space. When $N$ is even, the most natural choice is the so-called Nyquist interval:</p>
 <p>$$<br>\left\lbrace-\frac{N}{2}+1,\dots,\frac{N}{2}\right\rbrace.<br>$$</p>
 <p>This interval is not an empirical “frequency cutoff” but rather a <strong>fundamental domain</strong> of the frequency quotient space.</p>
