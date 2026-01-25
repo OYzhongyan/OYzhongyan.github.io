@@ -15,7 +15,7 @@
     <meta name="keywords" content="AI4PDE">
 
 
-<title>kernel function | OYZY</title>
+<title>Kernel Function-From Classic to Attention | OYZY</title>
 
 
 
@@ -42,6 +42,45 @@
 
     
     
+        
+            <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
         
     
 
@@ -205,7 +244,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">kernel function</h1>
+            <h1 class="post-title">Kernel Function-From Classic to Attention</h1>
             
                 <div class="post-meta">
                     
@@ -218,12 +257,165 @@
                         </span>
                     
                     
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/categories/machine-learning/">machine learning</a>
+                            
+                        </span>
+                    
                 </div>
             
         </header>
 
         <div class="post-content">
-            <h2 id="the"><a href="#the" class="headerlink" title="the"></a>the</h2>
+            <h2 id="Introduction-to-Kernel-Function"><a href="#Introduction-to-Kernel-Function" class="headerlink" title="Introduction to Kernel Function"></a>Introduction to Kernel Function</h2><p>What is the kernel function? In this section, we want to have a basic intuition of the kernel function. The kernel function $\kappa$ is a bilinear map: $\mathcal{X},\mathcal{Y} \longmapsto \mathbb{R}$. It can be viewed as distance in a high dimensional feature space, where the nonlinear problem may becomes the linear problem. Given a kernel function $\kappa$, there usually exists an associated feature mapping $\phi: \mathcal{X} \longmapsto \mathcal{F}<em>{\mathcal{X}}$, where $\mathcal{F}</em>{\mathcal{X}}$ usually a higher dimensional vector space than $\mathcal{X}$, and is named as feature space. The feature mapping can be designed as a fixed and stastic or a learnable and dynamic by using neural network. Let us see an example:</p>
+<p>Assuming the orignal space is $\mathbb{R}^2$, All the samples that satisfiy $\frac{x_1^2}{a^2}+\frac{x_2^2}{b^2}&lt;1$ is assigned to category 1 and the others is to category 2. Obviously, the boundary that seperates the two classes is nonlinear. However, if we construct a feature mapping $\phi: \mathbb{R}^2 \rightarrow \mathbb{R}^3: (x_1, x_2) \longmapsto (z_1,z_2,z_3)&#x3D;(x^2_1,\sqrt 2 x_1 x_2,x_2^2)$, we will find that the elliptical boundary becomes: $\frac{1}{a^2}z_1+0\cdot z_2+\frac{1}{a^2}z_3&#x3D;1$, which is a linear subspace of $\mathbb{R}^3$.</p>
+<p>Consider the inner product of two samples in the feature space:</p>
+<p>$$<br>\langle\phi(x_1,x_2), \phi’(x’_1,x’_2)\rangle &#x3D; \langle (z_1,z_2,z_3),(z’_1,z_2’,z’_3)\rangle \ &#x3D; (x_1x’_x+x_2x_2’)^2 &#x3D; (\langle x, x’\rangle)^2:&#x3D;\kappa(x,x’)<br>$$</p>
+<p>For the two samples $x,x’$, the inner product: $\langle x, x’ \rangle$ describes the similarity in the original space but the kernel function $\kappa(x,x’)$ describe the similarity of the two in a higher dimensional feature space. Naturally, inner product is a special kind of kernel function. If we have a dataset: $\lbrace x^{(1)},x^{(2)},\dots,x^{(n)}\rbrace $, we can construct a matrix that each item represents the similarity of any two pieces of the data. The i-th row and the j-th column item of the matrix is $\kappa(x^{(i)},x^{(j)})$, and we call this matrix as kernel matrix. Sometimes, we do not need to know the feature map function $\phi$, instead, we only need to know the kernel function to execute related transformation. This idea is called <em>kernel trick</em>. Common kernel function including:</p>
+<p>$$<br>\kappa(x,x’)&#x3D;exp(\frac{-||x-x’||^2}{2\sigma^2})<br>$$</p>
+<p>which is a gaussian kernel. We can see that it is a mapping of $\mathcal{X}\times\mathcal{X} \longmapsto \mathbb{R}$, where $x,x’ \in \mathcal{X}$.</p>
+<h2 id="The-Reproducing-Kernel"><a href="#The-Reproducing-Kernel" class="headerlink" title="The Reproducing Kernel"></a>The Reproducing Kernel</h2><p>Now let’s go deeper into the math of kernel. In the previous section, we see how the feature mapping and the kernel function make the nonlinear problem into a linear problem.</p>
+<blockquote>
+<p><strong>Definition</strong>: Function $\kappa$ is a positive-definite kernel function, if and only if there exists a fearture mapping $\phi$, mapping the input space $\mathcal{X}$ into some Hilbert space $\mathcal{H}$, such that:</p>
+<p>$$<br>\kappa(x,y)&#x3D;\langle \phi(x),\phi(y)\rangle _{\mathcal{H}}, \forall x,y \in \mathcal{X}<br>$$</p>
+</blockquote>
+<p>It has an equivalent definition:</p>
+<blockquote>
+<p><strong>Definition</strong>: Assume set $X$ is a non-empty set, function $\kappa: X \times X \mapsto \mathbb{R}$ is a positive-definite kernel function, if for any $n \in \mathbb{N}$, any $x_1, x_2, \ldots, x_n \in X$, and any $c_1,c_2,\ldots,c_n \in \mathbb{R}$, we have:</p>
+<p>$$<br>\sum_{i&#x3D;1}^n\sum_{j&#x3D;1}^nc_ic_j\kappa(x_1,x_j)\geq 0<br>$$</p>
+<p>namely, the kernel matrix (Gram matrix) $K$ is semi-positive-definite, where $K_{ij}&#x3D;\kappa(x_1,x_j)$</p>
+</blockquote>
+<p>Key Properties of Positive Definite Kernels:</p>
+<ul>
+<li><strong>Symmetry</strong>:<br>For a real-valued kernel:</li>
+</ul>
+<p>$$<br>k(x, y) &#x3D; k(y, x), \quad \forall x, y \in X<br>$$</p>
+<ul>
+<li><p><strong>Closure Under Operations</strong>:<br>Positive definite kernels are closed under the following operations (given that $k_1$ and $k_2$ are positive definite kernels):</p>
+<ul>
+<li>Nonnegative linear combination:</li>
+</ul>
+<p>$$<br>k(x, y) &#x3D; \alpha k_1(x, y) + \beta k_2(x, y) \quad \text{for } \alpha, \beta \geq 0<br>$$</p>
+<ul>
+<li>Product:</li>
+</ul>
+<p>$$<br>k(x, y) &#x3D; k_1(x, y) \cdot k_2(x, y)<br>$$</p>
+<ul>
+<li>Function composition (with certain restrictions):</li>
+</ul>
+<p>$$<br>k(x, y) &#x3D; f(k_1(x, y))<br>$$</p>
+<p>where $f$ is an entire function (analytic on the whole complex plane) with nonnegative Taylor coefficients.</p>
+<ul>
+<li>Pointwise limit:<br>The pointwise limit of a sequence of positive definite kernels is also positive definite.</li>
+</ul>
+</li>
+<li><p><strong>Connection to Reproducing Kernel Hilbert Spaces (RKHS)</strong>:<br>Every positive definite kernel uniquely determines a Reproducing Kernel Hilbert Space (RKHS) $\mathcal{H}_k$ via the <strong>Moore-Aronszajn Theorem</strong>.</p>
+<blockquote>
+<p><strong>Moore-Aronszajn Theorem</strong><br>Any positive definite kernel function $k(x, y)$ corresponds to a <strong>unique RKHS</strong>, and vice versa.</p>
+<ul>
+<li>Therefore, a positive definite kernel function must also be the reproducing kernel of some RKHS.</li>
+<li>For a positive definite kernel function $k$, the mapping vector $\phi(x)$ for an object $x$ is <strong>not unique</strong>. That is, in different orthogonal basis spaces, the coordinates of $\phi(x)$ under different bases are not consistent. When $\phi(x) &#x3D; k(\cdot, x)$, $\phi(x)$ is called the <strong>canonical mapping vector</strong> for $x$.</li>
+<li>The dimension of $\phi(x)$ is infinite-dimensional; we cannot compute its specific value directly. Therefore, we adopt the <strong>kernel trick</strong> to avoid directly handling $\phi(x)$.</li>
+</ul>
+</blockquote>
+<p>In this RKHS:</p>
+<ul>
+<li>The kernel satisfies the <strong>reproducing property</strong>:</li>
+</ul>
+<p>$$<br>f(x) &#x3D; \langle f, k(\cdot, x) \rangle_{\mathcal{H}_k}, \quad \forall f \in \mathcal{H}_k, \forall x \in X<br>$$</p>
+<ul>
+<li>The kernel can be expressed as:</li>
+</ul>
+<p>$$<br>k(x, y) &#x3D; \langle k(\cdot, x), k(\cdot, y) \rangle_{\mathcal{H}_k}<br>$$</p>
+</li>
+</ul>
+<p><strong>Note:</strong> This means that every positive definite kernel is the reproducing kernel of some RKHS, and conversely, the reproducing kernel of any RKHS is positive definite.</p>
+<h3 id="Reproducing-Kernel-Hilbert-Space-RKHS"><a href="#Reproducing-Kernel-Hilbert-Space-RKHS" class="headerlink" title="Reproducing Kernel Hilbert Space (RKHS)"></a>Reproducing Kernel Hilbert Space (RKHS)</h3><p><strong>Reproducing Kernel Hilbert Space (RKHS)</strong> is the mathematical foundation of kernel methods, connecting kernel functions with the structure of function spaces, providing theoretical support for machine learning methods such as <strong>Support Vector Machines (SVM)</strong> and <strong>Gaussian Processes</strong>.</p>
+<h4 id="Definition-1-of-Reproducing-Kernel-Hilbert-Space"><a href="#Definition-1-of-Reproducing-Kernel-Hilbert-Space" class="headerlink" title="Definition 1 of Reproducing Kernel Hilbert Space"></a>Definition 1 of Reproducing Kernel Hilbert Space</h4><p>Let $H$ be a Hilbert space (complete inner product space) consisting of functions $f : X \mapsto \mathbb{K}$. If there exists a function $k : X \times X \mapsto \mathbb{R}$ satisfying:</p>
+<ul>
+<li>$\forall x \in X, ; k(\cdot, x) \in H$</li>
+<li>$\forall x \in X, ; \forall f \in H, ; f(x) &#x3D; \langle f, k(\cdot, x) \rangle_H$<br>That is, the value of function $f$ at point $x$ equals the inner product between $f$ and the kernel function $k(\cdot, x)$. This property is called the <strong>reproducing property</strong> or <strong>reconstruction property</strong>.</li>
+<li>In particular, for $\forall x, y \in X$, we have:<br>$$<br>k(x, y) &#x3D; \langle k(\cdot, x), k(\cdot, y) \rangle_H<br>$$</li>
+</ul>
+<p>Then $k$ is called the <strong>reproducing kernel</strong> of $H$, and $H$ is called a <strong>Reproducing Kernel Hilbert Space (RKHS)</strong>.</p>
+<p><strong>Note:</strong> A reproducing kernel Hilbert space is a Hilbert space, but a Hilbert space is not necessarily a reproducing kernel Hilbert space. Next, we consider what kind of Hilbert spaces are reproducing kernel Hilbert spaces.</p>
+<h4 id="Evaluation-Functional"><a href="#Evaluation-Functional" class="headerlink" title="Evaluation Functional"></a>Evaluation Functional</h4><p>Let $H$ be a Hilbert function space consisting of functions $f : X \mapsto \mathbb{K}$ defined on a non-empty set $X$. For a fixed $x \in X$, define the mapping $\delta_x : H \mapsto \mathbb{K}$ such that $\delta_x f &#x3D; f(x)$. Then $\delta_x$ is called the <strong>evaluation functional</strong> at point $x$.</p>
+<p>The evaluation functional is a <strong>linear functional</strong>.</p>
+<h4 id="Definition-2-of-Reproducing-Kernel-Hilbert-Space"><a href="#Definition-2-of-Reproducing-Kernel-Hilbert-Space" class="headerlink" title="Definition 2 of Reproducing Kernel Hilbert Space"></a>Definition 2 of Reproducing Kernel Hilbert Space</h4><p>$H$ is a reproducing kernel Hilbert space if and only if for all $x \in X$, the evaluation functional $\delta_x$ is <strong>bounded</strong>, i.e., there exists a constant $\lambda_x \geq 0$ (depending on $x$) such that for all $f \in H$:</p>
+<p>$$<br>|f(x)| &#x3D; |\delta_x f| \leq \lambda_x |f|_H<br>$$</p>
+<h4 id="Theorem-Riesz-Representation-Theorem"><a href="#Theorem-Riesz-Representation-Theorem" class="headerlink" title="Theorem (Riesz Representation Theorem)"></a>Theorem (Riesz Representation Theorem)</h4><p>In a Hilbert space $H$, for any bounded linear operator $A$, there exists $g_A \in H$ such that:</p>
+<p>$$<br>A f &#x3D; \langle f, g_A \rangle_H, \quad \forall f \in H<br>$$</p>
+<p>That is, any bounded linear operator in a Hilbert space can be expressed as the inner product between a function in the space and the function being acted upon.</p>
+<p><strong>The two definitions of reproducing kernel Hilbert space are equivalent.</strong> Next, we consider how to characterize a specific RKHS.</p>
+<h4 id="Relationship-Between-RKHS-and-Hilbert-Space"><a href="#Relationship-Between-RKHS-and-Hilbert-Space" class="headerlink" title="Relationship Between RKHS and Hilbert Space"></a>Relationship Between RKHS and Hilbert Space</h4><p>RKHS is a subset of Hilbert spaces, but a Hilbert space may not necessarily be an RKHS. In a general Hilbert space, the evaluation functional is <strong>not necessarily continuous (bounded)</strong>. When $f_n \to f$ in norm, we cannot infer that $\delta_x f_n \to \delta_x f$. For example, in the $L_2(0,1)$ space (which is also a Hilbert space), take:</p>
+<p>$$<br>f(x) &#x3D; 0<br>$$</p>
+<p>$$<br>f_n(x) &#x3D; \sqrt{n} \cdot I\left(x &lt; \frac{1}{n^2}\right)<br>$$</p>
+<p>Then:</p>
+<p>$$<br>| f_n - f | &#x3D; \left( \int_0^1 |\sqrt{n} \cdot I(x &lt; \frac{1}{n^2}) - 0|^2 dx \right)^{\frac{1}{2}} &#x3D; \left( \int_0^{\frac{1}{n^2}} n dx \right)^{\frac{1}{2}} &#x3D; \frac{1}{\sqrt{n}} \to 0, \quad n \to \infty<br>$$</p>
+<p>However:</p>
+<p>$$<br>\delta_0 f_n &#x3D; \sqrt{n}<br>$$</p>
+<p>does not tend to 0 as $n$ increases.</p>
+<p>Thus, Hilbert spaces contain many non-smooth functions, while in an RKHS, all functions converge <strong>pointwise</strong>: $f_n(x) \to f(x)$, i.e., $\delta_x f_n \to \delta_x f$. This means RKHS is more restrictive than a general Hilbert space. Functions in an RKHS are <strong>well-behaved</strong> compared to those in a general Hilbert space. For any $f, f_n \in H$, when $f_n \to f$ in norm, we always have:</p>
+<p>$$<br>\delta_x f_n &#x3D; \langle f_n, k(\cdot, x) \rangle \to \langle f, k(\cdot, x) \rangle &#x3D; f(x) &#x3D; \delta_x f<br>$$</p>
+<p>(The evaluation functional is also a bounded linear operator.) This leads to the following theorem:</p>
+<h4 id="Theorem"><a href="#Theorem" class="headerlink" title="Theorem"></a>Theorem</h4><p>If two functions in an RKHS converge in norm, then they must converge <strong>pointwise at every point</strong>. That is, if:</p>
+<p>$$<br>\lim_{n \to \infty} | f_n - f |_H &#x3D; 0<br>$$</p>
+<p>then:</p>
+<p>$$<br>\lim_{n \to \infty} f_n(x) &#x3D; f(x), \quad \forall x \in X<br>$$</p>
+<ul>
+<li><p>A Hilbert space is <strong>complete</strong>, so all Cauchy sequences in a Hilbert space converge in norm. That is, if ${ f_n }_{n&#x3D;1}^{\infty}$ is a Cauchy sequence in a Hilbert space, then for any $\varepsilon &gt; 0$, there exists a natural number $N$ such that for all $i, j &gt; N$:</p>
+<p>$$<br>| f_i - f_j | &lt; \varepsilon<br>$$</p>
+</li>
+<li></li>
+<li><p>The condition for an RKHS is stricter: it requires that all Cauchy sequences converge <strong>pointwise</strong>. That is, for all $x \in X$:</p>
+<p>$$<br>| f_i(x) - f_j(x) | &lt; \varepsilon<br>$$</p>
+</li>
+</ul>
+<h3 id="Reproducing-Kernel-Banach-Space-RKBS"><a href="#Reproducing-Kernel-Banach-Space-RKBS" class="headerlink" title="Reproducing Kernel Banach Space (RKBS)"></a>Reproducing Kernel Banach Space (RKBS)</h3><p>A <strong>Reproducing Kernel Hilbert Space (RKHS)</strong> is a Hilbert space $\mathcal{H}$ of functions $f: X \to \mathbb{R}$ equipped with an inner product $\langle \cdot, \cdot \rangle_{\mathcal{H}}$ and a <strong>symmetric positive definite</strong> kernel $k: X \times X \to \mathbb{R}$ satisfying the <strong>reproducing property</strong>:</p>
+<p>$$<br>f(x) &#x3D; \langle f, k(\cdot, x) \rangle_{\mathcal{H}} \quad \forall f \in \mathcal{H}, \forall x \in X.<br>$$</p>
+<p>The kernel is symmetric ($k(x,y)&#x3D;k(y,x)$) and induces a positive definite Gram matrix. This structure ensures that optimization problems in RKHS (e.g., SVM training) are <strong>convex</strong>.</p>
+<p>In contrast, a <strong>Reproducing Kernel Banach Space (RKBS)</strong> generalizes this framework. It involves a <strong>pair of Banach spaces</strong> $(\mathcal{B}_X, \mathcal{B}<em>Y)$, not necessarily Hilbert spaces, over sets $X$ and $Y$, a potentially <strong>asymmetric and non-positive-definite</strong> kernel $k: X \times Y \to \mathbb{R}$, and a <strong>nondegenerate bilinear mapping</strong> $\langle \cdot, \cdot \rangle</em>{\mathcal{B}_X \times \mathcal{B}_Y}$ such that:</p>
+<p>$$<br>\begin{aligned}<br>f(x) &amp;&#x3D; \langle f, k(\cdot, x) \rangle_{\mathcal{B}_X \times \mathcal{B}_Y},<br>\quad \forall f \in \mathcal{B}<em>X, \<br>g(y) &amp;&#x3D; \langle k(y, \cdot), g \rangle</em>{\mathcal{B}_X \times \mathcal{B}_Y},<br>\quad \forall g \in \mathcal{B}_Y<br>\end{aligned}<br>$$</p>
+<p>Unlike RKHS, RKBS does not require an inner product, symmetry, or positive definiteness. This flexibility allows it to model <strong>asymmetric relations</strong> and naturally align with <strong>non-convex optimization</strong> problems common in deep learning.</p>
+<h3 id="Kernel-Function-in-Dot-Product-Attention-Mechanism"><a href="#Kernel-Function-in-Dot-Product-Attention-Mechanism" class="headerlink" title="Kernel Function in Dot-Product Attention Mechanism"></a>Kernel Function in Dot-Product Attention Mechanism</h3><p>In the Transformer’s scaled dot-product attention mechanism, the <strong>kernel function</strong> is defined as:</p>
+<p>$$<br>\kappa(t, s) &#x3D; \exp\left(\frac{(W^Q t)^\top (W^K s)}{\sqrt{d}}\right)<br>$$</p>
+<p>where:</p>
+<ul>
+<li>$t \in \mathbb{R}^{d_t}$ is a target&#x2F;query vector</li>
+<li>$s \in \mathbb{R}^{d_s}$ is a source&#x2F;key vector</li>
+<li>$W^Q \in \mathbb{R}^{d \times d_t}$ and $W^K \in \mathbb{R}^{d \times d_s}$ are learnable weight matrices</li>
+<li>$d$ is the attention head dimension</li>
+</ul>
+<p>This corresponds to the <strong>unnormalized attention weight</strong> before softmax normalization.</p>
+<blockquote>
+<p><strong>Property 1: Asymmetry</strong><br>The kernel is generally asymmetric:</p>
+<p>$$<br>\kappa(t, s) \neq \kappa(s, t) \quad \text{unless } W^Q &#x3D; W^K<br>$$</p>
+<p>This reflects the distinct roles of queries and keys in attention mechanisms.</p>
+<p><strong>Property 2: Non-Positive Definiteness</strong></p>
+<ul>
+<li>Not a Mercer kernel (does not satisfy symmetric positive definite conditions)</li>
+<li>The associated Gram matrix may be <strong>indefinite</strong></li>
+<li>Falls into the category of <strong>non-Mercer kernels</strong></li>
+</ul>
+<p><strong>Property 3: Infinite-Dimensional Feature Maps</strong></p>
+<ul>
+<li>The kernel admits <strong>infinite-dimensional feature representations</strong>:<br>For queries:</li>
+</ul>
+<p>$$<br>\Phi_{\mathcal{X}}(t) &#x3D; \sum_{n&#x3D;0}^{\infty} \sum_{p_1+\cdots+p_d&#x3D;n} \frac{\sqrt{\frac{n!}&gt; {p_1!\cdots p_d!}} \prod_{t&#x3D;1}^d (q_t)^{p_t}}{d^{1&#x2F;4}}<br>$$</p>
+<p>For keys:</p>
+<p>$$<br>\Phi_{\mathcal{Y}}(s) &#x3D; \sum_{n&#x3D;0}^{\infty} \sum_{p_1+\cdots+p_d&#x3D;n} \frac{\sqrt{\frac{n!}&gt; {p_1!\cdots p_d!}} \prod_{t&#x3D;1}^d (k_t)^{p_t}}{d^{1&#x2F;4}}<br>$$</p>
+<p>where $q &#x3D; W^Q t$ and $k &#x3D; W^K s$.</p>
+<p><strong>Property 4: Reproducing Property</strong><br>The kernel serves as a <strong>reproducing kernel</strong> for a pair of Reproducing Kernel Banach &gt; Spaces (RKBS), satisfying:</p>
+<p>$$<br>f(t) &#x3D; \langle f, \kappa(\cdot, s) \rangle_{\mathcal{B}<em>{\mathcal{X}} \times \mathcal{B}</em>{\mathcal{Y}}}<br>$$</p>
+<p>for functions in the associated Banach spaces $\mathcal{B}<em>{\mathcal{X}}$ and $\mathcal{B}</em>{\mathcal{Y}}$.</p>
+</blockquote>
+<p>The kernel induces a <strong>pair of Reproducing Kernel Banach Spaces</strong>:</p>
+<p><strong>Query Space:</strong></p>
+<p>$$<br>\mathcal{B}<em>{\mathcal{X}} &#x3D; \left{ f</em>{\mathbf{k}}(t) &#x3D; \exp\left((W^Q t)^\top \mathbf{k} &#x2F; \sqrt{d}\right) : \mathbf{k} \in \mathcal{F}_{\mathcal{Y}}, t \in \mathcal{X} \right}<br>$$</p>
+<p><strong>Key Space:</strong><br>$$<br>\mathcal{B}<em>{\mathcal{Y}} &#x3D; \left{ g</em>{\mathbf{q}}(s) &#x3D; \exp\left(\mathbf{q}^\top (W^K s) &#x2F; \sqrt{d}\right): \mathbf{q} \in \mathcal{F}<em>{\mathcal{X}}, s \in \mathcal{Y} \right}<br>$$<br>where $\mathcal{F}</em>{\mathcal{X}}$ and $\mathcal{F}_{\mathcal{Y}}$ are the infinite-dimensional feature spaces.</p>
+
         </div>
 
         
