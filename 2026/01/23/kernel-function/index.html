@@ -269,10 +269,10 @@
         </header>
 
         <div class="post-content">
-            <h2 id="Introduction-to-Kernel-Function"><a href="#Introduction-to-Kernel-Function" class="headerlink" title="Introduction to Kernel Function"></a>Introduction to Kernel Function</h2><p>What is the kernel function? In this section, we want to have a basic intuition of the kernel function. The kernel function $\kappa$ is a bilinear map: $\mathcal{X},\mathcal{Y} \longmapsto \mathbb{R}$. It can be viewed as distance in a high dimensional feature space, where the nonlinear problem may becomes the linear problem. Given a kernel function $\kappa$, there usually exists an associated feature mapping $\phi: \mathcal{X} \longmapsto \mathcal{F}<em>{\mathcal{X}}$, where $\mathcal{F}</em>{\mathcal{X}}$ usually a higher dimensional vector space than $\mathcal{X}$, and is named as feature space. The feature mapping can be designed as a fixed and stastic or a learnable and dynamic by using neural network. Let us see an example:</p>
+            <h2 id="Introduction-to-Kernel-Function"><a href="#Introduction-to-Kernel-Function" class="headerlink" title="Introduction to Kernel Function"></a>Introduction to Kernel Function</h2><p>What is the kernel function? In this section, we want to have a basic intuition of the kernel function. The kernel function $\kappa$ is a bilinear map: $\mathcal{X},\mathcal{Y} \longmapsto \mathbb{R}$. It can be viewed as distance in a high dimensional feature space, where the nonlinear problem may becomes the linear problem. Given a kernel function $\kappa$, there usually exists an associated feature mapping $\phi: \mathcal{X} \longmapsto \mathcal{F} _{\mathcal{X}}$, where $\mathcal{F} _{\mathcal{X}}$ usually a higher dimensional vector space than $\mathcal{X}$, and is named as feature space. The feature mapping can be designed as a fixed and stastic or a learnable and dynamic by using neural network. Let us see an example:</p>
 <p>Assuming the orignal space is $\mathbb{R}^2$, All the samples that satisfiy $\frac{x_1^2}{a^2}+\frac{x_2^2}{b^2}&lt;1$ is assigned to category 1 and the others is to category 2. Obviously, the boundary that seperates the two classes is nonlinear. However, if we construct a feature mapping $\phi: \mathbb{R}^2 \rightarrow \mathbb{R}^3: (x_1, x_2) \longmapsto (z_1,z_2,z_3)&#x3D;(x^2_1,\sqrt 2 x_1 x_2,x_2^2)$, we will find that the elliptical boundary becomes: $\frac{1}{a^2}z_1+0\cdot z_2+\frac{1}{a^2}z_3&#x3D;1$, which is a linear subspace of $\mathbb{R}^3$.</p>
 <p>Consider the inner product of two samples in the feature space:</p>
-<p>$$<br>\langle\phi(x_1,x_2), \phi’(x’_1,x’_2)\rangle &#x3D; \langle (z_1,z_2,z_3),(z’_1,z_2’,z’_3)\rangle \ &#x3D; (x_1x’_x+x_2x_2’)^2 &#x3D; (\langle x, x’\rangle)^2:&#x3D;\kappa(x,x’)<br>$$</p>
+<p>$$<br>\langle\phi(x_1,x_2), \phi’(x’_1,x’_2)\rangle &#x3D; \langle (z_1,z_2,z_3),(z’_1,z_2’,z’_3)\rangle &#x3D; (x_1x’_x+x_2x_2’)^2 &#x3D; (\langle x, x’\rangle)^2:&#x3D;\kappa(x,x’)<br>$$</p>
 <p>For the two samples $x,x’$, the inner product: $\langle x, x’ \rangle$ describes the similarity in the original space but the kernel function $\kappa(x,x’)$ describe the similarity of the two in a higher dimensional feature space. Naturally, inner product is a special kind of kernel function. If we have a dataset: $\lbrace x^{(1)},x^{(2)},\dots,x^{(n)}\rbrace $, we can construct a matrix that each item represents the similarity of any two pieces of the data. The i-th row and the j-th column item of the matrix is $\kappa(x^{(i)},x^{(j)})$, and we call this matrix as kernel matrix. Sometimes, we do not need to know the feature map function $\phi$, instead, we only need to know the kernel function to execute related transformation. This idea is called <em>kernel trick</em>. Common kernel function including:</p>
 <p>$$<br>\kappa(x,x’)&#x3D;exp(\frac{-||x-x’||^2}{2\sigma^2})<br>$$</p>
 <p>which is a gaussian kernel. We can see that it is a mapping of $\mathcal{X}\times\mathcal{X} \longmapsto \mathbb{R}$, where $x,x’ \in \mathcal{X}$.</p>
@@ -324,11 +324,11 @@
 <ul>
 <li>The kernel satisfies the <strong>reproducing property</strong>:</li>
 </ul>
-<p>$$<br>f(x) &#x3D; \langle f, k(\cdot, x) \rangle_{\mathcal{H}_k}, \quad \forall f \in \mathcal{H}_k, \forall x \in X<br>$$</p>
+<p>$$<br>f(x) &#x3D; \langle f, k(\cdot, x) \rangle _{\mathcal{H}_k}, \quad \forall f \in \mathcal{H}_k, \forall x \in X<br>$$</p>
 <ul>
 <li>The kernel can be expressed as:</li>
 </ul>
-<p>$$<br>k(x, y) &#x3D; \langle k(\cdot, x), k(\cdot, y) \rangle_{\mathcal{H}_k}<br>$$</p>
+<p>$$<br>k(x, y) &#x3D; \langle k(\cdot, x), k(\cdot, y) \rangle _{\mathcal{H}_k}<br>$$</p>
 </li>
 </ul>
 <p><strong>Note:</strong> This means that every positive definite kernel is the reproducing kernel of some RKHS, and conversely, the reproducing kernel of any RKHS is positive definite.</p>
@@ -373,13 +373,13 @@
 <p>$$<br>| f_i(x) - f_j(x) | &lt; \varepsilon<br>$$</p>
 </li>
 </ul>
-<h3 id="Reproducing-Kernel-Banach-Space-RKBS"><a href="#Reproducing-Kernel-Banach-Space-RKBS" class="headerlink" title="Reproducing Kernel Banach Space (RKBS)"></a>Reproducing Kernel Banach Space (RKBS)</h3><p>A <strong>Reproducing Kernel Hilbert Space (RKHS)</strong> is a Hilbert space $\mathcal{H}$ of functions $f: X \to \mathbb{R}$ equipped with an inner product $\langle \cdot, \cdot \rangle_{\mathcal{H}}$ and a <strong>symmetric positive definite</strong> kernel $k: X \times X \to \mathbb{R}$ satisfying the <strong>reproducing property</strong>:</p>
-<p>$$<br>f(x) &#x3D; \langle f, k(\cdot, x) \rangle_{\mathcal{H}} \quad \forall f \in \mathcal{H}, \forall x \in X.<br>$$</p>
+<h3 id="Reproducing-Kernel-Banach-Space-RKBS"><a href="#Reproducing-Kernel-Banach-Space-RKBS" class="headerlink" title="Reproducing Kernel Banach Space (RKBS)"></a>Reproducing Kernel Banach Space (RKBS)</h3><p>A <strong>Reproducing Kernel Hilbert Space (RKHS)</strong> is a Hilbert space $\mathcal{H}$ of functions $f: X \to \mathbb{R}$ equipped with an inner product $\langle \cdot, \cdot \rangle _{\mathcal{H}}$ and a <strong>symmetric positive definite</strong> kernel $k: X \times X \to \mathbb{R}$ satisfying the <strong>reproducing property</strong>:</p>
+<p>$$<br>f(x) &#x3D; \langle f, k(\cdot, x) \rangle _{\mathcal{H}} \quad \forall f \in \mathcal{H}, \forall x \in X.<br>$$</p>
 <p>The kernel is symmetric ($k(x,y)&#x3D;k(y,x)$) and induces a positive definite Gram matrix. This structure ensures that optimization problems in RKHS (e.g., SVM training) are <strong>convex</strong>.</p>
-<p>In contrast, a <strong>Reproducing Kernel Banach Space (RKBS)</strong> generalizes this framework. It involves a <strong>pair of Banach spaces</strong> $(\mathcal{B}_X, \mathcal{B}<em>Y)$, not necessarily Hilbert spaces, over sets $X$ and $Y$, a potentially <strong>asymmetric and non-positive-definite</strong> kernel $k: X \times Y \to \mathbb{R}$, and a <strong>nondegenerate bilinear mapping</strong> $\langle \cdot, \cdot \rangle</em>{\mathcal{B}_X \times \mathcal{B}_Y}$ such that:</p>
-<p>$$<br>\begin{aligned}<br>f(x) &amp;&#x3D; \langle f, k(\cdot, x) \rangle_{\mathcal{B}_X \times \mathcal{B}_Y},<br>\quad \forall f \in \mathcal{B}<em>X, \<br>g(y) &amp;&#x3D; \langle k(y, \cdot), g \rangle</em>{\mathcal{B}_X \times \mathcal{B}_Y},<br>\quad \forall g \in \mathcal{B}_Y<br>\end{aligned}<br>$$</p>
+<p>In contrast, a <strong>Reproducing Kernel Banach Space (RKBS)</strong> generalizes this framework. It involves a <strong>pair of Banach spaces</strong> $\left(\mathcal{B}_X, \mathcal{B}_Y\right)$, not necessarily Hilbert spaces, over sets $ X $ and $ Y $, a potentially <strong>asymmetric and non-positive-definite</strong> kernel $k: X \times Y \to \mathbb{R}$, and a <strong>nondegenerate bilinear mapping</strong> $\langle \cdot, \cdot \rangle _{\mathcal{B}_X \times \mathcal{B}_Y}$ such that:</p>
+<p>$$<br>f(x) &#x3D; \langle f, k(\cdot, x) \rangle _{\mathcal{B}_X \times \mathcal{B}_Y},\forall f \in \mathcal{B}_X,\quad \quad<br>g(y) &#x3D; \langle k(y, \cdot), g \rangle _{\mathcal{B}_X \times \mathcal{B}_Y},  \forall g \in \mathcal{B}_Y<br>$$</p>
 <p>Unlike RKHS, RKBS does not require an inner product, symmetry, or positive definiteness. This flexibility allows it to model <strong>asymmetric relations</strong> and naturally align with <strong>non-convex optimization</strong> problems common in deep learning.</p>
-<h3 id="Kernel-Function-in-Dot-Product-Attention-Mechanism"><a href="#Kernel-Function-in-Dot-Product-Attention-Mechanism" class="headerlink" title="Kernel Function in Dot-Product Attention Mechanism"></a>Kernel Function in Dot-Product Attention Mechanism</h3><p>In the Transformer’s scaled dot-product attention mechanism, the <strong>kernel function</strong> is defined as:</p>
+<h2 id="Kernel-Function-in-Dot-Product-Attention-Mechanism"><a href="#Kernel-Function-in-Dot-Product-Attention-Mechanism" class="headerlink" title="Kernel Function in Dot-Product Attention Mechanism"></a>Kernel Function in Dot-Product Attention Mechanism</h2><p>In the Transformer’s scaled dot-product attention mechanism, the <strong>kernel function</strong> is defined as:</p>
 <p>$$<br>\kappa(t, s) &#x3D; \exp\left(\frac{(W^Q t)^\top (W^K s)}{\sqrt{d}}\right)<br>$$</p>
 <p>where:</p>
 <ul>
@@ -408,13 +408,13 @@
 <p>$$<br>\Phi_{\mathcal{Y}}(s) &#x3D; \sum_{n&#x3D;0}^{\infty} \sum_{p_1+\cdots+p_d&#x3D;n} \frac{\sqrt{\frac{n!}&gt; {p_1!\cdots p_d!}} \prod_{t&#x3D;1}^d (k_t)^{p_t}}{d^{1&#x2F;4}}<br>$$</p>
 <p>where $q &#x3D; W^Q t$ and $k &#x3D; W^K s$.</p>
 <p><strong>Property 4: Reproducing Property</strong><br>The kernel serves as a <strong>reproducing kernel</strong> for a pair of Reproducing Kernel Banach &gt; Spaces (RKBS), satisfying:</p>
-<p>$$<br>f(t) &#x3D; \langle f, \kappa(\cdot, s) \rangle_{\mathcal{B}<em>{\mathcal{X}} \times \mathcal{B}</em>{\mathcal{Y}}}<br>$$</p>
-<p>for functions in the associated Banach spaces $\mathcal{B}<em>{\mathcal{X}}$ and $\mathcal{B}</em>{\mathcal{Y}}$.</p>
+<p>$$<br>f(t) &#x3D; \langle f, \kappa(\cdot, s) \rangle _{\mathcal{B} _{\mathcal{X}} \times \mathcal{B} _{\mathcal{Y}}}<br>$$</p>
+<p>for functions in the associated Banach spaces $\mathcal{B} _{\mathcal{X}}$ and $\mathcal{B} _{\mathcal{Y}}$.</p>
 </blockquote>
 <p>The kernel induces a <strong>pair of Reproducing Kernel Banach Spaces</strong>:</p>
 <p><strong>Query Space:</strong></p>
-<p>$$<br>\mathcal{B}<em>{\mathcal{X}} &#x3D; \left{ f</em>{\mathbf{k}}(t) &#x3D; \exp\left((W^Q t)^\top \mathbf{k} &#x2F; \sqrt{d}\right) : \mathbf{k} \in \mathcal{F}_{\mathcal{Y}}, t \in \mathcal{X} \right}<br>$$</p>
-<p><strong>Key Space:</strong><br>$$<br>\mathcal{B}<em>{\mathcal{Y}} &#x3D; \left{ g</em>{\mathbf{q}}(s) &#x3D; \exp\left(\mathbf{q}^\top (W^K s) &#x2F; \sqrt{d}\right): \mathbf{q} \in \mathcal{F}<em>{\mathcal{X}}, s \in \mathcal{Y} \right}<br>$$<br>where $\mathcal{F}</em>{\mathcal{X}}$ and $\mathcal{F}_{\mathcal{Y}}$ are the infinite-dimensional feature spaces.</p>
+<p>$$<br>\mathcal{B} _{\mathcal{X}} &#x3D; \left\lbrace f _{\mathbf{k}}(t) &#x3D; \exp\left((W^Q t)^\top \mathbf{k} &#x2F; \sqrt{d}\right) : \mathbf{k} \in \mathcal{F} _{\mathcal{Y}}, t \in \mathcal{X} \right\rbrace<br>$$</p>
+<p><strong>Key Space:</strong><br>$$<br>\mathcal{B} _{\mathcal{Y}} &#x3D; \left\lbrace g _{\mathbf{q}}(s) &#x3D; \exp\left(\mathbf{q}^\top (W^K s) &#x2F; \sqrt{d}\right): \mathbf{q} \in \mathcal{F} _{\mathcal{X}}, s \in \mathcal{Y} \right\rbrace<br>$$<br>where $\mathcal{F} _{\mathcal{X}}$ and $\mathcal{F} _{\mathcal{Y}}$ are the infinite-dimensional feature spaces.</p>
 
         </div>
 
