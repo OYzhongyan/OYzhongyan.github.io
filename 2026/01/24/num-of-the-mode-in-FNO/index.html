@@ -204,8 +204,13 @@
         </header>
 
         <div class="post-content">
-            <p>对连续信号$f(x),x\in [0,T]$，进行均匀离散采样得到序列：${f(x_i)}<em>{i&#x3D;1}^{N}$。原信号可以分解为一系列周期信号的叠加：$f(x)&#x3D;\sum_j g_j(x)$，其中$g_j(x)$为周期函数，其周期记为$T_j$，频率记为$f_j&#x3D;\frac{1}{T_j}$。如果采样频率$f_s$低于信号中最高频率的两倍：$f_s &lt; 2f</em>{max}$，取样信号被还原成连续信号时会彼此交叠而失真，这种现象被称为混叠。记 Nyquist 频率为 $f_N&#x3D;\frac{f_s}{2}$。原信号中超过 Nyquist 频率的频率成分会被<strong>折叠</strong>回低频范围，导致错误的频率成分出现在频谱中。<br>什么叫“折叠回低频范围”，查阅了很多资料，始终感觉没有说明清楚，本着读原著的思想，去参考了 Shannon 论文：<em>Communication in the Presence of Noise</em>，<a target="_blank" rel="noopener" href="https://ieeexplore.ieee.org/document/1697831">https://ieeexplore.ieee.org/document/1697831</a> 豁然开朗。关键在于：</p>
-<p>定理1. 若连续函数$f(t)$不含任何高于$W$ cps 的频率成分（即信号带宽被严格限制在$[0,W]$），则该函数可由间隔为$1&#x2F;2W$秒的采样点唯一确定。<br>定理2. 对于带宽限制在$W$的信号，<strong>存在且仅存在一个连续函数</strong>，能通过间隔$1&#x2F;2W$的采样点并满足带宽约束。反之，若信号包含高于$W$的频率成分$f^′&gt;W$，其采样点（间隔仍为$1&#x2F;2W$）会与某一低于$W$的低频成分$f^{′′}&#x3D;2kW±f^′$（$k$为整数，使$f^{′′}∈[0,W]$）的采样点完全重合。</p>
+            <p>对连续信号$f(x),x\in [0,T]$，进行均匀离散采样得到序列：$ \left\lbrace f(x_i) \right\rbrace _{i&#x3D;1}^{N} $。原信号可以分解为一系列周期信号的叠加：$f(x)&#x3D;\sum_j g_j(x)$，其中$g_j(x)$为周期函数，其周期记为$T_j$，频率记为$f_j&#x3D;\frac{1}{T_j}$。如果采样频率$f_s$低于信号中最高频率的两倍：$f _s &lt; 2f _{max}$，取样信号被还原成连续信号时会彼此交叠而失真，这种现象被称为混叠。记 Nyquist 频率为 $f_N&#x3D;\frac{f_s}{2}$。原信号中超过 Nyquist 频率的频率成分会被<strong>折叠</strong>回低频范围，导致错误的频率成分出现在频谱中。<br>什么叫“折叠回低频范围”，查阅了很多资料，始终感觉没有说明清楚，本着读原著的思想，去参考了 Shannon 论文：<em>Communication in the Presence of Noise</em>，<a target="_blank" rel="noopener" href="https://ieeexplore.ieee.org/document/1697831">https://ieeexplore.ieee.org/document/1697831</a> 豁然开朗。关键在于：</p>
+<blockquote>
+<p>定理1. 若连续函数$f(t)$不含任何高于$W$ cps 的频率成分（即信号带宽被严格限制在$[0,W]$），则该函数可由间隔为$1&#x2F;2W$秒的采样点唯一确定。</p>
+</blockquote>
+<blockquote>
+<p>定理2. 对于带宽限制在$W$的信号，<strong>存在且仅存在一个连续函数</strong>，能通过间隔$1&#x2F;2W$的采样点并满足带宽约束。反之，若信号包含高于$W$的频率成分$f^′&gt;W$，其采样点（间隔仍为$1&#x2F;2W$）会与某一低于$W$的低频成分$f^{′′}&#x3D;2kW±f^′$（$k$为整数，使$f^{′′}∈[0,W]$）的采样点完全重合。</p>
+</blockquote>
 <p>更严格的讨论见原文第二节 THE SAMPLING THEOREM</p>
 <p>另一个角度谈谈采样算子。从这个角度讲，混叠现象可以被解释为<strong>均匀采样线性算子的非可逆性</strong>。一旦对一个连续函数进行离散采样，其频率空间就会失去原有的区分能力，并被压缩为一个<strong>商空间</strong>，使得在离散观测下不同的连续频率完全无法区分。<br>设 $f(x)$ 是一个定义在区间 $[0，1]$ 上的周期函数 $\mathbb{R} \mapsto \mathbb{R}$，在 $N$ 个等间距点处进行采样：</p>
 <p>$$<br>x_j &#x3D; \frac{j}{N}, \quad j &#x3D; 0, \dots, N-1.<br>$$这定义了由 $\mathbb{N}$ 参数化的一维采样算子：<br>$$<br>\mathcal S_N: f \longmapsto \big(f(x_0),\dots,f(x_{N-1})\big)\in\mathbb C^N.<br>$$由于目标空间 $\mathbb C^N$ 是有限维的，而连续函数的空间（或其傅里叶展开空间）是无限维的，所以算子 $\mathcal S_N$ 不能是单射的。因此，其核（零空间）必定是非平凡的。</p>
@@ -216,8 +221,8 @@
 <blockquote>
 <p>函数 $\phi$ 可以被视为一种特征提取过程，或者说是从时域到频域的映射。涉及算子 $\mathcal S_N$ 的关系揭示了一个重要的见解：<strong>两个不同的连续函数在进行均匀采样后可以产生完全相同的离散样本。</strong><br>即：$\phi_{k+mN} - \phi_k \in \ker(\mathcal S_N) $</p>
 </blockquote>
-<p>这种关系是由采样算子的线性特性所决定的。因此，在离散采样情况下，所有相差为 $N$ 的整数倍的频率都是完全无法区分的。这一结论并非近似值，而是由指数函数的周期性所确切保证的。<br>由此，整数频率集合 $\mathbb Z$（其中包含特征映射函数 $\phi$ 的参数 $k$）在采样操作下被划分成了 <strong>等价类</strong> ：$$<br>[k] &#x3D; {k + mN | m ∈ ℤ}。<br>$$ 在采样之后，每个等价类只能对应一个离散的自由度。从代数的角度来看，频率空间被压缩到了商空间：$\mathbb Z &#x2F; N\mathbb Z$</p>
-<p><strong>定义</strong>：给定向量空间 $V$ 及其子空间 $W \subset V$，商空间 $V&#x2F;W$ 定义为：$$V&#x2F;W &#x3D; { [v] \mid v \in V }$$ 其中等价类为 $[v] &#x3D; v + W &#x3D; { v + w \mid w \in W }$。该商空间通过识别等价元素来构建新的空间。例如商空间$\Z&#x2F;N\Z$的元素是一个个集合$[v]$，每一个集合包含一个整数$v$及其与所有$N$的整数倍的整数的和：$[v]&#x3D;[\cdots,v-2N,v-N,v,v+N,v+2N,\cdots]$</p>
+<p>这种关系是由采样算子的线性特性所决定的。因此，在离散采样情况下，所有相差为 $N$ 的整数倍的频率都是完全无法区分的。这一结论并非近似值，而是由指数函数的周期性所确切保证的。<br>由此，整数频率集合 $\mathbb Z$（其中包含特征映射函数 $\phi$ 的参数 $k$）在采样操作下被划分成了 <strong>等价类</strong> ：$$<br>[k] &#x3D; \lbrace k + mN | m ∈ \mathbb{Z} \rbrace。<br>$$ 在采样之后，每个等价类只能对应一个离散的自由度。从代数的角度来看，频率空间被压缩到了商空间：$\mathbb Z &#x2F; N\mathbb Z$</p>
+<p><strong>定义</strong>：给定向量空间 $V$ 及其子空间 $W \subset V$，商空间 $V&#x2F;W$ 定义为：$$V&#x2F;W &#x3D; \lbrace [v] \mid v \in V \rbrace$$ 其中等价类为 $[v] &#x3D; v + W &#x3D; { v + w \mid w \in W }$。该商空间通过识别等价元素来构建新的空间。例如商空间$\mathbb{Z}&#x2F;N\mathbb{Z}$的元素是一个个集合$[v]$，每一个集合包含一个整数$v$及其与所有$N$的整数倍的整数的和：$[v]&#x3D;[\cdots,v-2N,v-N,v,v+N,v+2N,\cdots]$</p>
 <p>为避免同一独立自由度被多次表示，必须在该商空间中选择一个标准的代表集。当 $N$ 为偶数时，最自然的选择是所谓的奈奎斯特区间：<br>$$\left\lbrace-\frac{N}{2} + 1, \dots, \frac{N}{2}\right\rbrace$$在工程和数值分析中常见的“折叠公式”也可以自然地从这里推导出来。对于任意频率 $k \in \mathbb{Z}$，总可以找到某个整数 $m$ 使得：$$k_{\text{alias}} &#x3D; k - mN$$满足<br>$$|k_{\text{alias}}|\le \frac{N}{2}.<br>$$所谓的“高频折叠成低频”仅仅是在一个等价类内<strong>选择一个代表元素</strong>。</p>
 <p>从线性代数的角度来看，这种结构也是必然存在的。连续傅里叶模式所构成的空间是无限维的，而采样离散信号空间 $\mathbb C^N$ 只有 $N$ 个自由度。因此，任何离散表示最多只能携带 $N$ 个独立的信息片段。高于奈奎斯特频率的模态无法引入新的可识别自由度，它们只能重新参数化现有的离散信息。</p>
 <p>在神经网络里，哪里有用呢？关于FNO的讨论参考：<a target="_blank" rel="noopener" href="http://arxiv.org/abs/2512.01421">http://arxiv.org/abs/2512.01421</a></p>
