@@ -15,7 +15,7 @@
     <meta name="keywords" content="AI4PDE">
 
 
-<title>Matrix Norm | OYZY</title>
+<title>矩阵范数 | OYZY</title>
 
 
 
@@ -244,7 +244,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">Matrix Norm</h1>
+            <h1 class="post-title">矩阵范数</h1>
             
                 <div class="post-meta">
                     
@@ -260,7 +260,7 @@
                         <span class="post-category">
                     Category:
                             
-                                <a href="/categories/math-basic/">math basic</a>
+                                <a href="/categories/%E6%95%B0%E5%AD%A6%E5%9F%BA%E7%A1%80/">数学基础</a>
                             
                         </span>
                     
@@ -269,182 +269,77 @@
         </header>
 
         <div class="post-content">
-            <h2 id="1-Definition"><a href="#1-Definition" class="headerlink" title="1. Definition"></a>1. Definition</h2><h3 id="1-1-Matrix-2-norm"><a href="#1-1-Matrix-2-norm" class="headerlink" title="1.1 Matrix 2-norm"></a>1.1 Matrix 2-norm</h3><p>The matrix 2-norm is the operator norm induced by the vector Euclidean norm:</p>
+            <h2 id="1-定义"><a href="#1-定义" class="headerlink" title="1. 定义"></a>1. 定义</h2><h3 id="1-1-矩阵2-范数"><a href="#1-1-矩阵2-范数" class="headerlink" title="1.1 矩阵2-范数"></a>1.1 矩阵2-范数</h3><p>矩阵2-范数是由向量欧几里得范数诱导的<strong>算子范数</strong>：</p>
 <p>$$<br>|A|_2<br>&#x3D; \max _{x \neq 0} \frac{|Ax| _2}{|x| _2}<br>&#x3D; \max _{|x| _2 &#x3D; 1} |Ax| _2 .<br>$$</p>
-<p>Equivalent characterizations:</p>
+<p>等价刻画：</p>
 <p>$$<br>|A|_2 &#x3D; \sigma _{\max}(A)<br>&#x3D; \sqrt{\lambda _{\max}(A^\top A)} .<br>$$</p>
-<p>Special case:</p>
+<p>特殊情况：</p>
 <ul>
-<li>If $A$ is real symmetric (or Hermitian): $|A|_2 &#x3D; \max_i |\lambda_i(A)| .$</li>
+<li>若 $A$ 是实对称矩阵（或埃尔米特矩阵）：$|A|_2 &#x3D; \max_i |\lambda_i(A)| .$</li>
 </ul>
 <blockquote>
-<p><strong>Proof:</strong></p>
-<p>By definition, the matrix 2-norm is the operator norm induced by the vector Euclidean norm:</p>
+<p><strong>证明：</strong></p>
+<p>根据定义，矩阵2-范数是由向量欧几里得范数诱导的算子范数：</p>
 <p>$$<br>|A|_2&#x3D;\max _{|x|_2&#x3D;1}|Ax|_2<br>$$</p>
-<p>Square both sides:</p>
-<p>$$<br>|A| _2^2&#x3D;\max _{|x|_2&#x3D;1}|Ax|_2^2&#x3D;\max _{|x|_2&#x3D;1}(Ax)^⊤(Ax)&#x3D;\max _{|x|_2&#x3D;1}x^⊤A^⊤Ax<br>$$<br>The matrix $A^⊤A$ is: symmetric, positive semidefinite. For any symmetric matrix $M$, the <strong>Rayleigh–Ritz theorem</strong> states:<br>$$<br>\max _{|x|_2&#x3D;1}x^TMx&#x3D;\lambda _{max}(M)<br>$$<br>Then, the result is obvious.</p>
+<p>两边平方：</p>
+<p>$$<br>|A| _2^2&#x3D;\max _{|x|_2&#x3D;1}|Ax|_2^2&#x3D;\max _{|x|_2&#x3D;1}(Ax)^\top(Ax)&#x3D;\max _{|x|_2&#x3D;1}x^\top A^\top Ax<br>$$<br>矩阵 $A^\top A$ 满足：对称、半正定。对于任意对称矩阵 $M$，<strong>瑞利-里兹定理</strong> 表明：<br>$$<br>\max _{|x|_2&#x3D;1}x^TMx&#x3D;\lambda _{max}(M)<br>$$<br>由此可直接得出结论。</p>
 </blockquote>
-<h4 id="1-1-1-Rayleigh-Quotient-Theorem"><a href="#1-1-1-Rayleigh-Quotient-Theorem" class="headerlink" title="1.1.1 Rayleigh Quotient Theorem"></a>1.1.1 Rayleigh Quotient Theorem</h4><p>Throughout, let<br>$$<br>A \in \mathbb{R}^{n\times n}<br>$$<br>be a <strong>real symmetric matrix</strong>.  </p>
-<p>Denote its eigenvalues (counted with multiplicity) by<br>$$<br>\lambda_1 \le \lambda_2 \le \cdots \le \lambda_n,<br>$$<br>and let ${ u_1,\dots,u_n }$ be an orthonormal eigenbasis.</p>
-<p>Define the Rayleigh quotient<br>$$<br>R_A(x) &#x3D; \frac{x^\top A x}{x^\top x}, \qquad x \neq 0.<br>$$</p>
-<p>Then</p>
-<p>$$<br>\min _{| x |_2 &#x3D; 1} R &#x3D; \lambda_1, \max _{| x |_2 &#x3D; 1} R &#x3D; \lambda_n<br>$$</p>
-<p>Namely, $\forall x$, the Rayleigh quotient satisfies: $R(A,x) \in [\lambda_{min},\lambda_{max}]$.</p>
-<p><strong>Proof</strong><br>Let $x \in \mathbb{R}^n$ with $|x| _2 &#x3D; 1$. Expand $x$ in the orthonormal eigenbasis:<br>$$<br>x &#x3D; \sum _{i&#x3D;1}^n c_i u_i,<br>\qquad<br>\sum _{i&#x3D;1}^n c_i^2 &#x3D; 1<br>$$</p>
-<p>Then</p>
-<p>$$<br>\begin{aligned}<br>x^\top A x&#x3D;\left(\sum _{i&#x3D;1}^{n}c_iu_i^T\right)\left(\sum _{i&#x3D;1}^{n}c_iAu_i\right)<br>&#x3D;\left(\sum _{i&#x3D;1}^{n}c_iu_i^T\right)\left(\sum _{i&#x3D;1}^{n}c_i\lambda _i u _i\right)<br>&#x3D;\sum _{i&#x3D;1}^n \lambda_i c_i^2<br>\end{aligned}<br>$$</p>
-<p>Since $\lambda_1 \le \lambda_i \le \lambda_n$,</p>
-<p>$$<br>\lambda_1 \sum_i c_i^2<br>\le<br>\sum_i \lambda_i c_i^2<br>\le<br>\lambda_n \sum_i c_i^2.<br>$$</p>
-<p>Using $\sum_i c_i^2 &#x3D; 1$, we obtain</p>
-<p>$$<br>\lambda_1 \le x^\top A x \le \lambda_n.<br>$$</p>
-<p>The lower bound is attained at $x &#x3D; u _1$, and the upper bound at $x &#x3D; u_n$.</p>
-<h4 id="1-1-2-Geometric-Interpretation"><a href="#1-1-2-Geometric-Interpretation" class="headerlink" title="1.1.2 Geometric Interpretation"></a>1.1.2 Geometric Interpretation</h4><p>The matrix maps the unit sphere to an ellipsoid (The sphere and ellipsoid represent two sets. A map converting sphere to an ellipsoid means any element in the set which constitutes sphere is mapped to the last set which constitutes ellipsoid). $|A| _2$ is the length of the <strong>largest semi-axis</strong> of that ellipsoid. It represents the <strong>maximum possible amplification</strong> of a vector. <strong>Interpretation: matrix 2-norm is the worst-case directional stretching.</strong></p>
-<h4 id="1-1-3-Energy-Interpretation"><a href="#1-1-3-Energy-Interpretation" class="headerlink" title="1.1.3 Energy Interpretation"></a>1.1.3 Energy Interpretation</h4><p>From an energy perspective, the <strong>quadratic form</strong></p>
+<h4 id="1-1-1-瑞利商定理"><a href="#1-1-1-瑞利商定理" class="headerlink" title="1.1.1 瑞利商定理"></a>1.1.1 瑞利商定理</h4><p>设<br>$$<br>A \in \mathbb{R}^{n\times n}<br>$$<br>为<strong>实对称矩阵</strong>。</p>
+<p>将其特征值（计重数）记为<br>$$<br>\lambda_1 \le \lambda_2 \le \cdots \le \lambda_n,<br>$$<br>${ u_1,\dots,u_n }$ 为标准正交特征基。</p>
+<p>定义瑞利商<br>$$<br>R_A(x) &#x3D; \frac{x^\top A x}{x^\top x}, \qquad x \neq 0.<br>$$</p>
+<p>则<br>$$<br>\min _{| x |_2 &#x3D; 1} R &#x3D; \lambda_1,\quad \max _{| x |_2 &#x3D; 1} R &#x3D; \lambda_n<br>$$</p>
+<p>即对任意 $x$，瑞利商满足：$R(A,x) \in [\lambda_{min},\lambda_{max}]$。</p>
+<p><strong>证明</strong><br>设 $x \in \mathbb{R}^n$ 且 $|x| _2 &#x3D; 1$，将 $x$ 在标准正交特征基下展开：<br>$$<br>x &#x3D; \sum _{i&#x3D;1}^n c_i u_i,<br>\qquad<br>\sum _{i&#x3D;1}^n c_i^2 &#x3D; 1<br>$$</p>
+<p>则<br>$$<br>\begin{aligned}<br>x^\top A x&#x3D;\left(\sum _{i&#x3D;1}^{n}c_iu_i^T\right)\left(\sum _{i&#x3D;1}^{n}c_iAu_i\right)<br>&#x3D;\left(\sum _{i&#x3D;1}^{n}c_iu_i^T\right)\left(\sum _{i&#x3D;1}^{n}c_i\lambda _i u _i\right)<br>&#x3D;\sum _{i&#x3D;1}^n \lambda_i c_i^2<br>\end{aligned}<br>$$</p>
+<p>由 $\lambda_1 \le \lambda_i \le \lambda_n$，得<br>$$<br>\lambda_1 \sum_i c_i^2<br>\le<br>\sum_i \lambda_i c_i^2<br>\le<br>\lambda_n \sum_i c_i^2.<br>$$</p>
+<p>结合 $\sum_i c_i^2 &#x3D; 1$，可得<br>$$<br>\lambda_1 \le x^\top A x \le \lambda_n.<br>$$</p>
+<p>下界在 $x &#x3D; u _1$ 处取到，上界在 $x &#x3D; u_n$ 处取到。</p>
+<h4 id="1-1-2-几何解释"><a href="#1-1-2-几何解释" class="headerlink" title="1.1.2 几何解释"></a>1.1.2 几何解释</h4><p>矩阵将单位球面映射为椭球面（球面与椭球面代表两个集合，球面到椭球面的映射表示构成球面的集合中任意元素都会被映射到构成椭球面的集合中）。$|A| _2$ 是该椭球面<strong>最长半轴</strong>的长度，代表向量<strong>最大可能的放大倍数</strong>。<br><strong>理解：</strong> 矩阵2-范数是<strong>最坏方向上的拉伸程度</strong>。</p>
+<h4 id="1-1-3-能量解释"><a href="#1-1-3-能量解释" class="headerlink" title="1.1.3 能量解释"></a>1.1.3 能量解释</h4><p>从能量角度，<strong>二次型</strong></p>
 <p>$$<br>E(x) :&#x3D; |Ax| _2^2 &#x3D; x^\top A^\top A x<br>$$</p>
-<p>can be interpreted as the <strong>energy induced by the operator$(A)$</strong> when acting on the input state $x$.  </p>
-<p>Under the normalization constraint $|x| _2 &#x3D; 1$, this quantity measures how much energy the operator injects into a unit input.</p>
-<p>The matrix 2-norm then admits the variational characterization</p>
-<p>$$<br>|A|_2^2&#x3D;\max _{|x|_2 &#x3D; 1} x^\top A^\top A x,<br>$$</p>
-<p>which means that $|A|_2^2$ is the <strong>maximum attainable energy</strong> over all unit-energy inputs.  </p>
-<p>Equivalently, $|A|_2$ is the square root of the largest energy amplification factor achievable by the operator.<br>In this sense, the dominant singular vector corresponds to the <strong>most energetically excitable mode</strong> of the system, and the largest singular value represents the <strong>worst-case energy gain</strong>.  </p>
-<p>This interpretation aligns with stability analysis: if $|A|_2$ is large, there exists at least one direction in which small input energy can be amplified dramatically, indicating potential instability.<br>Therefore, while the geometric interpretation emphasizes spatial deformation (sphere to ellipsoid), the energy interpretation emphasizes <strong>maximal energy amplification under unit input</strong>, providing a variational and physically meaningful view of the matrix 2-norm.</p>
-<p>Examples:</p>
-<h5 id="Example-1-Spring–Mass-System-Classical-Mechanics"><a href="#Example-1-Spring–Mass-System-Classical-Mechanics" class="headerlink" title="Example 1: Spring–Mass System (Classical Mechanics)"></a>Example 1: Spring–Mass System (Classical Mechanics)</h5><p>Consider $n$ masses connected by linear springs. Let</p>
-<p>$$<br>x \in \mathbb{R}^n<br>$$</p>
-<p>denote the displacement vector from equilibrium. The elastic potential energy stored in the springs is</p>
-<p>$$<br>E(x) &#x3D; \tfrac12 x^\top K x,<br>$$</p>
-<p>where $K$ is the <strong>stiffness matrix</strong>. Hooke’s law gives $F &#x3D; -Kx$.<br>The Rayleigh quotient</p>
-<p>$$<br>\frac{x^\top K x}{x^\top x}<br>$$</p>
-<p>represents energy per unit displacement.</p>
-<h5 id="Example-2-Electrical-Networks-Capacitive-Systems"><a href="#Example-2-Electrical-Networks-Capacitive-Systems" class="headerlink" title="Example 2: Electrical Networks (Capacitive Systems)"></a>Example 2: Electrical Networks (Capacitive Systems)</h5><p>Consider a capacitive electrical network with node voltage. $v \in \mathbb{R}^n$ The energy stored in capacitors is</p>
-<p>$$<br>E(v) &#x3D; \tfrac12 v^\top C v,<br>$$</p>
-<p>where $C$ is the <strong>capacitance matrix</strong>.</p>
-<ul>
-<li>$C$ is symmetric positive semidefinite.</li>
-<li>The quadratic form measures total stored electrical energy.</li>
-<li>Minimizing $E(v)$ yields equilibrium voltages.</li>
-</ul>
-<h5 id="Example-3-Elliptic-PDEs-and-Variational-Energy"><a href="#Example-3-Elliptic-PDEs-and-Variational-Energy" class="headerlink" title="Example 3: Elliptic PDEs and Variational Energy"></a><strong>Example 3: Elliptic PDEs and Variational Energy</strong></h5><p>Consider Poisson’s equation</p>
-<p>$$<br>-\Delta u &#x3D; f \quad \text{in } \Omega,<br>\qquad<br>u|_{\partial\Omega} &#x3D; 0.<br>$$</p>
-<p>The associated variational energy is</p>
-<p>$$<br>\mathcal{E}(u)&#x3D;\tfrac12 \int_\Omega |\nabla u|^2 , dx-\int_\Omega f u , dx.<br>$$</p>
-<ul>
-<li>The operator $-\Delta$ is linear.</li>
-<li>The gradient term is quadratic in $u$.</li>
-<li>The solution minimizes $\mathcal{E}(u)$.</li>
-</ul>
-<p><strong>Discretization: From PDE Energy to Matrix Quadratic Form</strong><br>Using finite element discretization, the energy becomes</p>
-<p>$$<br>\mathcal{E}(u_h)&#x3D;\tfrac12 u_h^\top K u_h-f^\top u_h,<br>$$</p>
-<p>where:</p>
-<ul>
-<li>$K$ is the stiffness matrix,</li>
-<li>$u_h$ is the coefficient vector.</li>
-</ul>
-<p>Thus, matrix quadratic forms are <strong>discrete energy functionals</strong>.</p>
-<h5 id="Example-4-Rayleigh-Quotient-as-Energy-Density"><a href="#Example-4-Rayleigh-Quotient-as-Energy-Density" class="headerlink" title="Example 4: Rayleigh Quotient as Energy Density"></a>Example 4: Rayleigh Quotient as Energy Density</h5><p>Let $K &#x3D; A^\top A$. Then<br>$$<br>|Ax|_2^2 &#x3D; x^\top K x.<br>$$</p>
-<p>If $|x|_2^2$ represents input energy, the Rayleigh quotient</p>
-<p>$$<br>\frac{x^\top K x}{x^\top x}<br>$$</p>
-<p>is the <strong>energy amplification factor</strong> of the operator.</p>
-<p>The maximum energy amplification is</p>
-<p>$$<br>\lambda_{\max}(K),<br>$$</p>
-<p>which explains:</p>
-<ul>
-<li>spectral norms,</li>
-<li>stability bounds,</li>
-<li>condition numbers.</li>
-</ul>
-<h3 id="1-2-Frobenius-Norm"><a href="#1-2-Frobenius-Norm" class="headerlink" title="1.2 Frobenius Norm"></a>1.2 Frobenius Norm</h3><p>The Frobenius norm is defined as</p>
-<p>$$<br>|A|_F &#x3D; \sqrt{\sum _{i,j} |a _{ij}|^2} &#x3D; \sqrt{\mathrm{tr}(A^\top A)}<br>$$</p>
-<p>Equivalent spectral form:</p>
-<p>$$<br>|A|_F &#x3D; \sqrt{\sum _{k&#x3D;1}^{\min(m,n)} \sigma_k(A)^2}<br>$$</p>
-<p>where we assume $A \in \mathbb{R}^{m \times n}$. The number of the singular values of $A$ is $\text{min}(m,n)$. This is because $\text{Rank}(A) \leq \text{min}(m,n)$</p>
+<p>可解释为算子 $A$ 作用于输入状态 $x$ 时<strong>诱导的能量</strong>。</p>
+<h3 id="1-2-F范数"><a href="#1-2-F范数" class="headerlink" title="1.2 F范数"></a>1.2 F范数</h3><p>F范数定义为<br>$$<br>|A|_F &#x3D; \sqrt{\sum _{i,j} |a _{ij}|^2} &#x3D; \sqrt{\mathrm{tr}(A^\top A)}<br>$$</p>
+<p>等价的谱形式：<br>$$<br>|A|_F &#x3D; \sqrt{\sum _{k&#x3D;1}^{\min(m,n)} \sigma_k(A)^2}<br>$$</p>
+<p>其中假设 $A \in \mathbb{R}^{m \times n}$。矩阵 $A$ 的奇异值个数为 $\text{min}(m,n)$，这是因为 $\text{Rank}(A) \leq \text{min}(m,n)$。</p>
 <blockquote>
-<p>Proof:</p>
-<p>According to the definition, the F-norm of matrix $A$ is $|A|_F^2&#x3D;\operatorname{Tr}(A^TA)$. Decompose $A$ by SVD:<br>$$<br>A^TA&#x3D;(U\Sigma V^T)^T(U\Sigma V^T)&#x3D;V\Sigma^T\Sigma V^T<br>$$<br>Then: $\text{Tr}(A^TA)&#x3D;\text{Tr}(V\Sigma^T\Sigma V^T)&#x3D;\text{Tr}(\Sigma^T\Sigma)&#x3D;\text{Tr}(\text{diag}(\sigma_1^2,\sigma_2^2,\cdots,))&#x3D;\sum_i \sigma_i^2$</p>
+<p>证明：</p>
+<p>根据定义，矩阵 $A$ 的F-范数满足 $|A|_F^2&#x3D;\operatorname{Tr}(A^TA)$。对 $A$ 做奇异值分解：<br>$$<br>A^TA&#x3D;(U\Sigma V^T)^T(U\Sigma V^T)&#x3D;V\Sigma^T\Sigma V^T<br>$$<br>则：$\text{Tr}(A^TA)&#x3D;\text{Tr}(V\Sigma^T\Sigma V^T)&#x3D;\text{Tr}(\Sigma^T\Sigma)&#x3D;\text{Tr}(\text{diag}(\sigma_1^2,\sigma_2^2,\cdots))&#x3D;\sum_i \sigma_i^2$</p>
 </blockquote>
-<p><strong>Geometric Interpretation:</strong><br>View $A$ as a vector in $\mathbb{R}^{mn}$. $|A|_F$ is its Euclidean length. It measures the <strong>total energy</strong> of the matrix. <strong>Interpretation:</strong> average &#x2F; global magnitude, not direction-sensitive.</p>
-<h2 id="2-Properties"><a href="#2-Properties" class="headerlink" title="2. Properties"></a>2. Properties</h2><blockquote>
-<p><strong>The axioms of a matrix norm:</strong><br>Both norms satisfy the axioms of a matrix norm:</p>
+<p><strong>几何解释：</strong><br>将矩阵 $A$ 视为 $\mathbb{R}^{mn}$ 中的向量，$|A|_F$ 是其欧几里得长度。它衡量矩阵的<strong>总能量</strong>。<br><strong>理解：</strong> 全局&#x2F;平均幅值，对方向不敏感。</p>
+<h2 id="2-性质"><a href="#2-性质" class="headerlink" title="2. 性质"></a>2. 性质</h2><blockquote>
+<p><strong>矩阵范数公理：</strong><br>两种范数均满足矩阵范数的基本公理：</p>
 <ul>
-<li><p>Positivity: $|A| \ge 0$, and $|A| &#x3D; 0 \iff A &#x3D; 0$</p>
+<li><p>正定性：$|A| \ge 0$，且 $|A| &#x3D; 0 \iff A &#x3D; 0$</p>
 </li>
-<li><p>Homogeneity: $|\alpha A| &#x3D; |\alpha| |A|$</p>
+<li><p>齐次性：$|\alpha A| &#x3D; |\alpha| |A|$</p>
 </li>
-<li><p>Triangle inequality: $|A + B| \le |A| + |B|$<br><strong>Submultiplicativity:</strong></p>
+<li><p>三角不等式：$|A + B| \le |A| + |B|$<br><strong>次乘性：</strong></p>
 </li>
-<li><p><strong>2-norm</strong></p>
+<li><p><strong>2-范数</strong></p>
 </li>
 </ul>
 <p>$$<br>|AB|_2 \le |A|_2 |B|_2 .<br>$$</p>
 <ul>
-<li><strong>Frobenius norm</strong></li>
+<li><strong>弗罗贝尼乌斯范数</strong></li>
 </ul>
 <p>$$<br>|AB|_F \le |A|_2 |B|_F,<br>\qquad<br>|AB|_F \le |A|_F |B|_2 .<br>$$</p>
-<p>In general,</p>
+<p>一般情况下，</p>
 <p>$$<br>|AB|_F \le |A|_F |B|_F<br>$$</p>
-<p>does <strong>not</strong> hold.<br><strong>Orthogonal &#x2F; Unitary Invariance</strong></p>
-<p>For any orthogonal (or unitary) matrices $U, V$:</p>
+<p><strong>不成立</strong>。<br><strong>正交&#x2F;酉不变性</strong></p>
+<p>对任意正交（或酉）矩阵 $U, V$：</p>
 <p>$$<br>|U A V|_2 &#x3D; |A|_2,<br>\qquad<br>|U A V|_F &#x3D; |A|_F .<br>$$</p>
 </blockquote>
-<h2 id="3-Relationship-Between-A-2-and-A-F"><a href="#3-Relationship-Between-A-2-and-A-F" class="headerlink" title="3. Relationship Between $|A|_2$ and $|A|_F$"></a>3. Relationship Between $|A|_2$ and $|A|_F$</h2><p>Let $r &#x3D; \mathrm{rank}(A)$. Then:</p>
+<h2 id="3-2-范数与F的关系"><a href="#3-2-范数与F的关系" class="headerlink" title="3. 2-范数与F的关系"></a>3. 2-范数与F的关系</h2><p>设 $r &#x3D; \mathrm{rank}(A)$，则：</p>
 <p>$$<br>\boxed{|A|_2 \le |A|_F \le \sqrt{r} |A|_2}<br>$$</p>
-<p>This follows directly from the singular value decomposition:</p>
-<p>$$<br>|A|_2 &#x3D; \max_i \sigma_i,<br>\qquad<br>|A|_F &#x3D; \sqrt{\sum_i \sigma_i^2} .<br>$$</p>
-<h3 id="Special-Cases"><a href="#Special-Cases" class="headerlink" title="Special Cases"></a>Special Cases</h3><ul>
-<li><strong>Rank-1 matrix</strong></li>
+<p>该不等式直接由奇异值分解推导得出：<br>$$<br>|A|_2 &#x3D; \max_i \sigma_i,<br>\qquad<br>|A|_F &#x3D; \sqrt{\sum_i \sigma_i^2} .<br>$$</p>
+<h3 id="特殊情况"><a href="#特殊情况" class="headerlink" title="特殊情况"></a>特殊情况</h3><ul>
+<li><strong>秩1矩阵</strong></li>
 </ul>
 <p>$$<br>|A|_F &#x3D; |A|_2 .<br>$$</p>
 <ul>
-<li><strong>High-rank matrix</strong></li>
+<li><strong>高秩矩阵</strong></li>
 </ul>
-<p>$$<br>|A|_F \gg |A|_2<br>\quad\text{(energy spread across many modes)}.<br>$$</p>
-<h2 id="4-Practical-Usage"><a href="#4-Practical-Usage" class="headerlink" title="4. Practical Usage"></a>4. Practical Usage</h2><h3 id="Matrix-2-Norm"><a href="#Matrix-2-Norm" class="headerlink" title="Matrix 2-Norm"></a>Matrix 2-Norm</h3><ul>
-<li>Stability and perturbation analysis</li>
-<li>Condition number:</li>
-</ul>
-<p>$$<br>\kappa_2(A) &#x3D; |A|_2 |A^{-1}|_2<br>$$</p>
-<ul>
-<li>Operator error bounds (worst-case analysis)</li>
-</ul>
-<h3 id="Frobenius-Norm"><a href="#Frobenius-Norm" class="headerlink" title="Frobenius Norm"></a>Frobenius Norm</h3><ul>
-<li>Loss functions (MSE)</li>
-<li>Low-rank approximation (Eckart–Young theorem)</li>
-<li>Energy-based error metrics</li>
-</ul>
-<h2 id="5-One-Line-Comparison"><a href="#5-One-Line-Comparison" class="headerlink" title="5. One-Line Comparison"></a>5. One-Line Comparison</h2><table>
-<thead>
-<tr>
-<th>Aspect</th>
-<th>2-Norm</th>
-<th>Frobenius Norm</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Nature</td>
-<td>Operator norm</td>
-<td>Vectorized Euclidean norm</td>
-</tr>
-<tr>
-<td>Spectral meaning</td>
-<td>Largest singular value</td>
-<td>Sum of squared singular values</td>
-</tr>
-<tr>
-<td>Geometry</td>
-<td>Maximal stretching</td>
-<td>Total energy</td>
-</tr>
-<tr>
-<td>Sensitivity</td>
-<td>Worst direction</td>
-<td>Average behavior</td>
-</tr>
-<tr>
-<td>Computation</td>
-<td>SVD &#x2F; eigenspectrum</td>
-<td>Elementwise sum</td>
-</tr>
-</tbody></table>
+<p>$$<br>|A|_F \gg |A|_2<br>\quad\text{(能量分散在多个模式中)}.<br>$$</p>
 
         </div>
 
@@ -486,8 +381,6 @@
             </div>
         </section>
         <section class="post-nav">
-            
-                <a class="prev" rel="prev" href="/2026/03/14/MPCG/">MPCG</a>
             
             
             <a class="next" rel="next" href="/2026/01/24/num-of-the-mode-in-FNO/">混叠与商空间</a>

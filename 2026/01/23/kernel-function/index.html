@@ -15,7 +15,7 @@
     <meta name="keywords" content="AI4PDE">
 
 
-<title>Kernel Function-From Classic to Attention | OYZY</title>
+<title>核函数——从经典理论到注意力机制 | OYZY</title>
 
 
 
@@ -244,7 +244,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">Kernel Function-From Classic to Attention</h1>
+            <h1 class="post-title">核函数——从经典理论到注意力机制</h1>
             
                 <div class="post-meta">
                     
@@ -260,7 +260,7 @@
                         <span class="post-category">
                     Category:
                             
-                                <a href="/categories/machine-learning/">machine learning</a>
+                                <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
                             
                         </span>
                     
@@ -269,185 +269,184 @@
         </header>
 
         <div class="post-content">
-            <h2 id="1-Introduction-to-Kernel-Function"><a href="#1-Introduction-to-Kernel-Function" class="headerlink" title="1. Introduction to Kernel Function"></a>1. Introduction to Kernel Function</h2><p>What is the kernel function? In this section, we want to have a basic intuition of the kernel function. The kernel function $\kappa$ is a bilinear map: $\mathcal{X},\mathcal{Y} \longmapsto \mathbb{R}$. It can be viewed as distance in a high dimensional feature space, where the nonlinear problem may becomes the linear problem. Given a kernel function $\kappa$, there usually exists an associated feature mapping $\phi: \mathcal{X} \longmapsto \mathcal{F} _{\mathcal{X}}$, where $\mathcal{F} _{\mathcal{X}}$ usually a higher dimensional vector space than $\mathcal{X}$, and is named as feature space. The feature mapping can be designed as a fixed and stastic or a learnable and dynamic by using neural network. Let us see an example:</p>
-<p>Assuming the orignal space is $\mathbb{R}^2$, All the samples that satisfiy $\frac{x_1^2}{a^2}+\frac{x_2^2}{b^2}&lt;1$ is assigned to category 1 and the others is to category 2. Obviously, the boundary that seperates the two classes is nonlinear. However, if we construct a feature mapping $\phi: \mathbb{R}^2 \rightarrow \mathbb{R}^3: (x_1, x_2) \longmapsto (z_1,z_2,z_3)&#x3D;(x^2_1,\sqrt 2 x_1 x_2,x_2^2)$, we will find that the elliptical boundary becomes: $\frac{1}{a^2}z_1+0\cdot z_2+\frac{1}{a^2}z_3&#x3D;1$, which is a linear subspace of $\mathbb{R}^3$.</p>
-<p>Consider the inner product of two samples in the feature space:</p>
-<p>$$<br>\langle\phi(x_1,x_2), \phi’(x’_1,x’_2)\rangle &#x3D; \langle (z_1,z_2,z_3),(z’_1,z_2’,z’_3)\rangle &#x3D; (x_1x’_x+x_2x_2’)^2 &#x3D; (\langle x, x’\rangle)^2:&#x3D;\kappa(x,x’)<br>$$</p>
-<p>For the two samples $x,x’$, the inner product: $\langle x, x’ \rangle$ describes the similarity in the original space but the kernel function $\kappa(x,x’)$ describe the similarity of the two in a higher dimensional feature space. Naturally, inner product is a special kind of kernel function. If we have a dataset: $\lbrace x^{(1)},x^{(2)},\dots,x^{(n)}\rbrace $, we can construct a matrix that each item represents the similarity of any two pieces of the data. The i-th row and the j-th column item of the matrix is $\kappa(x^{(i)},x^{(j)})$, and we call this matrix as kernel matrix. Sometimes, we do not need to know the feature map function $\phi$, instead, we only need to know the kernel function to execute related transformation. This idea is called <em>kernel trick</em>. Common kernel function including:</p>
-<p>$$<br>\kappa(x,x’)&#x3D;exp(\frac{-||x-x’||^2}{2\sigma^2})<br>$$</p>
-<p>which is a gaussian kernel. We can see that it is a mapping of $\mathcal{X}\times\mathcal{X} \longmapsto \mathbb{R}$, where $x,x’ \in \mathcal{X}$.</p>
-<h2 id="2-The-Reproducing-Kernel"><a href="#2-The-Reproducing-Kernel" class="headerlink" title="2. The Reproducing Kernel"></a>2. The Reproducing Kernel</h2><p>Now let’s go deeper into the math of kernel. In the previous section, we see how the feature mapping and the kernel function make the nonlinear problem into a linear problem.</p>
+            <h2 id="1-核函数简介"><a href="#1-核函数简介" class="headerlink" title="1. 核函数简介"></a>1. 核函数简介</h2><p>什么是核函数？在本节中，我们将建立对核函数的基础直观认知。核函数 $\kappa$ 是一个双线性映射：$\mathcal{X},\mathcal{Y} \longmapsto \mathbb{R}$。它可以被视作高维特征空间中的距离度量，在该空间中，非线性问题能够转化为线性问题。对于给定的核函数 $\kappa$，通常存在与之对应的特征映射 $\phi: \mathcal{X} \longmapsto \mathcal{F} _{\mathcal{X}}$，其中 $\mathcal{F} _{\mathcal{X}}$ 通常是维度高于 $\mathcal{X}$ 的向量空间，被称为<strong>特征空间</strong>。特征映射既可以设计为固定静态的形式，也可以通过神经网络实现可学习、动态的映射。我们来看一个例子：</p>
+<p>假设原始空间为 $\mathbb{R}^2$，所有满足 $\frac{x_1^2}{a^2}+\frac{x_2^2}{b^2}&lt;1$ 的样本被划分为类别1，其余样本划分为类别2。显然，划分两个类别的边界是非线性的。但是，如果我们构造特征映射 $\phi: \mathbb{R}^2 \rightarrow \mathbb{R}^3: (x_1, x_2) \longmapsto (z_1,z_2,z_3)&#x3D;(x^2_1,\sqrt 2 x_1 x_2,x_2^2)$，会发现椭圆边界变为：$\frac{1}{a^2}z_1+0\cdot z_2+\frac{1}{a^2}z_3&#x3D;1$，这是 $\mathbb{R}^3$ 空间中的一个线性子空间。</p>
+<p>考虑两个样本在特征空间中的内积：</p>
+<p>$$<br>\langle\phi(x_1,x_2), \phi’(x’_1,x’_2)\rangle &#x3D; \langle (z_1,z_2,z_3),(z’_1,z_2’,z’_3)\rangle &#x3D; (x_1x’_1+x_2x_2’)^2 &#x3D; (\langle x, x’\rangle)^2:&#x3D;\kappa(x,x’)<br>$$</p>
+<p>对于两个样本 $x,x’$，内积 $\langle x, x’ \rangle$ 描述了它们在原始空间中的相似度，而核函数 $\kappa(x,x’)$ 描述了它们在高维特征空间中的相似度。自然地，内积是一类特殊的核函数。如果我们拥有数据集：$\lbrace x^{(1)},x^{(2)},\dots,x^{(n)}\rbrace $，可以构造一个矩阵，其中每个元素表示任意两个数据的相似度。矩阵的第 $i$ 行第 $j$ 列元素为 $\kappa(x^{(i)},x^{(j)})$，我们将这个矩阵称为<strong>核矩阵</strong>。在很多场景下，我们无需知道特征映射函数 $\phi$，仅通过核函数就能完成相关变换。这一思想被称为<strong>核技巧</strong>。常见的核函数包括：</p>
+<p>$$<br>\kappa(x,x’)&#x3D;\exp\left(\frac{-|x-x’|^2}{2\sigma^2}\right)<br>$$</p>
+<p>这就是高斯核。可以看到，它是一个满足 $\mathcal{X}\times\mathcal{X} \longmapsto \mathbb{R}$ 的映射，其中 $x,x’ \in \mathcal{X}$。</p>
+<h2 id="2-再生核"><a href="#2-再生核" class="headerlink" title="2. 再生核"></a>2. 再生核</h2><p>接下来我们深入学习核函数的数学理论。在上一节中，我们了解了特征映射与核函数如何将非线性问题转化为线性问题。</p>
 <blockquote>
-<p><strong>Definition</strong>: Function $\kappa$ is a positive-definite kernel function, if and only if there exists a fearture mapping $\phi$, mapping the input space $\mathcal{X}$ into some Hilbert space $\mathcal{H}$, such that:</p>
+<p><strong>定义</strong>：函数 $\kappa$ 是<strong>正定核函数</strong>，当且仅当存在特征映射 $\phi$，将输入空间 $\mathcal{X}$ 映射到某个希尔伯特空间 $\mathcal{H}$，使得：</p>
 <p>$$<br>\kappa(x,y)&#x3D;\langle \phi(x),\phi(y)\rangle _{\mathcal{H}}, \forall x,y \in \mathcal{X}<br>$$</p>
 </blockquote>
-<p>It has an equivalent definition:</p>
+<p>该定义存在一个等价形式：</p>
 <blockquote>
-<p><strong>Definition</strong>: Assume set $X$ is a non-empty set, function $\kappa: X \times X \mapsto \mathbb{R}$ is a positive-definite kernel function, if for any $n \in \mathbb{N}$, any $x_1, x_2, \ldots, x_n \in X$, and any $c_1,c_2,\ldots,c_n \in \mathbb{R}$, we have:</p>
-<p>$$<br>\sum_{i&#x3D;1}^n\sum_{j&#x3D;1}^nc_ic_j\kappa(x_1,x_j)\geq 0<br>$$</p>
-<p>namely, the kernel matrix (Gram matrix) $K$ is semi-positive-definite, where $K_{ij}&#x3D;\kappa(x_1,x_j)$</p>
+<p><strong>定义</strong>：设集合 $X$ 为非空集合，函数 $\kappa: X \times X \mapsto \mathbb{R}$ 是<strong>正定核函数</strong>，若对于任意 $n \in \mathbb{N}$，任意 $x_1, x_2, \ldots, x_n \in X$，以及任意实数 $c_1,c_2,\ldots,c_n \in \mathbb{R}$，都满足：</p>
+<p>$$<br>\sum_{i&#x3D;1}^n\sum_{j&#x3D;1}^nc_ic_j\kappa(x_i,x_j)\geq 0<br>$$</p>
+<p>即核矩阵（Gram矩阵）$K$ 是半正定的，其中 $K_{ij}&#x3D;\kappa(x_i,x_j)$</p>
 </blockquote>
-<p>Key Properties of Positive Definite Kernels:</p>
+<p>正定核的核心性质：</p>
 <ul>
-<li><strong>Symmetry</strong>:<br>For a real-valued kernel:</li>
+<li><strong>对称性</strong>：<br>对于实值核：</li>
 </ul>
 <p>$$<br>k(x, y) &#x3D; k(y, x), \quad \forall x, y \in X<br>$$</p>
 <ul>
-<li><p><strong>Closure Under Operations</strong>:<br>Positive definite kernels are closed under the following operations (given that $k_1$ and $k_2$ are positive definite kernels):</p>
+<li><p><strong>运算封闭性</strong>：<br>若 $k_1$ 和 $k_2$ 为正定核，则正定核在以下运算下保持封闭：</p>
 <ul>
-<li>Nonnegative linear combination:</li>
+<li>非负线性组合：</li>
 </ul>
-<p>$$<br>k(x, y) &#x3D; \alpha k_1(x, y) + \beta k_2(x, y) \quad \text{for } \alpha, \beta \geq 0<br>$$</p>
+<p>$$<br>k(x, y) &#x3D; \alpha k_1(x, y) + \beta k_2(x, y) \quad (\alpha, \beta \geq 0)<br>$$</p>
 <ul>
-<li>Product:</li>
+<li>乘积：</li>
 </ul>
 <p>$$<br>k(x, y) &#x3D; k_1(x, y) \cdot k_2(x, y)<br>$$</p>
 <ul>
-<li>Function composition (with certain restrictions):</li>
+<li>函数复合（满足特定约束）：</li>
 </ul>
 <p>$$<br>k(x, y) &#x3D; f(k_1(x, y))<br>$$</p>
-<p>where $f$ is an entire function (analytic on the whole complex plane) with nonnegative Taylor coefficients.</p>
+<p>其中 $f$ 是泰勒展开系数非负的整函数（在整个复平面上解析）。</p>
 <ul>
-<li>Pointwise limit:<br>The pointwise limit of a sequence of positive definite kernels is also positive definite.</li>
+<li>逐点极限：<br>正定核序列的逐点极限仍为正定核。</li>
 </ul>
 </li>
-<li><p><strong>Connection to Reproducing Kernel Hilbert Spaces (RKHS)</strong>:<br>Every positive definite kernel uniquely determines a Reproducing Kernel Hilbert Space (RKHS) $\mathcal{H}_k$ via the <strong>Moore-Aronszajn Theorem</strong>.</p>
+<li><p><strong>与再生核希尔伯特空间（RKHS）的关联</strong>：<br>根据<strong>Moore-Aronszajn定理</strong>，每个正定核都能唯一确定一个再生核希尔伯特空间 $\mathcal{H}_k$。</p>
 <blockquote>
-<p><strong>Moore-Aronszajn Theorem</strong><br>Any positive definite kernel function $k(x, y)$ corresponds to a <strong>unique RKHS</strong>, and vice versa.</p>
+<p><strong>Moore-Aronszajn定理</strong><br>任意正定核函数 $k(x, y)$ 都对应<strong>唯一的再生核希尔伯特空间</strong>，反之亦然。</p>
 <ul>
-<li>Therefore, a positive definite kernel function must also be the reproducing kernel of some RKHS.</li>
-<li>For a positive definite kernel function $k$, the mapping vector $\phi(x)$ for an object $x$ is <strong>not unique</strong>. That is, in different orthogonal basis spaces, the coordinates of $\phi(x)$ under different bases are not consistent. When $\phi(x) &#x3D; k(\cdot, x)$, $\phi(x)$ is called the <strong>canonical mapping vector</strong> for $x$.</li>
-<li>The dimension of $\phi(x)$ is infinite-dimensional; we cannot compute its specific value directly. Therefore, we adopt the <strong>kernel trick</strong> to avoid directly handling $\phi(x)$.</li>
+<li>因此，正定核函数一定是某个再生核希尔伯特空间的再生核。</li>
+<li>对于正定核函数 $k$，样本 $x$ 对应的映射向量 $\phi(x)$ <strong>不唯一</strong>。即在不同的正交基空间中，$\phi(x)$ 在不同基下的坐标不一致。当 $\phi(x) &#x3D; k(\cdot, x)$ 时，$\phi(x)$ 被称为 $x$ 的<strong>标准映射向量</strong>。</li>
+<li>$\phi(x)$ 是无限维向量，无法直接计算其具体数值。因此我们采用<strong>核技巧</strong>来避免直接处理 $\phi(x)$。</li>
 </ul>
 </blockquote>
-<p>In this RKHS:</p>
-<ul>
-<li>The kernel satisfies the <strong>reproducing property</strong>:</li>
-</ul>
-<p>$$<br>f(x) &#x3D; \langle f, k(\cdot, x) \rangle _{\mathcal{H}_k}, \quad \forall f \in \mathcal{H}_k, \forall x \in X<br>$$</p>
-<ul>
-<li>The kernel can be expressed as:</li>
-</ul>
-<p>$$<br>k(x, y) &#x3D; \langle k(\cdot, x), k(\cdot, y) \rangle _{\mathcal{H}_k}<br>$$</p>
 </li>
 </ul>
-<p><strong>Note:</strong> This means that every positive definite kernel is the reproducing kernel of some RKHS, and conversely, the reproducing kernel of any RKHS is positive definite.</p>
-<h3 id="2-1-Reproducing-Kernel-Hilbert-Space-RKHS"><a href="#2-1-Reproducing-Kernel-Hilbert-Space-RKHS" class="headerlink" title="2.1 Reproducing Kernel Hilbert Space (RKHS)"></a>2.1 Reproducing Kernel Hilbert Space (RKHS)</h3><p><strong>Reproducing Kernel Hilbert Space (RKHS)</strong> is the mathematical foundation of kernel methods, connecting kernel functions with the structure of function spaces, providing theoretical support for machine learning methods such as <strong>Support Vector Machines (SVM)</strong> and <strong>Gaussian Processes</strong>.</p>
-<h4 id="2-1-1-Definition-1-of-Reproducing-Kernel-Hilbert-Space"><a href="#2-1-1-Definition-1-of-Reproducing-Kernel-Hilbert-Space" class="headerlink" title="2.1.1. Definition 1 of Reproducing Kernel Hilbert Space"></a>2.1.1. Definition 1 of Reproducing Kernel Hilbert Space</h4><p>Let $H$ be a Hilbert space (complete inner product space) consisting of functions $f : X \mapsto \mathbb{K}$. If there exists a function $k : X \times X \mapsto \mathbb{R}$ satisfying:</p>
+<p> 在该再生核希尔伯特空间中：</p>
+<ul>
+<li>核函数满足<strong>再生性</strong>：</li>
+</ul>
+<p>  $$<br>  f(x) &#x3D; \langle f, k(\cdot, x) \rangle _{\mathcal{H}_k}, \quad \forall f \in \mathcal{H}_k, \forall x \in X<br>  $$</p>
+<ul>
+<li>核函数可表示为：</li>
+</ul>
+<p>  $$<br>  k(x, y) &#x3D; \langle k(\cdot, x), k(\cdot, y) \rangle _{\mathcal{H}_k}<br>  $$</p>
+<p><strong>注</strong>：这意味着所有正定核都是某个再生核希尔伯特空间的再生核，反之，任意再生核希尔伯特空间的再生核都是正定核。</p>
+<h3 id="2-1-再生核希尔伯特空间（RKHS）"><a href="#2-1-再生核希尔伯特空间（RKHS）" class="headerlink" title="2.1 再生核希尔伯特空间（RKHS）"></a>2.1 再生核希尔伯特空间（RKHS）</h3><p><strong>再生核希尔伯特空间（RKHS）</strong> 是核方法的数学基础，它将核函数与函数空间结构相连接，为支持向量机（SVM）、高斯过程等机器学习方法提供了理论支撑。</p>
+<h4 id="2-1-1-再生核希尔伯特空间的定义1"><a href="#2-1-1-再生核希尔伯特空间的定义1" class="headerlink" title="2.1.1. 再生核希尔伯特空间的定义1"></a>2.1.1. 再生核希尔伯特空间的定义1</h4><p>设 $H$ 是由函数 $f : X \mapsto \mathbb{K}$ 构成的希尔伯特空间（完备内积空间）。若存在函数 $k : X \times X \mapsto \mathbb{R}$ 满足：</p>
 <ul>
 <li>$\forall x \in X, ; k(\cdot, x) \in H$</li>
-<li>$\forall x \in X, ; \forall f \in H, ; f(x) &#x3D; \langle f, k(\cdot, x) \rangle_H$<br>That is, the value of function $f$ at point $x$ equals the inner product between $f$ and the kernel function $k(\cdot, x)$. This property is called the <strong>reproducing property</strong> or <strong>reconstruction property</strong>.</li>
-<li>In particular, for $\forall x, y \in X$, we have:<br>$$<br>k(x, y) &#x3D; \langle k(\cdot, x), k(\cdot, y) \rangle_H<br>$$</li>
+<li>$\forall x \in X, ; \forall f \in H, ; f(x) &#x3D; \langle f, k(\cdot, x) \rangle_H$<br>即函数 $f$ 在点 $x$ 处的取值等于 $f$ 与核函数 $k(\cdot, x)$ 的内积。该性质被称为<strong>再生性</strong>（重构性）。</li>
+<li>特别地，对于 $\forall x, y \in X$，有：<br>$$<br>k(x, y) &#x3D; \langle k(\cdot, x), k(\cdot, y) \rangle_H<br>$$</li>
 </ul>
-<p>Then $k$ is called the <strong>reproducing kernel</strong> of $H$, and $H$ is called a <strong>Reproducing Kernel Hilbert Space (RKHS)</strong>.</p>
-<p><strong>Note:</strong> A reproducing kernel Hilbert space is a Hilbert space, but a Hilbert space is not necessarily a reproducing kernel Hilbert space. Next, we consider what kind of Hilbert spaces are reproducing kernel Hilbert spaces.</p>
-<h4 id="2-1-2-Evaluation-Functional"><a href="#2-1-2-Evaluation-Functional" class="headerlink" title="2.1.2. Evaluation Functional"></a>2.1.2. Evaluation Functional</h4><p>Let $H$ be a Hilbert function space consisting of functions $f : X \mapsto \mathbb{K}$ defined on a non-empty set $X$. For a fixed $x \in X$, define the mapping $\delta_x : H \mapsto \mathbb{K}$ such that $\delta_x f &#x3D; f(x)$. Then $\delta_x$ is called the <strong>evaluation functional</strong> at point $x$.</p>
-<p>The evaluation functional is a <strong>linear functional</strong>.</p>
-<h4 id="2-1-3-Definition-2-of-Reproducing-Kernel-Hilbert-Space"><a href="#2-1-3-Definition-2-of-Reproducing-Kernel-Hilbert-Space" class="headerlink" title="2.1.3. Definition 2 of Reproducing Kernel Hilbert Space"></a>2.1.3. Definition 2 of Reproducing Kernel Hilbert Space</h4><p>$H$ is a reproducing kernel Hilbert space if and only if for all $x \in X$, the evaluation functional $\delta_x$ is <strong>bounded</strong>, i.e., there exists a constant $\lambda_x \geq 0$ (depending on $x$) such that for all $f \in H$:</p>
+<p>则称 $k$ 为 $H$ 的<strong>再生核</strong>，称 $H$ 为<strong>再生核希尔伯特空间（RKHS）</strong>。</p>
+<p><strong>注</strong>：再生核希尔伯特空间是希尔伯特空间，但希尔伯特空间不一定是再生核希尔伯特空间。接下来我们讨论何种希尔伯特空间属于再生核希尔伯特空间。</p>
+<h4 id="2-1-2-赋值泛函"><a href="#2-1-2-赋值泛函" class="headerlink" title="2.1.2. 赋值泛函"></a>2.1.2. 赋值泛函</h4><p>设 $H$ 是定义在非空集合 $X$ 上、由函数 $f : X \mapsto \mathbb{K}$ 构成的希尔伯特函数空间。对于固定的 $x \in X$，定义映射 $\delta_x : H \mapsto \mathbb{K}$ 满足 $\delta_x f &#x3D; f(x)$，则 $\delta_x$ 被称为点 $x$ 处的<strong>赋值泛函</strong>。</p>
+<p>赋值泛函是<strong>线性泛函</strong>。</p>
+<h4 id="2-1-3-再生核希尔伯特空间的定义2"><a href="#2-1-3-再生核希尔伯特空间的定义2" class="headerlink" title="2.1.3. 再生核希尔伯特空间的定义2"></a>2.1.3. 再生核希尔伯特空间的定义2</h4><p>$H$ 是再生核希尔伯特空间，当且仅当对于所有 $x \in X$，赋值泛函 $\delta_x$ 都是<strong>有界</strong>的，即存在常数 $\lambda_x \geq 0$（与 $x$ 相关），使得对所有 $f \in H$：</p>
 <p>$$<br>|f(x)| &#x3D; |\delta_x f| \leq \lambda_x |f|_H<br>$$</p>
-<h4 id="2-1-4-Theorem-Riesz-Representation-Theorem"><a href="#2-1-4-Theorem-Riesz-Representation-Theorem" class="headerlink" title="2.1.4. Theorem (Riesz Representation Theorem)"></a>2.1.4. Theorem (Riesz Representation Theorem)</h4><p>In a Hilbert space $H$, for any bounded linear operator $A$, there exists $g_A \in H$ such that:</p>
+<h4 id="2-1-4-定理（Riesz表示定理）"><a href="#2-1-4-定理（Riesz表示定理）" class="headerlink" title="2.1.4. 定理（Riesz表示定理）"></a>2.1.4. 定理（Riesz表示定理）</h4><p>在希尔伯特空间 $H$ 中，对于任意有界线性算子 $A$，都存在 $g_A \in H$，使得：</p>
 <p>$$<br>A f &#x3D; \langle f, g_A \rangle_H, \quad \forall f \in H<br>$$</p>
-<p>That is, any bounded linear operator in a Hilbert space can be expressed as the inner product between a function in the space and the function being acted upon.</p>
-<p><strong>The two definitions of reproducing kernel Hilbert space are equivalent.</strong> Next, we consider how to characterize a specific RKHS.</p>
-<h4 id="2-1-5-Relationship-Between-RKHS-and-Hilbert-Space"><a href="#2-1-5-Relationship-Between-RKHS-and-Hilbert-Space" class="headerlink" title="2.1.5. Relationship Between RKHS and Hilbert Space"></a>2.1.5. Relationship Between RKHS and Hilbert Space</h4><p>RKHS is a subset of Hilbert spaces, but a Hilbert space may not necessarily be an RKHS. In a general Hilbert space, the evaluation functional is <strong>not necessarily continuous (bounded)</strong>. When $f_n \to f$ in norm, we cannot infer that $\delta_x f_n \to \delta_x f$. For example, in the $L_2(0,1)$ space (which is also a Hilbert space), take:</p>
+<p>即希尔伯特空间中的任意有界线性算子，都可以表示为空间中某函数与被作用函数的内积。</p>
+<p><strong>再生核希尔伯特空间的两个定义是等价的</strong>。接下来我们讨论如何刻画具体的再生核希尔伯特空间。</p>
+<h4 id="2-1-5-再生核希尔伯特空间与希尔伯特空间的关系"><a href="#2-1-5-再生核希尔伯特空间与希尔伯特空间的关系" class="headerlink" title="2.1.5. 再生核希尔伯特空间与希尔伯特空间的关系"></a>2.1.5. 再生核希尔伯特空间与希尔伯特空间的关系</h4><p>再生核希尔伯特空间是希尔伯特空间的子集，但希尔伯特空间不一定是再生核希尔伯特空间。在普通希尔伯特空间中，赋值泛函<strong>不一定连续（有界）</strong>。当 $f_n$ 依范数收敛于 $f$ 时，无法推出 $\delta_x f_n$ 收敛于 $\delta_x f$。例如在 $L_2(0,1)$ 空间（同样是希尔伯特空间）中，取：</p>
 <p>$$<br>f(x) &#x3D; 0<br>$$</p>
 <p>$$<br>f_n(x) &#x3D; \sqrt{n} \cdot I\left(x &lt; \frac{1}{n^2}\right)<br>$$</p>
-<p>Then:</p>
+<p>则：</p>
 <p>$$<br>| f_n - f | &#x3D; \left( \int_0^1 |\sqrt{n} \cdot I(x &lt; \frac{1}{n^2}) - 0|^2 dx \right)^{\frac{1}{2}} &#x3D; \left( \int_0^{\frac{1}{n^2}} n dx \right)^{\frac{1}{2}} &#x3D; \frac{1}{\sqrt{n}} \to 0, \quad n \to \infty<br>$$</p>
-<p>However:</p>
+<p>但是：</p>
 <p>$$<br>\delta_0 f_n &#x3D; \sqrt{n}<br>$$</p>
-<p>does not tend to 0 as $n$ increases.</p>
-<p>Thus, Hilbert spaces contain many non-smooth functions, while in an RKHS, all functions converge <strong>pointwise</strong>: $f_n(x) \to f(x)$, i.e., $\delta_x f_n \to \delta_x f$. This means RKHS is more restrictive than a general Hilbert space. Functions in an RKHS are <strong>well-behaved</strong> compared to those in a general Hilbert space. For any $f, f_n \in H$, when $f_n \to f$ in norm, we always have:</p>
+<p>并不会随着 $n$ 增大趋近于0。</p>
+<p>因此，希尔伯特空间包含大量非光滑函数，而在再生核希尔伯特空间中，所有函数都<strong>逐点收敛</strong>：$f_n(x) \to f(x)$，即 $\delta_x f_n \to \delta_x f$。这说明再生核希尔伯特空间的约束比普通希尔伯特空间更严格。相比于普通希尔伯特空间，再生核希尔伯特空间中的函数<strong>性质更优良</strong>。对于任意 $f, f_n \in H$，当 $f_n$ 依范数收敛于 $f$ 时，恒有：</p>
 <p>$$<br>\delta_x f_n &#x3D; \langle f_n, k(\cdot, x) \rangle \to \langle f, k(\cdot, x) \rangle &#x3D; f(x) &#x3D; \delta_x f<br>$$</p>
-<p>(The evaluation functional is also a bounded linear operator.) This leads to the following theorem:</p>
-<h4 id="2-1-6-Theorem"><a href="#2-1-6-Theorem" class="headerlink" title="2.1.6. Theorem"></a>2.1.6. Theorem</h4><p>If two functions in an RKHS converge in norm, then they must converge <strong>pointwise at every point</strong>. That is, if:</p>
+<p>（赋值泛函同样是有界线性算子。）由此可得以下定理：</p>
+<h4 id="2-1-6-定理"><a href="#2-1-6-定理" class="headerlink" title="2.1.6. 定理"></a>2.1.6. 定理</h4><p>若再生核希尔伯特空间中的两个函数依范数收敛，则它们一定<strong>在所有点上逐点收敛</strong>。即若：</p>
 <p>$$<br>\lim_{n \to \infty} | f_n - f |_H &#x3D; 0<br>$$</p>
-<p>then:</p>
+<p>则：</p>
 <p>$$<br>\lim_{n \to \infty} f_n(x) &#x3D; f(x), \quad \forall x \in X<br>$$</p>
 <ul>
-<li><p>A Hilbert space is <strong>complete</strong>, so all Cauchy sequences in a Hilbert space converge in norm. That is, if ${ f_n }_{n&#x3D;1}^{\infty}$ is a Cauchy sequence in a Hilbert space, then for any $\varepsilon &gt; 0$, there exists a natural number $N$ such that for all $i, j &gt; N$:</p>
+<li><p>希尔伯特空间具有<strong>完备性</strong>，因此希尔伯特空间中的所有柯西序列都依范数收敛。即若 ${ f_n }_{n&#x3D;1}^{\infty}$ 是希尔伯特空间中的柯西序列，则对于任意 $\varepsilon &gt; 0$，存在自然数 $N$，使得对所有 $i, j &gt; N$：</p>
 <p>$$<br>| f_i - f_j | &lt; \varepsilon<br>$$</p>
 </li>
-<li></li>
-<li><p>The condition for an RKHS is stricter: it requires that all Cauchy sequences converge <strong>pointwise</strong>. That is, for all $x \in X$:</p>
+<li><p>再生核希尔伯特空间的条件更严格：要求所有柯西序列<strong>逐点收敛</strong>。即对所有 $x \in X$：</p>
 <p>$$<br>| f_i(x) - f_j(x) | &lt; \varepsilon<br>$$</p>
 </li>
 </ul>
-<h3 id="2-2-Reproducing-Kernel-Banach-Space-RKBS"><a href="#2-2-Reproducing-Kernel-Banach-Space-RKBS" class="headerlink" title="2.2. Reproducing Kernel Banach Space (RKBS)"></a>2.2. Reproducing Kernel Banach Space (RKBS)</h3><p>A <strong>Reproducing Kernel Hilbert Space (RKHS)</strong> is a Hilbert space $\mathcal{H}$ of functions $f: X \to \mathbb{R}$ equipped with an inner product $\langle \cdot, \cdot \rangle _{\mathcal{H}}$ and a <strong>symmetric positive definite</strong> kernel $k: X \times X \to \mathbb{R}$ satisfying the <strong>reproducing property</strong>:</p>
+<h3 id="2-2-再生核巴拿赫空间（RKBS）"><a href="#2-2-再生核巴拿赫空间（RKBS）" class="headerlink" title="2.2. 再生核巴拿赫空间（RKBS）"></a>2.2. 再生核巴拿赫空间（RKBS）</h3><p><strong>再生核希尔伯特空间（RKHS）</strong> 是由函数 $f: X \to \mathbb{R}$ 构成的希尔伯特空间 $\mathcal{H}$，配备内积 $\langle \cdot, \cdot \rangle _{\mathcal{H}}$ 和满足<strong>再生性</strong>的<strong>对称正定</strong>核 $k: X \times X \to \mathbb{R}$：</p>
 <p>$$<br>f(x) &#x3D; \langle f, k(\cdot, x) \rangle _{\mathcal{H}} \quad \forall f \in \mathcal{H}, \forall x \in X.<br>$$</p>
-<p>The kernel is symmetric ($k(x,y)&#x3D;k(y,x)$) and induces a positive definite Gram matrix. This structure ensures that optimization problems in RKHS (e.g., SVM training) are <strong>convex</strong>.</p>
-<p>In contrast, a <strong>Reproducing Kernel Banach Space (RKBS)</strong> generalizes this framework. It involves a <strong>pair of Banach spaces</strong> $\left(\mathcal{B}_X, \mathcal{B}_Y\right)$, not necessarily Hilbert spaces, over sets $ X $ and $ Y $, a potentially <strong>asymmetric and non-positive-definite</strong> kernel $k: X \times Y \to \mathbb{R}$, and a <strong>nondegenerate bilinear mapping</strong> $\langle \cdot, \cdot \rangle _{\mathcal{B}_X \times \mathcal{B}_Y}$ such that:</p>
+<p>该核具有对称性（$k(x,y)&#x3D;k(y,x)$），且生成的Gram矩阵为正定矩阵。这种结构保证了再生核希尔伯特空间中的优化问题（如SVM训练）是<strong>凸优化</strong>问题。</p>
+<p>与之相对，<strong>再生核巴拿赫空间（RKBS）</strong> 是对该框架的推广。它涉及定义在集合 $X$ 和 $Y$ 上的<strong>一对巴拿赫空间</strong> $\left(\mathcal{B}_X, \mathcal{B}_Y\right)$（无需是希尔伯特空间）、一个可能<strong>非对称、非正定</strong>的核 $k: X \times Y \to \mathbb{R}$，以及一个<strong>非退化双线性映射</strong> $\langle \cdot, \cdot \rangle _{\mathcal{B}_X \times \mathcal{B}_Y}$，满足：</p>
 <p>$$<br>f(x) &#x3D; \langle f, k(\cdot, x) \rangle _{\mathcal{B}_X \times \mathcal{B}_Y},\forall f \in \mathcal{B}_X,\quad \quad<br>g(y) &#x3D; \langle k(y, \cdot), g \rangle _{\mathcal{B}_X \times \mathcal{B}_Y},  \forall g \in \mathcal{B}_Y<br>$$</p>
-<p>Unlike RKHS, RKBS does not require an inner product, symmetry, or positive definiteness. This flexibility allows it to model <strong>asymmetric relations</strong> and naturally align with <strong>non-convex optimization</strong> problems common in deep learning.</p>
-<h2 id="3-Kernel-Function-in-Attention"><a href="#3-Kernel-Function-in-Attention" class="headerlink" title="3. Kernel Function in Attention"></a>3. Kernel Function in Attention</h2><h3 id="3-1-Dot-Product-Attention"><a href="#3-1-Dot-Product-Attention" class="headerlink" title="3.1. Dot-Product Attention"></a>3.1. Dot-Product Attention</h3><p>This section focus on the most popular attention mechanism. The main reference is <em>Transformers are Deep Infinite-Dimensional Non-Mercer Binary Kernel Machines</em>, which can be found by <a target="_blank" rel="noopener" href="http://arxiv.org/abs/2106.01506">http://arxiv.org/abs/2106.01506</a>. In the Transformer’s scaled dot-product attention mechanism, the <strong>kernel function</strong> is defined as:</p>
+<p>与再生核希尔伯特空间不同，再生核巴拿赫空间不要求内积、对称性和正定性。这种灵活性使其能够建模<strong>非对称关系</strong>，并自然适配深度学习中常见的<strong>非凸优化</strong>问题。</p>
+<h2 id="3-注意力机制中的核函数"><a href="#3-注意力机制中的核函数" class="headerlink" title="3. 注意力机制中的核函数"></a>3. 注意力机制中的核函数</h2><h3 id="3-1-点积注意力"><a href="#3-1-点积注意力" class="headerlink" title="3.1. 点积注意力"></a>3.1. 点积注意力</h3><p>本节聚焦于目前最主流的注意力机制。主要参考文献为《Transformer是深度无限维non-Mercer二元核机器》，论文链接：<a target="_blank" rel="noopener" href="http://arxiv.org/abs/2106.01506">http://arxiv.org/abs/2106.01506</a>。在Transformer的缩放点积注意力机制中，<strong>核函数</strong>定义为：</p>
 <p>$$<br>\kappa(t, s) &#x3D; \exp\left(\frac{(W^Q t)^\top (W^K s)}{\sqrt{d}}\right)<br>$$</p>
-<p>where:</p>
+<p>其中：</p>
 <ul>
-<li>$t \in \mathbb{R}^{d_t}$ is a target&#x2F;query vector</li>
-<li>$s \in \mathbb{R}^{d_s}$ is a source&#x2F;key vector</li>
-<li>$W^Q \in \mathbb{R}^{d \times d_t}$ and $W^K \in \mathbb{R}^{d \times d_s}$ are learnable weight matrices</li>
-<li>$d$ is the attention head dimension</li>
+<li>$t \in \mathbb{R}^{d_t}$ 表示目标&#x2F;查询向量</li>
+<li>$s \in \mathbb{R}^{d_s}$ 表示源&#x2F;键向量</li>
+<li>$W^Q \in \mathbb{R}^{d \times d_t}$ 和 $W^K \in \mathbb{R}^{d \times d_s}$ 是可学习权重矩阵</li>
+<li>$d$ 是注意力头的维度</li>
 </ul>
-<p>This corresponds to the <strong>unnormalized attention weight</strong> before softmax normalization.</p>
+<p>该式对应Softmax归一化之前的<strong>未归一化注意力权重</strong>。</p>
 <blockquote>
-<p><strong>Property 1: Asymmetry</strong><br>The kernel is generally asymmetric:</p>
-<p>$$<br>\kappa(t, s) \neq \kappa(s, t) \quad \text{unless } W^Q &#x3D; W^K<br>$$</p>
-<p>This reflects the distinct roles of queries and keys in attention mechanisms.</p>
-<p><strong>Property 2: Non-Positive Definiteness</strong></p>
+<p><strong>性质1：非对称性</strong><br>该核通常不具有对称性：</p>
+<p>$$<br>\kappa(t, s) \neq \kappa(s, t) \quad (\text{仅当 } W^Q &#x3D; W^K \text{ 时等号成立})<br>$$</p>
+<p>这反映了注意力机制中查询和键的不同功能定位。</p>
+<p><strong>性质2：非正定性</strong></p>
 <ul>
-<li>Not a Mercer kernel (does not satisfy symmetric positive definite conditions)</li>
-<li>The associated Gram matrix may be <strong>indefinite</strong></li>
-<li>Falls into the category of <strong>non-Mercer kernels</strong></li>
+<li>不属于Mercer核（不满足对称正定条件）</li>
+<li>对应的Gram矩阵可能是<strong>不定矩阵</strong></li>
+<li>归类为<strong>non-mercer kernel</strong></li>
 </ul>
-<p><strong>Property 3: Infinite-Dimensional Feature Maps</strong></p>
+<p><strong>性质3：无限维特征映射</strong></p>
 <ul>
-<li>The kernel admits <strong>infinite-dimensional feature representations</strong>:<br>For queries:</li>
+<li>该核支持<strong>无限维特征表示</strong>：<br>查询的特征映射：</li>
 </ul>
-<p>$$<br>\Phi_{\mathcal{X}}(t) &#x3D; \sum_{n&#x3D;0}^{\infty} \sum_{p_1+\cdots+p_d&#x3D;n} \frac{\sqrt{\frac{n!}&gt; {p_1!\cdots p_d!}} \prod_{t&#x3D;1}^d (q_t)^{p_t}}{d^{1&#x2F;4}}<br>$$</p>
-<p>For keys:</p>
-<p>$$<br>\Phi_{\mathcal{Y}}(s) &#x3D; \sum_{n&#x3D;0}^{\infty} \sum_{p_1+\cdots+p_d&#x3D;n} \frac{\sqrt{\frac{n!}&gt; {p_1!\cdots p_d!}} \prod_{t&#x3D;1}^d (k_t)^{p_t}}{d^{1&#x2F;4}}<br>$$</p>
-<p>where $q &#x3D; W^Q t$ and $k &#x3D; W^K s$.</p>
-<p><strong>Property 4: Reproducing Property</strong><br>The kernel serves as a <strong>reproducing kernel</strong> for a pair of Reproducing Kernel Banach &gt; Spaces (RKBS), satisfying:</p>
+<p>$$<br>\Phi_{\mathcal{X}}(t) &#x3D; \sum_{n&#x3D;0}^{\infty} \sum_{p_1+\cdots+p_d&#x3D;n} \frac{\sqrt{\frac{n!}{p_1!\cdots p_d!}} \prod_{t&#x3D;1}^d (q_t)^{p_t}}{d^{1&#x2F;4}}<br>$$</p>
+<p>键的特征映射：</p>
+<p>$$<br>\Phi_{\mathcal{Y}}(s) &#x3D; \sum_{n&#x3D;0}^{\infty} \sum_{p_1+\cdots+p_d&#x3D;n} \frac{\sqrt{\frac{n!}{p_1!\cdots p_d!}} \prod_{t&#x3D;1}^d (k_t)^{p_t}}{d^{1&#x2F;4}}<br>$$</p>
+<p>其中 $q &#x3D; W^Q t$，$k &#x3D; W^K s$。</p>
+<p><strong>性质4：再生性</strong><br>该核是一对再生核巴拿赫空间（RKBS）的<strong>再生核</strong>，满足：</p>
 <p>$$<br>f(t) &#x3D; \langle f, \kappa(\cdot, s) \rangle _{\mathcal{B} _{\mathcal{X}} \times \mathcal{B} _{\mathcal{Y}}}<br>$$</p>
-<p>for functions in the associated Banach spaces $\mathcal{B} _{\mathcal{X}}$ and $\mathcal{B} _{\mathcal{Y}}$.</p>
+<p>对关联巴拿赫空间 $\mathcal{B} _{\mathcal{X}}$ 和 $\mathcal{B} _{\mathcal{Y}}$ 中的所有函数成立。</p>
 </blockquote>
-<p>The kernel induces a <strong>pair of Reproducing Kernel Banach Spaces</strong>:</p>
-<p><strong>Query Space:</strong></p>
+<p>该核诱导出<strong>一对再生核巴拿赫空间</strong>：</p>
+<p><strong>查询空间：</strong></p>
 <p>$$<br>\mathcal{B} _{\mathcal{X}} &#x3D; \left\lbrace f _{\mathbf{k}}(t) &#x3D; \exp\left((W^Q t)^\top \mathbf{k} &#x2F; \sqrt{d}\right) : \mathbf{k} \in \mathcal{F} _{\mathcal{Y}}, t \in \mathcal{X} \right\rbrace<br>$$</p>
-<p><strong>Key Space:</strong></p>
+<p><strong>键空间：</strong></p>
 <p>$$<br>\mathcal{B} _{\mathcal{Y}} &#x3D; \left\lbrace g _{\mathbf{q}}(s) &#x3D; \exp\left(\mathbf{q}^\top (W^K s) &#x2F; \sqrt{d}\right): \mathbf{q} \in \mathcal{F} _{\mathcal{X}}, s \in \mathcal{Y} \right\rbrace<br>$$</p>
-<p>where $\mathcal{F} _{\mathcal{X}}$ and $\mathcal{F} _{\mathcal{Y}}$ are the infinite-dimensional feature spaces.</p>
-<h3 id="3-2-Position-induced-Attention"><a href="#3-2-Position-induced-Attention" class="headerlink" title="3.2. Position-induced Attention"></a>3.2. Position-induced Attention</h3><p>Starting from this section, we will explore the well-known architectures in operator learning and analyze them from the perspective of kernel learning. The first one is from the work by Junfeng Chen and Kailiang Wu: <em>Positional Knowledge is All You Need: Position-induced Transformer (PiT) for Operator Learning</em>. It can be found in <a target="_blank" rel="noopener" href="https://arxiv.org/abs/2405.09285">https://arxiv.org/abs/2405.09285</a>.</p>
-<p>The PiT architecture consists of three main components: an Encoder, a Processor, and a Decoder. The key building block shared across these modules is the <strong>position-induced attention</strong>, which differs fundamentally from standard self-attention by constructing attention weights purely from positional information rather than feature similarity.</p>
-<h4 id="3-2-1-Position-attention-formulation"><a href="#3-2-1-Position-attention-formulation" class="headerlink" title="3.2.1. Position-attention formulation"></a>3.2.1. Position-attention formulation</h4><p>Let ${x_i} _{i&#x3D;1}^N \subset \mathbb{R}^d$ denote the spatial coordinates of discretization points. The position-attention mechanism defines attention weights based solely on pairwise distances in the physical domain:</p>
+<p>其中 $\mathcal{F} _{\mathcal{X}}$ 和 $\mathcal{F} _{\mathcal{Y}}$ 是无限维特征空间。</p>
+<h3 id="3-2-位置诱导注意力"><a href="#3-2-位置诱导注意力" class="headerlink" title="3.2. 位置诱导注意力"></a>3.2. 位置诱导注意力</h3><p>从本节开始，我们将探究算子学习中的经典架构，并从核学习的视角对其进行分析。第一个架构来自：《位置知识足矣：用于算子学习的位置诱导Transformer（PiT）》，论文链接：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2405.09285">https://arxiv.org/abs/2405.09285</a>。</p>
+<p>PiT架构包含三个核心模块：编码器、处理器和解码器。这些模块共享的核心组件是<strong>位置诱导注意力</strong>，它与标准自注意力有本质区别：注意力权重仅由位置信息构建，而非特征相似度。</p>
+<h4 id="3-2-1-位置注意力公式"><a href="#3-2-1-位置注意力公式" class="headerlink" title="3.2.1. 位置注意力公式"></a>3.2.1. 位置注意力公式</h4><p>设 ${x_i} _{i&#x3D;1}^N \subset \mathbb{R}^d$ 为离散化点的空间坐标。位置注意力机制仅基于物理域中的点对距离定义注意力权重：</p>
 <p>$$<br>\alpha _{ij}&#x3D;\frac{\exp!\big(-\lambda |x_i - x_j|<em>2^2\big)} {\sum</em>{k&#x3D;1}^N \exp!\big(-\lambda |x_i - x_k|_2^2\big)}<br>$$</p>
-<p>where $\lambda &gt; 0$ controls the locality of interactions.</p>
-<p>Given input features $u_j$, the attention output is:</p>
+<p>其中 $\lambda &gt; 0$ 控制交互作用的局部性。</p>
+<p>给定输入特征 $u_j$，注意力输出为：</p>
 <p>$$<br>(\mathcal A u)(x_i)&#x3D;\sum_{j&#x3D;1}^N \alpha_{ij}, Wu_j<br>$$</p>
-<p>where $W$ is a learnable matrix.</p>
-<h4 id="3-2-2-Kernel-interpretation"><a href="#3-2-2-Kernel-interpretation" class="headerlink" title="3.2.2. Kernel interpretation"></a>3.2.2. Kernel interpretation</h4><p>From an operator-learning perspective, position-attention can be interpreted as a discretization of an integral operator with kernel</p>
+<p>其中 $W$ 是可学习矩阵。</p>
+<h4 id="3-2-2-核函数解释"><a href="#3-2-2-核函数解释" class="headerlink" title="3.2.2. 核函数解释"></a>3.2.2. 核函数解释</h4><p>从算子学习的视角，位置注意力可以被解释为带核积分算子的离散化形式：</p>
 <p>$$<br>\kappa(x,y)&#x3D;\frac{\exp!\big(-\lambda |x-y|_2^2\big)}{\int _\Omega \exp!\big(-\lambda |x-\xi|_2^2\big), d\xi}<br>$$</p>
-<p>This kernel corresponds to a <strong>normalized exponential kernel</strong>, where the similarity function is chosen a</p>
+<p>该核对应<strong>归一化指数核</strong>，其中相似度函数定义为：</p>
 <p>$$<br>s(x,y) &#x3D; -\lambda |x-y|_2^2<br>$$</p>
-<p>This choice yields a <strong>Gaussian kernel</strong>. If instead the similarity function were defined as an inner product, $s(x,y) &#x3D; \langle x, y \rangle$, the formulation would reduce to the standard dot-product attention mechanism (w&#x2F;o softmax).</p>
-<h4 id="3-2-3-Invariance-properties"><a href="#3-2-3-Invariance-properties" class="headerlink" title="3.2.3. Invariance properties"></a>3.2.3. Invariance properties</h4><p>The Gaussian kernel $\kappa(x,y) &#x3D; \exp(-\lambda |x-y|_2^2)$ exhibits several important symmetry properties:</p>
-<p><strong>Translation invariance:</strong></p>
+<p>该形式对应<strong>高斯核</strong>。若将相似度函数替换为内积 $s(x,y) &#x3D; \langle x, y \rangle$，该公式将退化为标准点积注意力（无Softmax）。</p>
+<h4 id="3-2-3-不变性"><a href="#3-2-3-不变性" class="headerlink" title="3.2.3. 不变性"></a>3.2.3. 不变性</h4><p>高斯核 $\kappa(x,y) &#x3D; \exp(-\lambda |x-y|_2^2)$ 具备多项重要的对称性质：</p>
+<p><strong>平移不变性：</strong></p>
 <p>$$<br>\kappa(x+a, y+a) &#x3D; \kappa(x,y), \quad \forall a \in \mathbb{R}^d.<br>$$</p>
-<p><strong>Rotation invariance:</strong></p>
+<p><strong>旋转不变性：</strong></p>
 <p>$$<br>\kappa(Rx, Ry) &#x3D; \kappa(x,y), \quad \forall R \in SO(d).<br>$$</p>
-<p>These invariances are well aligned with the symmetries of many physical operators, particularly those arising from isotropic PDEs. From this viewpoint, the strong empirical performance reported in PiT can be partially attributed to the inductive bias introduced by the kernel structure.</p>
-<h4 id="3-2-4-Frequency-domain-interpretation"><a href="#3-2-4-Frequency-domain-interpretation" class="headerlink" title="3.2.4. Frequency-domain interpretation"></a>3.2.4. Frequency-domain interpretation</h4><p>The Gaussian kernel admits a clear interpretation in the frequency domain. Its Fourier transform satisfies:</p>
+<p>这些不变性与大量物理算子的对称性高度契合，尤其适用于各向同性偏微分方程。从这个角度来看，PiT模型优异的实验效果部分归功于核结构带来的归纳偏置。</p>
+<h4 id="3-2-4-频域解释"><a href="#3-2-4-频域解释" class="headerlink" title="3.2.4. 频域解释"></a>3.2.4. 频域解释</h4><p>高斯核在频域中有清晰的物理意义，其傅里叶变换满足：</p>
 <p>$$<br>\widehat{\kappa}(\omega)\propto\exp!\Big(-\frac{|\omega|_2^2}{4\lambda}\Big),<br>$$</p>
-<p>which decays rapidly for large frequencies.</p>
-<p>Consequently, position-attention acts as a <strong>low-pass filter</strong>, suppressing high-frequency components while preserving smooth, large-scale structures. This behavior is consistent with the spectral properties of many elliptic and parabolic PDE solution operators, which are inherently smoothing.</p>
-<h4 id="3-2-5-Limitations-and-potential-failure-modes"><a href="#3-2-5-Limitations-and-potential-failure-modes" class="headerlink" title="3.2.5. Limitations and potential failure modes"></a>3.2.5. Limitations and potential failure modes</h4><p>While the Gaussian kernel bias is advantageous for smooth operators, it also imposes intrinsic limitations. In particular, position-attention may be less effective when:</p>
+<p>该变换在高频段快速衰减。</p>
+<p>因此，位置注意力等价于一个<strong>低通滤波器</strong>，能够抑制高频分量，保留平滑的大尺度结构。这一特性与大量椭圆型、抛物型偏微分方程解算子的谱特性一致，这类算子本身具有平滑作用。</p>
+<h4 id="3-2-5-局限性与潜在失效场景"><a href="#3-2-5-局限性与潜在失效场景" class="headerlink" title="3.2.5. 局限性与潜在失效场景"></a>3.2.5. 局限性与潜在失效场景</h4><p>尽管高斯核的偏置对平滑算子十分有利，但它也存在固有局限性。具体而言，位置注意力在以下场景中效果会显著下降：</p>
 <ul>
-<li>the operator preserves or amplifies high-frequency modes,</li>
-<li>the solution exhibits sharp interfaces or discontinuities,</li>
-<li>advection-dominated or hyperbolic PDEs display strong directional transport.</li>
+<li>算子保留或放大高频分量时；</li>
+<li>解存在尖锐界面或间断点时；</li>
+<li>对流占优或双曲型偏微分方程存在强方向传输特性时。</li>
 </ul>
-<p>In such cases, the isotropic and low-pass nature of the Gaussian kernel may lead to excessive smoothing and loss of fine-scale information. This observation raises a natural question: whether fixed, isotropic kernels are sufficient for general operator-learning tasks, or whether more adaptive and possibly anisotropic kernel constructions are required.</p>
-<h3 id="3-3-Transolver-Low-Rank-Decomposition-of-Kernel"><a href="#3-3-Transolver-Low-Rank-Decomposition-of-Kernel" class="headerlink" title="3.3. Transolver: Low Rank Decomposition of Kernel"></a>3.3. Transolver: Low Rank Decomposition of Kernel</h3>
+<p>在这些情况下，高斯核的各向同性与低通特性会导致过度平滑，丢失精细尺度信息。这引发了一个核心问题：固定的各向同性核是否足以完成通用算子学习任务？是否需要设计更具适应性、各向异性的核结构？</p>
+<h3 id="3-3-Transolver：核函数的低秩分解"><a href="#3-3-Transolver：核函数的低秩分解" class="headerlink" title="3.3. Transolver：核函数的低秩分解"></a>3.3. Transolver：核函数的低秩分解</h3>
         </div>
 
         
