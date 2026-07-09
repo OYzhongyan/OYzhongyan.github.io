@@ -120,8 +120,6 @@
                 
                 <a class="menu-item" href="/category">Categories</a>
                 
-                <a class="menu-item" href="/tag">Tags</a>
-                
                 <a class="menu-item" href="/about">About</a>
                 
                 
@@ -148,8 +146,6 @@
                 <a class="menu-item" href="/archives">Posts</a>
                 
                 <a class="menu-item" href="/category">Categories</a>
-                
-                <a class="menu-item" href="/tag">Tags</a>
                 
                 <a class="menu-item" href="/about">About</a>
                 
@@ -278,14 +274,11 @@
 <p>这就是高斯核。可以看到，它是一个满足 $\mathcal{X}\times\mathcal{X} \longmapsto \mathbb{R}$ 的映射，其中 $x,x’ \in \mathcal{X}$。</p>
 <h2 id="2-再生核"><a href="#2-再生核" class="headerlink" title="2. 再生核"></a>2. 再生核</h2><p>接下来我们深入学习核函数的数学理论。在上一节中，我们了解了特征映射与核函数如何将非线性问题转化为线性问题。</p>
 <blockquote>
-<p><strong>定义</strong>：函数 $\kappa$ 是<strong>正定核函数</strong>，当且仅当存在特征映射 $\phi$，将输入空间 $\mathcal{X}$ 映射到某个希尔伯特空间 $\mathcal{H}$，使得：</p>
-<p>$$<br>\kappa(x,y)&#x3D;\langle \phi(x),\phi(y)\rangle _{\mathcal{H}}, \forall x,y \in \mathcal{X}<br>$$</p>
+<p><strong>定义</strong>：函数 $\kappa$ 是<strong>正定核函数</strong>，当且仅当存在特征映射 $\phi$，将输入空间 $\mathcal{X}$ 映射到某个希尔伯特空间 $\mathcal{H}$，使得：$$\kappa(x,y)&#x3D;\langle \phi(x),\phi(y)\rangle _{\mathcal{H}}, \forall x,y \in \mathcal{X}$$</p>
 </blockquote>
 <p>该定义存在一个等价形式：</p>
 <blockquote>
-<p><strong>定义</strong>：设集合 $X$ 为非空集合，函数 $\kappa: X \times X \mapsto \mathbb{R}$ 是<strong>正定核函数</strong>，若对于任意 $n \in \mathbb{N}$，任意 $x_1, x_2, \ldots, x_n \in X$，以及任意实数 $c_1,c_2,\ldots,c_n \in \mathbb{R}$，都满足：</p>
-<p>$$<br>\sum_{i&#x3D;1}^n\sum_{j&#x3D;1}^nc_ic_j\kappa(x_i,x_j)\geq 0<br>$$</p>
-<p>即核矩阵（Gram矩阵）$K$ 是半正定的，其中 $K_{ij}&#x3D;\kappa(x_i,x_j)$</p>
+<p><strong>定义</strong>：设集合 $X$ 为非空集合，函数 $\kappa: X \times X \mapsto \mathbb{R}$ 是<strong>正定核函数</strong>，若对于任意 $n \in \mathbb{N}$，任意 $x_1, x_2, \ldots, x_n \in X$，以及任意实数 $c_1,c_2,\ldots,c_n \in \mathbb{R}$，都满足：$$\sum_{i&#x3D;1}^n\sum_{j&#x3D;1}^nc_ic_j\kappa(x_i,x_j)\geq 0$$即核矩阵（Gram矩阵）$K$ 是半正定的，其中 $K_{ij}&#x3D;\kappa(x_i,x_j)$</p>
 </blockquote>
 <p>正定核的核心性质：</p>
 <ul>
@@ -389,8 +382,7 @@
 </ul>
 <p>该式对应Softmax归一化之前的<strong>未归一化注意力权重</strong>。</p>
 <blockquote>
-<p><strong>性质1：非对称性</strong><br>该核通常不具有对称性：</p>
-<p>$$<br>\kappa(t, s) \neq \kappa(s, t) \quad (\text{仅当 } W^Q &#x3D; W^K \text{ 时等号成立})<br>$$</p>
+<p><strong>性质1：非对称性</strong><br>该核通常不具有对称性：<br>$$\kappa(t, s) \neq \kappa(s, t) \quad (\text{仅当 } W^Q &#x3D; W^K \text{ 时等号成立})$$</p>
 <p>这反映了注意力机制中查询和键的不同功能定位。</p>
 <p><strong>性质2：非正定性</strong></p>
 <ul>
@@ -400,45 +392,23 @@
 </ul>
 <p><strong>性质3：无限维特征映射</strong></p>
 <ul>
-<li>该核支持<strong>无限维特征表示</strong>：<br>查询的特征映射：</li>
+<li>该核支持<strong>无限维特征表示</strong>：<br>查询的特征映射：<br>$$\Phi_{\mathcal{X}}(t) &#x3D; \sum_{n&#x3D;0}^{\infty} \sum_{p_1+\cdots+p_d&#x3D;n} \frac{\sqrt{\frac{n!}{p_1!\cdots p_d!}} \prod_{t&#x3D;1}^d (q_t)^{p_t}}{d^{1&#x2F;4}}$$<br>键的特征映射：$$\Phi_{\mathcal{Y}}(s) &#x3D; \sum_{n&#x3D;0}^{\infty} \sum_{p_1+\cdots+p_d&#x3D;n} \frac{\sqrt{\frac{n!}{p_1!\cdots p_d!}} \prod_{t&#x3D;1}^d (k_t)^{p_t}}{d^{1&#x2F;4}}$$<br>其中 $q &#x3D; W^Q t$，$k &#x3D; W^K s$。</li>
 </ul>
-<p>$$<br>\Phi_{\mathcal{X}}(t) &#x3D; \sum_{n&#x3D;0}^{\infty} \sum_{p_1+\cdots+p_d&#x3D;n} \frac{\sqrt{\frac{n!}{p_1!\cdots p_d!}} \prod_{t&#x3D;1}^d (q_t)^{p_t}}{d^{1&#x2F;4}}<br>$$</p>
-<p>键的特征映射：</p>
-<p>$$<br>\Phi_{\mathcal{Y}}(s) &#x3D; \sum_{n&#x3D;0}^{\infty} \sum_{p_1+\cdots+p_d&#x3D;n} \frac{\sqrt{\frac{n!}{p_1!\cdots p_d!}} \prod_{t&#x3D;1}^d (k_t)^{p_t}}{d^{1&#x2F;4}}<br>$$</p>
-<p>其中 $q &#x3D; W^Q t$，$k &#x3D; W^K s$。</p>
-<p><strong>性质4：再生性</strong><br>该核是一对再生核巴拿赫空间（RKBS）的<strong>再生核</strong>，满足：</p>
-<p>$$<br>f(t) &#x3D; \langle f, \kappa(\cdot, s) \rangle _{\mathcal{B} _{\mathcal{X}} \times \mathcal{B} _{\mathcal{Y}}}<br>$$</p>
-<p>对关联巴拿赫空间 $\mathcal{B} _{\mathcal{X}}$ 和 $\mathcal{B} _{\mathcal{Y}}$ 中的所有函数成立。</p>
+<p><strong>性质4：再生性</strong><br>该核是一对再生核巴拿赫空间（RKBS）的<strong>再生核</strong>，满足：<br>$$f(t) &#x3D; \langle f, \kappa(\cdot, s) \rangle _{\mathcal{B} _{\mathcal{X}} \times \mathcal{B} _{\mathcal{Y}}}$$<br>对关联巴拿赫空间 $\mathcal{B} _{\mathcal{X}}$ 和 $\mathcal{B} _{\mathcal{Y}}$ 中的所有函数成立。</p>
 </blockquote>
 <p>该核诱导出<strong>一对再生核巴拿赫空间</strong>：</p>
-<p><strong>查询空间：</strong></p>
-<p>$$<br>\mathcal{B} _{\mathcal{X}} &#x3D; \left\lbrace f _{\mathbf{k}}(t) &#x3D; \exp\left((W^Q t)^\top \mathbf{k} &#x2F; \sqrt{d}\right) : \mathbf{k} \in \mathcal{F} _{\mathcal{Y}}, t \in \mathcal{X} \right\rbrace<br>$$</p>
-<p><strong>键空间：</strong></p>
-<p>$$<br>\mathcal{B} _{\mathcal{Y}} &#x3D; \left\lbrace g _{\mathbf{q}}(s) &#x3D; \exp\left(\mathbf{q}^\top (W^K s) &#x2F; \sqrt{d}\right): \mathbf{q} \in \mathcal{F} _{\mathcal{X}}, s \in \mathcal{Y} \right\rbrace<br>$$</p>
-<p>其中 $\mathcal{F} _{\mathcal{X}}$ 和 $\mathcal{F} _{\mathcal{Y}}$ 是无限维特征空间。</p>
+<p><strong>查询空间：</strong><br>$$<br>\mathcal{B} _{\mathcal{X}} &#x3D; \left\lbrace f _{\mathbf{k}}(t) &#x3D; \exp\left((W^Q t)^\top \mathbf{k} &#x2F; \sqrt{d}\right) : \mathbf{k} \in \mathcal{F} _{\mathcal{Y}}, t \in \mathcal{X} \right\rbrace<br>$$<br><strong>键空间：</strong></p>
+<p>$$<br>\mathcal{B} _{\mathcal{Y}} &#x3D; \left\lbrace g _{\mathbf{q}}(s) &#x3D; \exp\left(\mathbf{q}^\top (W^K s) &#x2F; \sqrt{d}\right): \mathbf{q} \in \mathcal{F} _{\mathcal{X}}, s \in \mathcal{Y} \right\rbrace<br>$$<br>其中 $\mathcal{F} _{\mathcal{X}}$ 和 $\mathcal{F} _{\mathcal{Y}}$ 是无限维特征空间。</p>
 <h3 id="3-2-位置诱导注意力"><a href="#3-2-位置诱导注意力" class="headerlink" title="3.2. 位置诱导注意力"></a>3.2. 位置诱导注意力</h3><p>从本节开始，我们将探究算子学习中的经典架构，并从核学习的视角对其进行分析。第一个架构来自：《位置知识足矣：用于算子学习的位置诱导Transformer（PiT）》，论文链接：<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2405.09285">https://arxiv.org/abs/2405.09285</a>。</p>
 <p>PiT架构包含三个核心模块：编码器、处理器和解码器。这些模块共享的核心组件是<strong>位置诱导注意力</strong>，它与标准自注意力有本质区别：注意力权重仅由位置信息构建，而非特征相似度。</p>
-<h4 id="3-2-1-位置注意力公式"><a href="#3-2-1-位置注意力公式" class="headerlink" title="3.2.1. 位置注意力公式"></a>3.2.1. 位置注意力公式</h4><p>设 ${x_i} _{i&#x3D;1}^N \subset \mathbb{R}^d$ 为离散化点的空间坐标。位置注意力机制仅基于物理域中的点对距离定义注意力权重：</p>
-<p>$$<br>\alpha _{ij}&#x3D;\frac{\exp!\big(-\lambda |x_i - x_j|<em>2^2\big)} {\sum</em>{k&#x3D;1}^N \exp!\big(-\lambda |x_i - x_k|_2^2\big)}<br>$$</p>
-<p>其中 $\lambda &gt; 0$ 控制交互作用的局部性。</p>
-<p>给定输入特征 $u_j$，注意力输出为：</p>
-<p>$$<br>(\mathcal A u)(x_i)&#x3D;\sum_{j&#x3D;1}^N \alpha_{ij}, Wu_j<br>$$</p>
-<p>其中 $W$ 是可学习矩阵。</p>
-<h4 id="3-2-2-核函数解释"><a href="#3-2-2-核函数解释" class="headerlink" title="3.2.2. 核函数解释"></a>3.2.2. 核函数解释</h4><p>从算子学习的视角，位置注意力可以被解释为带核积分算子的离散化形式：</p>
-<p>$$<br>\kappa(x,y)&#x3D;\frac{\exp!\big(-\lambda |x-y|_2^2\big)}{\int _\Omega \exp!\big(-\lambda |x-\xi|_2^2\big), d\xi}<br>$$</p>
-<p>该核对应<strong>归一化指数核</strong>，其中相似度函数定义为：</p>
-<p>$$<br>s(x,y) &#x3D; -\lambda |x-y|_2^2<br>$$</p>
-<p>该形式对应<strong>高斯核</strong>。若将相似度函数替换为内积 $s(x,y) &#x3D; \langle x, y \rangle$，该公式将退化为标准点积注意力（无Softmax）。</p>
+<h4 id="3-2-1-位置注意力公式"><a href="#3-2-1-位置注意力公式" class="headerlink" title="3.2.1. 位置注意力公式"></a>3.2.1. 位置注意力公式</h4><p>设 ${x_i} _{i&#x3D;1}^N \subset \mathbb{R}^d$ 为离散化点的空间坐标。位置注意力机制仅基于物理域中的点对距离定义注意力权重：<br>$$<br>\alpha _{ij}&#x3D;\frac{\exp!\big(-\lambda |x_i - x_j|<em>2^2\big)} {\sum</em>{k&#x3D;1}^N \exp!\big(-\lambda |x_i - x_k|_2^2\big)}<br>$$</p>
+<p>其中 $\lambda &gt; 0$ 控制交互作用的局部性。<br>给定输入特征 $u_j$，注意力输出为：<br>$$<br>(\mathcal A u)(x_i)&#x3D;\sum_{j&#x3D;1}^N \alpha_{ij}, Wu_j<br>$$<br>其中 $W$ 是可学习矩阵。</p>
+<h4 id="3-2-2-核函数解释"><a href="#3-2-2-核函数解释" class="headerlink" title="3.2.2. 核函数解释"></a>3.2.2. 核函数解释</h4><p>从算子学习的视角，位置注意力可以被解释为带核积分算子的离散化形式：<br>$$<br>\kappa(x,y)&#x3D;\frac{\exp!\big(-\lambda |x-y|_2^2\big)}{\int _\Omega \exp!\big(-\lambda |x-\xi|_2^2\big), d\xi}<br>$$<br>该核对应<strong>归一化指数核</strong>，其中相似度函数定义为：<br>$$<br>s(x,y) &#x3D; -\lambda |x-y|_2^2<br>$$<br>该形式对应<strong>高斯核</strong>。若将相似度函数替换为内积 $s(x,y) &#x3D; \langle x, y \rangle$，该公式将退化为标准点积注意力（无Softmax）。</p>
 <h4 id="3-2-3-不变性"><a href="#3-2-3-不变性" class="headerlink" title="3.2.3. 不变性"></a>3.2.3. 不变性</h4><p>高斯核 $\kappa(x,y) &#x3D; \exp(-\lambda |x-y|_2^2)$ 具备多项重要的对称性质：</p>
-<p><strong>平移不变性：</strong></p>
-<p>$$<br>\kappa(x+a, y+a) &#x3D; \kappa(x,y), \quad \forall a \in \mathbb{R}^d.<br>$$</p>
-<p><strong>旋转不变性：</strong></p>
-<p>$$<br>\kappa(Rx, Ry) &#x3D; \kappa(x,y), \quad \forall R \in SO(d).<br>$$</p>
-<p>这些不变性与大量物理算子的对称性高度契合，尤其适用于各向同性偏微分方程。从这个角度来看，PiT模型优异的实验效果部分归功于核结构带来的归纳偏置。</p>
-<h4 id="3-2-4-频域解释"><a href="#3-2-4-频域解释" class="headerlink" title="3.2.4. 频域解释"></a>3.2.4. 频域解释</h4><p>高斯核在频域中有清晰的物理意义，其傅里叶变换满足：</p>
-<p>$$<br>\widehat{\kappa}(\omega)\propto\exp!\Big(-\frac{|\omega|_2^2}{4\lambda}\Big),<br>$$</p>
-<p>该变换在高频段快速衰减。</p>
-<p>因此，位置注意力等价于一个<strong>低通滤波器</strong>，能够抑制高频分量，保留平滑的大尺度结构。这一特性与大量椭圆型、抛物型偏微分方程解算子的谱特性一致，这类算子本身具有平滑作用。</p>
+<p><strong>平移不变性：</strong><br>$$<br>\kappa(x+a, y+a) &#x3D; \kappa(x,y), \quad \forall a \in \mathbb{R}^d.<br>$$</p>
+<p><strong>旋转不变性：</strong><br>$$<br>\kappa(Rx, Ry) &#x3D; \kappa(x,y), \quad \forall R \in SO(d).<br>$$<br>这些不变性与大量物理算子的对称性高度契合，尤其适用于各向同性偏微分方程。从这个角度来看，PiT模型优异的实验效果部分归功于核结构带来的归纳偏置。</p>
+<h4 id="3-2-4-频域解释"><a href="#3-2-4-频域解释" class="headerlink" title="3.2.4. 频域解释"></a>3.2.4. 频域解释</h4><p>高斯核在频域中有清晰的物理意义，其傅里叶变换满足：<br>$$<br>\widehat{\kappa}(\omega)\propto\exp!\Big(-\frac{|\omega|_2^2}{4\lambda}\Big),<br>$$</p>
+<p>该变换在高频段快速衰减。<br>因此，位置注意力等价于一个<strong>低通滤波器</strong>，能够抑制高频分量，保留平滑的大尺度结构。这一特性与大量椭圆型、抛物型偏微分方程解算子的谱特性一致，这类算子本身具有平滑作用。</p>
 <h4 id="3-2-5-局限性与潜在失效场景"><a href="#3-2-5-局限性与潜在失效场景" class="headerlink" title="3.2.5. 局限性与潜在失效场景"></a>3.2.5. 局限性与潜在失效场景</h4><p>尽管高斯核的偏置对平滑算子十分有利，但它也存在固有局限性。具体而言，位置注意力在以下场景中效果会显著下降：</p>
 <ul>
 <li>算子保留或放大高频分量时；</li>
