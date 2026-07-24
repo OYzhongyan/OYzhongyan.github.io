@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="zhongyan ouyang">
+
+
+
+
+    <meta name="keywords" content="AI4PDE">
+
+
+<title>Al As A Future Science | OYZY</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+            <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+        
+    
+
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const pagebody = document.getElementsByTagName('body')[0]
+
+            function setTheme(status) {
+
+                if (status === 'dark') {
+                    window.sessionStorage.theme = 'dark'
+                    pagebody.classList.add('dark-theme');
+
+                } else if (status === 'light') {
+                    window.sessionStorage.theme = 'light'
+                    pagebody.classList.remove('dark-theme');
+                }
+            };
+
+            setTheme(window.sessionStorage.theme)
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">OYZY&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                <a class="menu-item" href="/archives">Posts</a>
+                
+                <a class="menu-item" href="/category">Categories</a>
+                
+                <a class="menu-item" href="/about">About</a>
+                
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">OYZY&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">
+                    <svg class="menu-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="currentColor" d="M4.5 17.27q-.213 0-.356-.145T4 16.768t.144-.356t.356-.143h15q.213 0 .356.144q.144.144.144.357t-.144.356t-.356.143zm0-4.77q-.213 0-.356-.144T4 11.999t.144-.356t.356-.143h15q.213 0 .356.144t.144.357t-.144.356t-.356.143zm0-4.77q-.213 0-.356-.143Q4 7.443 4 7.23t.144-.356t.356-.143h15q.213 0 .356.144T20 7.23t-.144.356t-.356.144z"/></svg>
+                    <svg class="close-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><!-- Icon from Material Symbols Light by Google - https://github.com/google/material-design-icons/blob/master/LICENSE --><path fill="currentColor" d="m12 12.708l-5.246 5.246q-.14.14-.344.15t-.364-.15t-.16-.354t.16-.354L11.292 12L6.046 6.754q-.14-.14-.15-.344t.15-.364t.354-.16t.354.16L12 11.292l5.246-5.246q.14-.14.345-.15q.203-.01.363.15t.16.354t-.16.354L12.708 12l5.246 5.246q.14.14.15.345q.01.203-.15.363t-.354.16t-.354-.16z"/></svg>
+                </div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                <a class="menu-item" href="/archives">Posts</a>
+                
+                <a class="menu-item" href="/category">Categories</a>
+                
+                <a class="menu-item" href="/about">About</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if (toggleMenu.classList.contains("active")) {
+            toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        } else {
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Al As A Future Science</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">zhongyan ouyang</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">July 22, 2026&nbsp;&nbsp;0:00:00</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>本文是2026年7月21日 Openmind 罗军老师在SII的讲座笔记，深受启发，在此共勉。</p>
+<h1 id="Some-Basic-Questions-of-AI"><a href="#Some-Basic-Questions-of-AI" class="headerlink" title="Some Basic Questions of AI"></a>Some Basic Questions of AI</h1><p>现在的 AI 还不是科学，更像是一种 Current Alchemy。就像 Newton 被称为“最后一个炼金术师”，今天的 AI 研究也处在一种工程、哲学和科学尚未完全分化的状态中。</p>
+<p>一个最基本的问题是：Why do we want to do AI research?</p>
+<p>Presenter’s answer: love the world.</p>
+<p>如果 having a mind &#x3D;&#x3D; having a world，那么 mind 也意味着一种 ability to love the world。由此可以区分两种 AI 的意义：</p>
+<blockquote>
+<p>AI as science &#x3D;&gt; understanding the mind<br>AI as engineering &#x3D;&gt; constructing minds</p>
+</blockquote>
+<h2 id="Q1-If-intelligence-is-the-solution-what-is-the-problem"><a href="#Q1-If-intelligence-is-the-solution-what-is-the-problem" class="headerlink" title="Q1: If intelligence is the solution, what is the problem?"></a>Q1: If intelligence is the solution, what is the problem?</h2><p>The presenter’s answer:</p>
+<blockquote>
+<p>In the big world, what an agent cares about is there and then, but what the agent can act on is here and now.</p>
+</blockquote>
+<p>这就是局部性问题。例如图灵机、物理系统、具身智能体都必须在“此时此地”行动，但它们关心的对象往往在“彼时彼地”。</p>
+<p>因此，一个相关的问题是：why does intelligence need wires?</p>
+<p>关键在于缩短线路，保护按 $1&#x2F;r^2$ 衰减的信号不被淹没，尽可能拉近“彼时彼地”和“此时此地”。</p>
+<blockquote>
+<p>“寻址”：虚拟的“连线”<br>“存储”：跨时间的“连线”</p>
+</blockquote>
+<p>从这个角度看，强化学习可以被理解为一种 learning to time travel：通过学习价值预测，让系统能够在当下行动时考虑未来结果。</p>
+<p>但这也引出另一个问题：why do agents need representations?</p>
+<p>实际的系统一定存在于时间之中。一个 agent 要在 here and now 行动，却关心 there and then，就不能停留在最基本的物质层面，因为基本物质层面缺乏可重复、可稳定调用的结构。因此，表征的作用就是在时间中建立可以重复使用的结构。</p>
+<p>AI 还不是科学的根本原因，也许在于我们缺乏一种数学语言，能够描述时间延续层面的空间结构的一致表征。也就是说，在一个丰富广阔的世界里，系统需要以恰当的抽象来应对物理上的分离。</p>
+<p>这里还涉及规范性：对自己和他者提出要求。一个系统不仅要感知和运动，还要对自己以及外在世界负责任。但这个“责任”的概念，目前还没有清晰的数学语言来描述。</p>
+<p>于是问题变成：什么是正确的学习？</p>
+<p>AI 的发展也许可以被看作这样一条路径：</p>
+<blockquote>
+<p>Passive AI（工具性 AI）<br>-&gt; Interactive AI（互动性 AI）<br>-&gt; Proactive AI  (主动性AI，有好奇心，会主观地改造环境)<br>-&gt; Normative AI  (规范性AI，具身性出现，对自己和他人负责)<br>-&gt; Objective AI（客观性 AI，相当于人类历史发展到轴心时代）</p>
+</blockquote>
+<p>问题意识非常重要。如果从 2026 到 2062 的 36 年里，我们都只是在完善大语言模型，那么 so?</p>
+<h2 id="Q2-具身如何是人工智能里的第一性原理？"><a href="#Q2-具身如何是人工智能里的第一性原理？" class="headerlink" title="Q2: 具身如何是人工智能里的第一性原理？"></a>Q2: 具身如何是人工智能里的第一性原理？</h2><p>因为计算机里面没有数，只有数字；只有符号，没有符号之间的关系。</p>
+<p>进一步说：</p>
+<p>因为计算机里面没有数字，只有比特。<br>因为计算机里面没有比特，只有稳定的高低电压。<br>因为计算机里面没有稳定的高低电压，只有不断变化的电磁场。</p>
+<p>也就是说，计算机并没有真正对自己的结构负责。</p>
+<p>Mind is embodied and embedded. 身体和大脑都嵌入在真实世界中。只有当计算系统开始对自身与真实世界的嵌入方式负责时，才真正谈得上具身。</p>
+<p>因此，RL 架构的具身化，要求逻辑抽象接口必须与实际真实世界相嵌入。</p>
+<p>所谓第一性，也许可以表达为：</p>
+<blockquote>
+<p>成功 &#x3D;&gt; 无标定的机器人系统</p>
+</blockquote>
+<p>现今的机器人高度依赖人类提供的时间和空间坐标系标定。而具身，可能正是未来 AI 科学的基础架构。</p>
+<h2 id="Q3-深度学习为何有效？"><a href="#Q3-深度学习为何有效？" class="headerlink" title="Q3: 深度学习为何有效？"></a>Q3: 深度学习为何有效？</h2><p>心智是系统与世界之间的关系。压缩数据当然有用，但它无法回答系统与世界之间的关系问题。</p>
+<p>深度学习是一种分布式表征，但当前理论仍然弱小。为什么深度学习的理论迟迟没有真正建立起来？也许过去 300 到 400 年的某些数学思想本身就存在局限。</p>
+<p>可能的方向有两个：</p>
+<ol>
+<li>adaptive temporal abstraction as core of agency（能动性的来源）</li>
+<li>相位化协调作为感知运动能力的核心</li>
+</ol>
+<p>其中一个挑战是：用细胞集群的相位序列来表征和计算。例如，一个“起身”的动作，可能是由大量神经元之间的时间差来完成表征和计算，而不是像计算机那样依赖主频时间步来计算。</p>
+<p>Hopfield 和 Hinton 也许并没有完成他们真正想要完成的事情。更值得关注的方向可能是：</p>
+<blockquote>
+<p>event computing (事件计算) as emphasized coordination</p>
+</blockquote>
+<p>这里还有一个问题：分布是学习的结果吗？信息论是否已经预设了分布？</p>
+<h2 id="Q4-抽象结构的主要源泉是什么？"><a href="#Q4-抽象结构的主要源泉是什么？" class="headerlink" title="Q4: 抽象结构的主要源泉是什么？"></a>Q4: 抽象结构的主要源泉是什么？</h2><p>Direction: 社会文化环境才是抽象结构的主要来源。</p>
+<p>挑战是：demonstrate that “reward is enough” only if the society is wise enough.</p>
+<p>也就是说，reward 是否足够，取决于 reward 所嵌入的社会文化环境是否足够智慧。</p>
+<h2 id="Q5-什么重要，什么是我们？"><a href="#Q5-什么重要，什么是我们？" class="headerlink" title="Q5: 什么重要，什么是我们？"></a>Q5: 什么重要，什么是我们？</h2><p>Direction: 我们作为世界的一部分，从世界之中发现什么是重要的。</p>
+<p>挑战在于：如何规范性地成就我们大家，使我们成为在世间的爱世界者。</p>
+<p>所谓爱世界，也许不是抽象地爱一个外部对象，而是爱到 TA 的世界层。</p>
+<h2 id="Q6-我们需要什么样的数学？"><a href="#Q6-我们需要什么样的数学？" class="headerlink" title="Q6: 我们需要什么样的数学？"></a>Q6: 我们需要什么样的数学？</h2><p>Occurrence 很重要。</p>
+<p>也许我们需要一种能够描述 occurrence、num-occurrence、时间结构和感知运动过程的数学。</p>
+<p>脉冲神经网络和Topos理论可能是一个方向。</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>zhongyan ouyang</span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>Permalink:</span>
+                        <span><a href="http://example.com/2026/07/22/some-basic-question-of-AI/">http://example.com/2026/07/22/some-basic-question-of-AI/</a></span>
+                    </p>
+                
+                
+                    <p class="copyright-item">
+                        <span>License:</span>
+                        <span>Copyright (c) 2019 <a target="_blank" rel="noopener" href="http://creativecommons.org/licenses/by-nc/4.0/">CC-BY-NC-4.0</a> LICENSE</span>
+                    </p>
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2026/07/05/why-topology/">Why Topology</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© zhongyan ouyang | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>
