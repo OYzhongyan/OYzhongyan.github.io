@@ -1,0 +1,172 @@
+import type { ParsedBibEntry, Publication, PublicationType } from "@/types/publication";
+
+/**
+ * 轻量级 BibTeX 解析器：处理 @type{key, fields} 结构，支持嵌套花括号。
+ */
+export function parseBibtex(bib: string): ParsedBibEntry[] {
+  const entries: ParsedBibEntry[] = [];
+  let i = 0;
+  const n = bib.length;
+
+  while (i < n) {
+    // 找到下一个 @
+    const at = bib.indexOf("@", i);
+    if (at < 0) break;
+    i = at + 1;
+
+    // 读取 type（直到 {）
+    const braceOpen = bib.indexOf("{", i);
+    if (braceOpen < 0) break;
+    const type = bib.slice(i, braceOpen).trim().toLowerCase();
+
+    // 读取 key（直到 ,）
+    let j = braceOpen + 1;
+    const comma = bib.indexOf(",", j);
+    if (comma < 0) break;
+    const key = bib.slice(j, comma).trim();
+    j = comma + 1;
+
+    // 找到匹配的右大括号（考虑嵌套）
+    let depth = 1;
+    let k = j;
+    while (k < n && depth > 0) {
+      const c = bib[k];
+      if (c === "{") depth++;
+      else if (c === "}") depth--;
+      if (depth === 0) break;
+      k++;
+    }
+    if (k >= n) break;
+    const body = bib.slice(j, k);
+
+    // 解析 fields
+    const fields = parseFields(body);
+    entries.push({ key, type, fields });
+
+    i = k + 1;
+  }
+
+  return entries;
+}
+
+function parseFields(body: string): Record<string, string> {
+  const fields: Record<string, string> = {};
+  let i = 0;
+  const n = body.length;
+
+  while (i < n) {
+    // 跳过空白与逗号
+    while (i < n && /[\s,]/.test(body[i])) i++;
+    if (i >= n) break;
+
+    // 读取字段名
+    const nameStart = i;
+    while (i < n && /[\w-]/.test(body[i])) i++;
+    const name = body.slice(nameStart, i).toLowerCase();
+    if (!name) break;
+
+    // 跳过空白与 =
+    while (i < n && /[\s=]/.test(body[i])) i++;
+    if (i >= n) break;
+
+    // 读取值
+    const { value, end } = readValue(body, i);
+    if (name) fields[name] = value;
+    i = end;
+  }
+
+  return fields;
+}
+
+function readValue(s: string, start: number): { value: string; end: number } {
+  const n = s.length;
+  let i = start;
+  if (i >= n) return { value: "", end: i };
+
+  // 花括号包裹
+  if (s[i] === "{") {
+    let depth = 1;
+    let j = i + 1;
+    const inner: string[] = [];
+    while (j < n && depth > 0) {
+      const c = s[j];
+      if (c === "{") depth++;
+      else if (c === "}") {
+        depth--;
+        if (depth === 0) break;
+      }
+      inner.push(c);
+      j++;
+    }
+    return { value: inner.join("").trim(), end: j + 1 };
+  }
+
+  // 引号包裹
+  if (s[i] === '"') {
+    let j = i + 1;
+    const inner: string[] = [];
+    while (j < n && s[j] !== '"') {
+      inner.push(s[j]);
+      j++;
+    }
+    return { value: inner.join("").trim(), end: j + 1 };
+  }
+
+  // 裸值（直到逗号）
+  let j = i;
+  while (j < n && s[j] !== ",") j++;
+  return { value: s.slice(i, j).trim(), end: j };
+}
+
+function mapType(bibType: string): PublicationType {
+  switch (bibType.toLowerCase()) {
+    case "article":
+      return "journal";
+    case "inproceedings":
+    case "conference":
+      return "conference";
+    case "misc":
+    case "unpublished":
+    case "techreport":
+      return "preprint";
+    default:
+      return "other";
+  }
+}
+
+export function toPublication(entry: ParsedBibEntry): Publication {
+  const f = entry.fields;
+  const authors = (f.author || "")
+    .split(/\s+and\s+/)
+    .map((a) => a.trim())
+    .filter(Boolean);
+
+  // 处理 LaTeX 转义：去掉命令前的反斜杠，把 {X} 简化为 X
+  const cleanTitle = (f.title || "Untitled")
+    .replace(/\\\w+\{(.*?)\}/g, "$1")
+    .replace(/\\\W/g, "")
+    .replace(/\{([^{}]*)\}/g, "$1")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  return {
+    key: entry.key,
+    type: f.type ? (f.type as PublicationType) : mapType(entry.type),
+    title: cleanTitle,
+    authors,
+    year: Number(f.year) || 0,
+    journal: f.journal,
+    booktitle: f.booktitle,
+    volume: f.volume,
+    number: f.number,
+    pages: f.pages,
+    doi: f.doi,
+    eprint: f.eprint,
+    archivePrefix: f.archiveprefix,
+    selected: f.selected === "true",
+  };
+}
+
+export function parseBibtexToPublications(bib: string): Publication[] {
+  return parseBibtex(bib).map(toPublication);
+}
