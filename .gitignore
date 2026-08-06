@@ -34,17 +34,5 @@ next-env.d.ts
 .vscode/
 .idea/
 
-# 旧 Hexo 博客残留（暂保留以便内容迁移，迁移完成后可手动删除目录）
-/_config.yml
-/_config.landscape.yml
-/scaffolds/
-/themes/
-/source/
-/db.json
-/.deploy_git/
-
 # Trae 开发文档（PRD、技术架构等内部文档）
 /.trae/
-
-# 旧 Hexo node_modules（如果存在）
-/node_modules_old/
