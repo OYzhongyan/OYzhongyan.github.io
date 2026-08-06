@@ -1,28 +1,6 @@
 [
   {
-    "date": "2026-08-01",
-    "type": "paper",
-    "title": "关于 XXZ 模型中二阶 Renyi 熵标度的论文被 J. Phys. A 接收",
-    "url": "/research/"
-  },
-  {
-    "date": "2026-06-15",
-    "type": "talk",
-    "title": "在 DPAMS 研讨会上作关于张量网络与机器学习交叉的报告"
-  },
-  {
-    "date": "2026-04-20",
-    "type": "update",
-    "title": "更新了 MPS 算法库的开源代码，新增 DMRG 并行实现"
-  },
-  {
-    "date": "2026-02-10",
-    "type": "paper",
-    "title": "预印本上传至 arXiv: Neural Network States Meet Quantum Criticality",
-    "url": "/research/"
-  },
-  {
-    "date": "2025-12-01",
+    "date": "2026-08-06",
     "type": "update",
     "title": "本主页正式上线，开始记录研究笔记"
   }
