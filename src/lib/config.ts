@@ -6,7 +6,7 @@ export const siteConfig = {
   author: {
     name: "Zhongyan Ouyang",
     displayName: "OYZY",
-    title: "HIT SII 博士研究生",
+    title: "HIT, SII 博士研究生",
     avatar: "/nnq.png",
     bio: "",
     email: "2063930662@qq.com",
@@ -19,8 +19,8 @@ export const siteConfig = {
   },
 
   researchInterests: [
-    "Aritificial Intelligence (to understand mind and intelligence)",
-    "Scientific Computing (to simulate physical systems)",
+    "Aritificial Intelligence",
+    "Scientific Computing",
   ],
 
   navigation: [
