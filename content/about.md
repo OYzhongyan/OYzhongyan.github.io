@@ -2,9 +2,7 @@
 
 你好，欢迎来到我的个人学术主页。
 
-我是一名AI方向的研究者，喜欢观察和思考一些问题，such as：
- - How to understand mind and intelligence
- - How to simulate physical systems with minimal overhead without losing accuracy
+我是一名AI方向的研究者，喜欢观察和思考一些问题
 
 ## 联系方式
 
