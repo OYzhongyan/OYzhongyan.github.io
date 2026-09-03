@@ -1,13 +1,13 @@
-# 关于博主
+# About Me
 
-你好，欢迎来到我的个人学术主页。
+Hello, welcome to my personal academic homepage.
 
-我是一名AI方向的研究者，喜欢观察和思考一些问题
+I am a researcher in the field of AI, I like to observe and think about some problems.
 
-## 联系方式
+## Contact
 
 - 📧 Email: `2063930662@qq.com`
 - 🐙 GitHub: [@OYzhongyan](https://github.com/OYzhongyan)
 - 🆔 ORCID: [0009-0006-8930-7085](https://orcid.org/0009-0006-8930-7085)
 
-> 如果你对我的研究方向感兴趣，欢迎在博客帖子下方留言或点赞，也欢迎邮件交流。
+If you are interested in my research direction, welcome to leave a comment or like the blog posts, or welcome to email me.

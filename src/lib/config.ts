@@ -1,12 +1,12 @@
 export const siteConfig = {
   title: "myBlog",
-  description: "个人学术主页",
+  description: "Personal Academic Homepage",
   url: "https://example.com",
 
   author: {
     name: "Zhongyan Ouyang",
     displayName: "OYZY",
-    title: "HIT, SII 博士研究生",
+    title: "HIT, SII PhD Student",
     avatar: "/nnq.png",
     bio: "",
     email: "2063930662@qq.com",
@@ -23,9 +23,9 @@ export const siteConfig = {
   ],
 
   navigation: [
-    { title: "关于", href: "/" },
-    { title: "研究", href: "/research" },
-    { title: "博客", href: "/blog" },
+    { title: "About", href: "/" },
+    { title: "Research", href: "/research" },
+    { title: "Blog", href: "/blog" },
   ],
 } as const;
 
