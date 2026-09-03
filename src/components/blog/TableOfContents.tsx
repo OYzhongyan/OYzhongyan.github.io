@@ -45,7 +45,7 @@ export function TableOfContents({ items }: TableOfContentsProps) {
         <div className="flex items-center gap-2 mb-3">
           <ListTree className="h-3.5 w-3.5 text-accent" />
           <span className="text-xs font-semibold uppercase tracking-wider text-neutral-500">
-            目录
+            Contents
           </span>
         </div>
         <nav className="space-y-0.5">

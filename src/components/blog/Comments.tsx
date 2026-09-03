@@ -10,7 +10,7 @@ interface CommentsProps {
   slug: string;
 }
 
-// 仓库信息：用户主页仓库，部署到根路径
+// Repository info: user homepage repo, deployed to root path
 const GISCUS_REPO = "OYzhongyan/OYzhongyan.github.io";
 const GISCUS_REPO_ID = "R_kgDOQ_y_3Q";
 const GISCUS_CATEGORY = "Announcements";
@@ -22,19 +22,19 @@ export function Comments({ slug }: CommentsProps) {
 
   useEffect(() => setMounted(true), []);
 
-  // 映射到 Giscus 主题：亮色用 light，暗色用 dark_dimmed（更适合墨色主题）
+  // Map to Giscus theme: light for light mode, dark_dimmed for dark mode (better with ink theme)
   const giscusTheme =
     resolvedTheme === "dark" ? "dark_dimmed" : "light";
 
-  // 避免水合不一致：未挂载时先渲染占位骨架
+  // Avoid hydration mismatch: render placeholder skeleton before mounted
   if (!mounted) {
     return (
       <section className="paper-card p-6 lg:p-8">
         <div className="flex items-center gap-2 mb-6">
           <MessageSquare className="h-4 w-4 text-accent" />
           <h2 className="display-heading text-xl font-bold text-primary">
-            回复
-          </h2>
+            Comments
+        </h2>
         </div>
         <div className="h-48 animate-pulse rounded-lg bg-neutral-100 dark:bg-neutral-800/40" />
       </section>
@@ -52,7 +52,7 @@ export function Comments({ slug }: CommentsProps) {
       <div className="flex items-center gap-2 mb-6">
         <MessageSquare className="h-4 w-4 text-accent" />
         <h2 className="display-heading text-xl font-bold text-primary">
-          回复
+          Comments
         </h2>
       </div>
 
@@ -67,7 +67,7 @@ export function Comments({ slug }: CommentsProps) {
         emitMetadata="0"
         inputPosition="bottom"
         theme={giscusTheme}
-        lang="zh-CN"
+        lang="en"
         loading="lazy"
       />
     </motion.section>

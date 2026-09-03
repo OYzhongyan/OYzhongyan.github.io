@@ -9,14 +9,14 @@ export default function NotFound() {
           404
         </div>
         <h1 className="display-heading text-2xl font-bold text-primary mb-3">
-          页面未找到
+          Page Not Found
         </h1>
         <p className="text-sm text-neutral-500 mb-8 max-w-md">
-          你访问的页面可能已被移动或从未存在。回到首页继续探索吧。
+          The page you are looking for may have been moved or never existed. Head back home to continue exploring.
         </p>
         <Link href="/" className="btn-primary">
           <Home className="h-4 w-4" />
-          返回首页
+          Back Home
         </Link>
       </div>
     </div>

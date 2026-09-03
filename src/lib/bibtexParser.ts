@@ -1,7 +1,7 @@
 import type { ParsedBibEntry, Publication, PublicationType } from "@/types/publication";
 
 /**
- * 轻量级 BibTeX 解析器：处理 @type{key, fields} 结构，支持嵌套花括号。
+ * Lightweight BibTeX parser: handles @type{key, fields} structure with nested braces.
  */
 export function parseBibtex(bib: string): ParsedBibEntry[] {
   const entries: ParsedBibEntry[] = [];
@@ -9,24 +9,24 @@ export function parseBibtex(bib: string): ParsedBibEntry[] {
   const n = bib.length;
 
   while (i < n) {
-    // 找到下一个 @
+    // Find next @
     const at = bib.indexOf("@", i);
     if (at < 0) break;
     i = at + 1;
 
-    // 读取 type（直到 {）
+    // Read type (until {)
     const braceOpen = bib.indexOf("{", i);
     if (braceOpen < 0) break;
     const type = bib.slice(i, braceOpen).trim().toLowerCase();
 
-    // 读取 key（直到 ,）
+    // Read key (until ,)
     let j = braceOpen + 1;
     const comma = bib.indexOf(",", j);
     if (comma < 0) break;
     const key = bib.slice(j, comma).trim();
     j = comma + 1;
 
-    // 找到匹配的右大括号（考虑嵌套）
+    // Find matching closing brace (handle nesting)
     let depth = 1;
     let k = j;
     while (k < n && depth > 0) {
@@ -39,7 +39,7 @@ export function parseBibtex(bib: string): ParsedBibEntry[] {
     if (k >= n) break;
     const body = bib.slice(j, k);
 
-    // 解析 fields
+    // Parse fields
     const fields = parseFields(body);
     entries.push({ key, type, fields });
 
@@ -55,21 +55,21 @@ function parseFields(body: string): Record<string, string> {
   const n = body.length;
 
   while (i < n) {
-    // 跳过空白与逗号
+    // Skip whitespace and commas
     while (i < n && /[\s,]/.test(body[i])) i++;
     if (i >= n) break;
 
-    // 读取字段名
+    // Read field name
     const nameStart = i;
     while (i < n && /[\w-]/.test(body[i])) i++;
     const name = body.slice(nameStart, i).toLowerCase();
     if (!name) break;
 
-    // 跳过空白与 =
+    // Skip whitespace and =
     while (i < n && /[\s=]/.test(body[i])) i++;
     if (i >= n) break;
 
-    // 读取值
+    // Read value
     const { value, end } = readValue(body, i);
     if (name) fields[name] = value;
     i = end;
@@ -83,7 +83,7 @@ function readValue(s: string, start: number): { value: string; end: number } {
   let i = start;
   if (i >= n) return { value: "", end: i };
 
-  // 花括号包裹
+  // Brace-wrapped
   if (s[i] === "{") {
     let depth = 1;
     let j = i + 1;
@@ -101,7 +101,7 @@ function readValue(s: string, start: number): { value: string; end: number } {
     return { value: inner.join("").trim(), end: j + 1 };
   }
 
-  // 引号包裹
+  // Quote-wrapped
   if (s[i] === '"') {
     let j = i + 1;
     const inner: string[] = [];
@@ -112,7 +112,7 @@ function readValue(s: string, start: number): { value: string; end: number } {
     return { value: inner.join("").trim(), end: j + 1 };
   }
 
-  // 裸值（直到逗号）
+  // Bare value (until comma)
   let j = i;
   while (j < n && s[j] !== ",") j++;
   return { value: s.slice(i, j).trim(), end: j };
@@ -141,7 +141,7 @@ export function toPublication(entry: ParsedBibEntry): Publication {
     .map((a) => a.trim())
     .filter(Boolean);
 
-  // 处理 LaTeX 转义：去掉命令前的反斜杠，把 {X} 简化为 X
+  // Handle LaTeX escaping: remove backslash before commands, simplify {X} to X
   const cleanTitle = (f.title || "Untitled")
     .replace(/\\\w+\{(.*?)\}/g, "$1")
     .replace(/\\\W/g, "")

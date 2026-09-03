@@ -117,7 +117,7 @@ export function Navigation() {
               <ThemeToggle />
               <button
                 type="button"
-                aria-label="打开菜单"
+                aria-label="Open menu"
                 onClick={() => setMobileOpen(true)}
                 className="h-9 w-9 rounded-lg border border-neutral-200 dark:border-neutral-700 flex items-center justify-center hover:border-accent transition-colors"
               >
@@ -139,7 +139,7 @@ export function Navigation() {
             <div className="flex justify-end p-4">
               <button
                 type="button"
-                aria-label="关闭菜单"
+                aria-label="Close menu"
                 onClick={() => setMobileOpen(false)}
                 className="h-9 w-9 rounded-lg border border-neutral-200 dark:border-neutral-700 flex items-center justify-center hover:border-accent transition-colors"
               >

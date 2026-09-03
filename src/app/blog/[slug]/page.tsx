@@ -17,7 +17,7 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const post = getPostBySlug(slug);
-  if (!post) return { title: "未找到" };
+  if (!post) return { title: "Not Found" };
   return {
     title: `${post.title} · ${siteConfig.author.displayName}`,
     description: post.abstract,

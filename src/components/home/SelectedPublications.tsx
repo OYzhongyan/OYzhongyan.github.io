@@ -29,13 +29,13 @@ export function SelectedPublications({
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-2">
           <BookOpen className="h-4 w-4 text-accent" />
-          <h2 className="display-heading text-xl font-bold text-primary">精选论文</h2>
+          <h2 className="display-heading text-xl font-bold text-primary">Selected Publications</h2>
         </div>
         <Link
           href="/research"
           className="text-xs text-neutral-500 hover:text-accent flex items-center gap-1 transition-colors"
         >
-          查看全部 <ArrowRight className="h-3 w-3" />
+          View All <ArrowRight className="h-3 w-3" />
         </Link>
       </div>
 

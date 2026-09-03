@@ -4,10 +4,10 @@ import Script from "next/script";
 import { useEffect } from "react";
 
 /**
- * MathJax v3 配置 + 加载。
- * - config 脚本 beforeInteractive
- * - mathjax.js afterInteractive（懒加载，避免阻塞首屏）
- * 主题切换时自动重新排版。
+ * MathJax v3 config + loading.
+ * - config script beforeInteractive
+ * - mathjax.js afterInteractive (lazy load to avoid blocking first paint)
+ * Auto re-typeset on theme change.
  */
 export function MathJaxProvider() {
   useEffect(() => {

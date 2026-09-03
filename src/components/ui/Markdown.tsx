@@ -8,10 +8,10 @@ import rehypeHighlight from "rehype-highlight";
 import { typesetMath } from "@/lib/mathjax";
 
 /* ============================================================
-   MathJax 占位符预处理
-   - 在 react-markdown 解析前，把 $$...$$ 与 $...$ 替换为 \uE000idx\uE001
-   - 占位符使用 private use area 字符，不会被 markdown 误解析
-   - 渲染时把占位符恢复为带 $ 包裹的文本节点（让 MathJax 扫描处理）
+   MathJax placeholder preprocessing
+   - Before react-markdown parsing, replace $$...$$ and $...$ with \uE000idx\uE001
+   - Placeholders use private use area characters, won't be mis-parsed by markdown
+   - During rendering, restore placeholders to $-wrapped text nodes for MathJax
    ============================================================ */
 
 interface MathExpr {
@@ -30,7 +30,7 @@ const PLACEHOLDER_CLOSE = "\uE001";
 function preprocessMath(md: string): PreprocessedMath {
   const expressions: MathExpr[] = [];
 
-  // 1. 暂存代码块与行内代码（不处理其中的公式）
+  // 1. Stash code blocks and inline code (don't process math inside)
   const codeBlocks: string[] = [];
   let text = md.replace(/```[\s\S]*?```/g, (m) => {
     const idx = codeBlocks.length;
@@ -44,28 +44,28 @@ function preprocessMath(md: string): PreprocessedMath {
     return `\uE004${idx}\uE005`;
   });
 
-  // 2. display math 优先（$$...$$）
+  // 2. Display math first ($$...$$)
   text = text.replace(/\$\$([\s\S]+?)\$\$/g, (_, expr: string) => {
     const idx = expressions.length;
     expressions.push({ raw: expr, display: true });
     return `${PLACEHOLDER_OPEN}${idx}${PLACEHOLDER_CLOSE}`;
   });
 
-  // 3. inline math（$...$），避免与 display 冲突；要求 $ 前面不是反斜杠
+  // 3. Inline math ($...$), avoid conflict with display; require $ not preceded by backslash
   text = text.replace(/(^|[^\\$])\$(?!\$)([^\$\n]+?)\$/g, (_m, pre: string, expr: string) => {
     const idx = expressions.length;
     expressions.push({ raw: expr, display: false });
     return `${pre}${PLACEHOLDER_OPEN}${idx}${PLACEHOLDER_CLOSE}`;
   });
 
-  // 4. 恢复代码
+  // 4. Restore code
   text = text.replace(/\uE004(\d+)\uE005/g, (_, i) => inlineCodes[Number(i)] ?? "");
   text = text.replace(/\uE002(\d+)\uE003/g, (_, i) => codeBlocks[Number(i)] ?? "");
 
   return { text, expressions };
 }
 
-/** 把字符串按占位符切分，返回 ReactNode 数组 */
+/** Split string by placeholders, return ReactNode array */
 function splitStringWithMath(s: string, expressions: MathExpr[]): ReactNode[] {
   const parts: ReactNode[] = [];
   const re = new RegExp(`${PLACEHOLDER_OPEN}(\\d+)${PLACEHOLDER_CLOSE}`, "g");
@@ -102,7 +102,7 @@ function splitStringWithMath(s: string, expressions: MathExpr[]): ReactNode[] {
   return parts;
 }
 
-/** 递归处理 React 节点，把字符串占位符替换为 MathJax span */
+/** Recursively walk React nodes, replace string placeholders with MathJax spans */
 function walkNodes(node: ReactNode, expressions: MathExpr[]): ReactNode {
   if (typeof node === "string") {
     return splitStringWithMath(node, expressions);

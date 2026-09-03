@@ -18,7 +18,7 @@ interface BlogPostClientProps {
 export function BlogPostClient({ post, toc }: BlogPostClientProps) {
   return (
     <article className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
-      {/* 返回链接 */}
+      {/* Back link */}
       <motion.div
         initial={{ opacity: 0, x: -10 }}
         animate={{ opacity: 1, x: 0 }}
@@ -29,14 +29,14 @@ export function BlogPostClient({ post, toc }: BlogPostClientProps) {
           className="inline-flex items-center gap-1 text-sm text-neutral-500 hover:text-accent transition-colors mb-8"
         >
           <ArrowLeft className="h-3.5 w-3.5" />
-          返回博客列表
+          Back to Blog
         </Link>
       </motion.div>
 
       <div className="grid grid-cols-1 xl:grid-cols-12 gap-10">
-        {/* 正文 */}
+        {/* Main content */}
         <div className="xl:col-span-9 min-w-0">
-          {/* 文章头部 */}
+          {/* Post header */}
           <motion.header
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -50,7 +50,7 @@ export function BlogPostClient({ post, toc }: BlogPostClientProps) {
               </span>
               <span className="flex items-center gap-1">
                 <Clock className="h-3 w-3" />
-                {post.readingTime} 分钟阅读
+                {post.readingTime} min read
               </span>
             </div>
             <h1 className="display-heading text-3xl lg:text-5xl font-bold text-primary leading-tight tracking-tight">
@@ -73,7 +73,7 @@ export function BlogPostClient({ post, toc }: BlogPostClientProps) {
             )}
           </motion.header>
 
-          {/* 正文 Markdown */}
+          {/* Markdown content */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -83,7 +83,7 @@ export function BlogPostClient({ post, toc }: BlogPostClientProps) {
             <Markdown content={post.content} />
           </motion.div>
 
-          {/* 点赞 */}
+          {/* Like */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -92,12 +92,12 @@ export function BlogPostClient({ post, toc }: BlogPostClientProps) {
             className="mt-12 pt-8 border-t border-neutral-200 dark:border-neutral-800 flex flex-col items-center"
           >
             <p className="text-xs uppercase tracking-wider text-neutral-500 mb-2">
-              如果觉得有帮助
+              Found this helpful?
             </p>
             <LikeButton slug={post.slug} />
           </motion.div>
 
-          {/* 回复区 */}
+          {/* Comments */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}

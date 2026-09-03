@@ -37,14 +37,14 @@ export function BlogList({ posts }: BlogListProps) {
         className="mb-10"
       >
         <h1 className="display-heading text-3xl lg:text-4xl font-bold text-primary mb-2">
-          博客
+          Blog
         </h1>
         <p className="text-sm text-neutral-500">
-          笔记、想法与未完成的推导。共 {posts.length} 篇。
+          Notes, ideas, and unfinished derivations. {posts.length} posts in total.
         </p>
       </motion.div>
 
-      {/* 标签云 */}
+      {/* Tag cloud */}
       {tags.length > 0 && (
         <div className="flex flex-wrap gap-2 mb-10">
           <button
@@ -57,7 +57,7 @@ export function BlogList({ posts }: BlogListProps) {
                 : "border-neutral-300 dark:border-neutral-700 text-neutral-600 dark:text-neutral-400 hover:border-accent hover:text-accent",
             )}
           >
-            全部
+            All
           </button>
           {tags.map(([tag, count]) => (
             <button
@@ -81,7 +81,7 @@ export function BlogList({ posts }: BlogListProps) {
         </div>
       )}
 
-      {/* 文章卡片 */}
+      {/* Post cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {filtered.map((post, i) => (
           <motion.div
@@ -95,11 +95,11 @@ export function BlogList({ posts }: BlogListProps) {
               href={`/blog/${post.slug}/`}
               className="group block h-full paper-card p-6 overflow-hidden relative"
             >
-              {/* 装饰角标 */}
+              {/* Decorative corner */}
               <div className="absolute top-0 right-0 w-20 h-20 -mr-10 -mt-10 rounded-full bg-accent/5 group-hover:bg-accent/10 transition-colors" />
 
               <div className="relative">
-                {/* 元信息 */}
+                {/* Meta info */}
                 <div className="flex items-center gap-3 text-xs text-neutral-500 mb-3">
                   <span className="flex items-center gap-1">
                     <Calendar className="h-3 w-3" />
@@ -107,21 +107,21 @@ export function BlogList({ posts }: BlogListProps) {
                   </span>
                   <span className="flex items-center gap-1">
                     <Clock className="h-3 w-3" />
-                    {post.readingTime} 分钟
+                    {post.readingTime} min
                   </span>
                 </div>
 
-                {/* 标题 */}
+                {/* Title */}
                 <h2 className="display-heading text-xl font-bold text-primary leading-snug mb-2 group-hover:text-accent transition-colors">
                   {post.title}
                 </h2>
 
-                {/* 摘要 */}
+                {/* Abstract */}
                 <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed mb-4 line-clamp-3">
                   {post.abstract}
                 </p>
 
-                {/* 标签 */}
+                {/* Tags */}
                 <div className="flex flex-wrap gap-1.5 mb-4">
                   {post.tags.map((tag) => (
                     <span key={tag} className="accent-chip">
@@ -130,9 +130,9 @@ export function BlogList({ posts }: BlogListProps) {
                   ))}
                 </div>
 
-                {/* 阅读更多 */}
+                {/* Read more */}
                 <div className="flex items-center gap-1 text-xs font-medium text-accent">
-                  阅读全文
+                  Read more
                   <ArrowRight className="h-3 w-3 group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>
@@ -142,7 +142,7 @@ export function BlogList({ posts }: BlogListProps) {
       </div>
 
       {filtered.length === 0 && (
-        <p className="text-center text-neutral-500 py-20">暂无符合条件的博文</p>
+        <p className="text-center text-neutral-500 py-20">No posts match this filter</p>
       )}
     </div>
   );

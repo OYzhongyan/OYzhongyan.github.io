@@ -4,7 +4,7 @@ import { loadPublicationsBib } from "@/lib/content";
 import { siteConfig } from "@/lib/config";
 
 export const metadata = {
-  title: `研究工作 · ${siteConfig.author.displayName}`,
+  title: `Research · ${siteConfig.author.displayName}`,
 };
 
 export default function ResearchPage() {

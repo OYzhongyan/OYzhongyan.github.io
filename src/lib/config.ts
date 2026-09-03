@@ -19,7 +19,7 @@ export const siteConfig = {
   },
 
   researchInterests: [
-    "Aritificial Intelligence",
+    "Artificial Intelligence",
   ],
 
   navigation: [

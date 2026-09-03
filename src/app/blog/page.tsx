@@ -3,7 +3,7 @@ import { getAllPosts } from "@/lib/blog";
 import { siteConfig } from "@/lib/config";
 
 export const metadata = {
-  title: `博客 · ${siteConfig.author.displayName}`,
+  title: `Blog · ${siteConfig.author.displayName}`,
 };
 
 export default function BlogIndexPage() {

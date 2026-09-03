@@ -23,7 +23,7 @@ export function ThemeToggle() {
     <button
       type="button"
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      aria-label={isDark ? "切换到亮色模式" : "切换到暗色模式"}
+      aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
       className="relative h-9 w-9 rounded-lg border border-neutral-200 dark:border-neutral-700 flex items-center justify-center overflow-hidden hover:border-accent transition-colors"
     >
       <motion.div

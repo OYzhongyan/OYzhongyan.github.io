@@ -4,7 +4,7 @@ export function cn(...inputs: ClassValue[]) {
   return clsx(inputs);
 }
 
-export function formatDate(dateStr: string, locale = "zh-CN"): string {
+export function formatDate(dateStr: string, locale = "en-US"): string {
   const d = new Date(dateStr);
   if (Number.isNaN(d.getTime())) return dateStr;
   return d.toLocaleDateString(locale, {
@@ -14,7 +14,7 @@ export function formatDate(dateStr: string, locale = "zh-CN"): string {
   });
 }
 
-export function formatDateShort(dateStr: string, locale = "zh-CN"): string {
+export function formatDateShort(dateStr: string, locale = "en-US"): string {
   const d = new Date(dateStr);
   if (Number.isNaN(d.getTime())) return dateStr;
   return d.toLocaleDateString(locale, {
@@ -25,7 +25,7 @@ export function formatDateShort(dateStr: string, locale = "zh-CN"): string {
 }
 
 export function estimateReadingTime(markdown: string): number {
-  // 中文按字符估算，英文按词估算的折中方案
+  // Estimate reading time based on character count
   const stripped = markdown
     .replace(/```[\s\S]*?```/g, "")
     .replace(/\$\$[\s\S]*?\$\$/g, "")

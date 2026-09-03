@@ -67,7 +67,7 @@ export function getAllTags(): { tag: string; count: number }[] {
     .sort((a, b) => b.count - a.count);
 }
 
-/** 从 markdown 正文中抽取 h2/h3 作为目录 */
+/** Extract h2/h3 from markdown body as table of contents */
 export function extractToc(markdown: string): TocItem[] {
   const lines = markdown.split("\n");
   const toc: TocItem[] = [];

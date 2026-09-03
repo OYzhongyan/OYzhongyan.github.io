@@ -25,20 +25,20 @@ const iconForType = (type: NewsItem["type"]) => {
 const labelForType = (type: NewsItem["type"]) => {
   switch (type) {
     case "paper":
-      return "论文";
+      return "Paper";
     case "talk":
-      return "报告";
+      return "Talk";
     case "update":
-      return "更新";
+      return "Update";
     default:
-      return "动态";
+      return "News";
   }
 };
 
 export function News({ items }: NewsProps) {
   if (items.length === 0) return null;
 
-  // 按年份分组
+  // Group by year
   const grouped: Record<string, NewsItem[]> = {};
   for (const item of items) {
     const y = item.date.slice(0, 4);
@@ -56,7 +56,7 @@ export function News({ items }: NewsProps) {
     >
       <div className="flex items-center gap-2 mb-6">
         <Bell className="h-4 w-4 text-accent" />
-        <h2 className="display-heading text-xl font-bold text-primary">最新动态</h2>
+        <h2 className="display-heading text-xl font-bold text-primary">Latest News</h2>
       </div>
 
       <div className="space-y-8">

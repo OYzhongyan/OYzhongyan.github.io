@@ -19,7 +19,7 @@ export function About({ content }: AboutProps) {
     >
       <div className="flex items-center gap-2 mb-4">
         <Feather className="h-4 w-4 text-accent" />
-        <h2 className="display-heading text-xl font-bold text-primary">关于</h2>
+        <h2 className="display-heading text-xl font-bold text-primary">About</h2>
       </div>
       <div className="blog-markdown">
         <Markdown content={content} />

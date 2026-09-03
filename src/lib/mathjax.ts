@@ -1,7 +1,7 @@
 /**
- * MathJax 工具集
- * - 预处理 markdown 中的 $...$ 与 $$...$$，避免被 react-markdown 误解析
- * - 渲染完成后通知 MathJax 重新排版
+ * MathJax utilities
+ * - Preprocess $...$ and $$...$$ in markdown to avoid react-markdown mis-parsing
+ * - Notify MathJax to re-typeset after rendering
  */
 
 declare global {
@@ -16,7 +16,7 @@ declare global {
   }
 }
 
-/** 等待 MathJax 就绪（最多 5 秒） */
+/** Wait for MathJax to be ready (up to 5 seconds) */
 export function waitForMathJax(timeout = 5000): Promise<void> {
   return new Promise((resolve) => {
     const start = Date.now();
@@ -35,14 +35,14 @@ export function waitForMathJax(timeout = 5000): Promise<void> {
   });
 }
 
-/** 触发 MathJax 重新排版指定区域 */
+/** Trigger MathJax re-typeset on specified elements */
 export async function typesetMath(elements?: HTMLElement[]): Promise<void> {
   if (typeof window === "undefined") return;
   await waitForMathJax();
   try {
     await window.MathJax?.typesetPromise?.(elements);
   } catch (e) {
-    // 忽略排版错误（如公式语法问题）
+    // Ignore typeset errors (e.g. formula syntax issues)
     console.warn("MathJax typeset error:", e);
   }
 }

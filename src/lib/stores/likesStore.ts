@@ -30,7 +30,7 @@ export const useLikesStore = create<LikesState>()(
   ),
 );
 
-/** 一篇博文的基础点赞数（伪随机但稳定，让计数看起来真实） */
+/** Base like count for a post (pseudo-random but stable) */
 export function baseLikeCount(slug: string): number {
   let h = 0;
   for (let i = 0; i < slug.length; i++) {

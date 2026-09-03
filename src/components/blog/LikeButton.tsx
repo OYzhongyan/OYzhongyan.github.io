@@ -32,7 +32,7 @@ export function LikeButton({ slug }: LikeButtonProps) {
       toggle(slug);
       return;
     }
-    // 生成 8 个粒子向四周飞散
+    // Generate 8 particles flying outward
     const ps: Particle[] = Array.from({ length: 8 }, (_, i) => ({
       id: Date.now() + i,
       angle: (i / 8) * Math.PI * 2 + Math.random() * 0.3,
@@ -48,7 +48,7 @@ export function LikeButton({ slug }: LikeButtonProps) {
       <button
         type="button"
         onClick={onClick}
-        aria-label={liked ? "取消点赞" : "点赞"}
+        aria-label={liked ? "Unlike" : "Like"}
         aria-pressed={liked}
         className={cn(
           "relative h-16 w-16 rounded-full flex items-center justify-center transition-all",
@@ -69,7 +69,7 @@ export function LikeButton({ slug }: LikeButtonProps) {
           />
         </motion.span>
 
-        {/* 粒子动效 */}
+        {/* Particle effect */}
         <AnimatePresence>
           {particles.map((p) => (
             <motion.span
@@ -102,11 +102,11 @@ export function LikeButton({ slug }: LikeButtonProps) {
           {count}
         </motion.span>
         <span className="text-xs text-neutral-500">
-          {liked ? "已点赞" : "点赞"}
+          {liked ? "Liked" : "Like"}
         </span>
       </div>
       <p className="text-xs text-neutral-400">
-        点赞数据本地保存于你的浏览器
+        Like data is stored locally in your browser
       </p>
     </div>
   );

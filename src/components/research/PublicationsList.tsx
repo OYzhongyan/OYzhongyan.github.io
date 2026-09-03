@@ -12,10 +12,10 @@ interface PublicationsListProps {
 }
 
 const FILTERS: { key: PublicationType | "all"; label: string }[] = [
-  { key: "all", label: "全部" },
-  { key: "journal", label: "期刊" },
-  { key: "conference", label: "会议" },
-  { key: "preprint", label: "预印本" },
+  { key: "all", label: "All" },
+  { key: "journal", label: "Journal" },
+  { key: "conference", label: "Conference" },
+  { key: "preprint", label: "Preprint" },
 ];
 
 export function PublicationsList({
@@ -26,7 +26,7 @@ export function PublicationsList({
 
   const filtered = useMemo(() => {
     const list = filter === "all" ? publications : publications.filter((p) => p.type === filter);
-    // 按年份倒序
+    // Sort by year descending
     return [...list].sort((a, b) => b.year - a.year);
   }, [filter, publications]);
 
@@ -51,15 +51,15 @@ export function PublicationsList({
         <div className="flex items-center gap-2 mb-2">
           <BookMarked className="h-5 w-5 text-accent" />
           <h1 className="display-heading text-3xl lg:text-4xl font-bold text-primary">
-            研究工作
+            Research
           </h1>
         </div>
         <p className="text-sm text-neutral-500">
-          共 {publications.length} 篇 · 按年份倒序排列
+          {publications.length} publications · sorted by year (newest first)
         </p>
       </motion.div>
 
-      {/* 筛选器 */}
+      {/* Filters */}
       <div className="flex flex-wrap gap-2 mb-10">
         {FILTERS.map((f) => (
           <button
@@ -158,7 +158,7 @@ export function PublicationsList({
                             </a>
                           )}
                           {pub.selected && (
-                            <span className="accent-chip">精选</span>
+                            <span className="accent-chip">Featured</span>
                           )}
                         </div>
                       </div>
@@ -169,7 +169,7 @@ export function PublicationsList({
             </div>
           ))}
           {grouped.length === 0 && (
-            <p className="text-center text-neutral-500 py-20">暂无该类型论文</p>
+            <p className="text-center text-neutral-500 py-20">No publications of this type</p>
           )}
         </motion.div>
       </AnimatePresence>

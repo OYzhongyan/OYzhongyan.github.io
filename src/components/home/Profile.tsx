@@ -16,7 +16,7 @@ export function Profile() {
       className="sticky top-24"
     >
       <div className="glass-card p-6 space-y-5">
-        {/* 头像 */}
+        {/* Avatar */}
         <div className="flex justify-center">
           <motion.div
             whileHover={{ scale: 1.04, rotate: 1 }}
@@ -33,7 +33,7 @@ export function Profile() {
           </motion.div>
         </div>
 
-        {/* 姓名 */}
+        {/* Name */}
         <div className="text-center space-y-1">
           <h2 className="display-heading text-2xl font-bold text-primary">
             {author.displayName}
@@ -41,15 +41,15 @@ export function Profile() {
           <p className="text-xs text-neutral-500 leading-relaxed">{author.title}</p>
         </div>
 
-        {/* 简介 */}
+        {/* Bio */}
         <p className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed text-center">
           {author.bio}
         </p>
 
-        {/* 研究兴趣 */}
+        {/* Research Interests */}
         <div className="space-y-2">
           <p className="text-xs font-semibold uppercase tracking-wider text-neutral-500">
-            研究兴趣
+            Research Interests
           </p>
           <div className="flex flex-wrap gap-1.5 justify-center">
             {researchInterests.map((tag) => (
@@ -60,7 +60,7 @@ export function Profile() {
           </div>
         </div>
 
-        {/* 社交链接 */}
+        {/* Social Links */}
         <div className="flex justify-center gap-2 pt-2 border-t border-neutral-200 dark:border-neutral-800">
           <SocialLink href={social.github} icon={<Github className="h-4 w-4" />} label="GitHub" />
           <SocialLink href={social.email} icon={<Mail className="h-4 w-4" />} label="Email" />
