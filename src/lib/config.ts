@@ -6,7 +6,7 @@ export const siteConfig = {
   author: {
     name: "Zhongyan Ouyang",
     displayName: "OYZY",
-    title: "HIT, SII PhD Student",
+    title: "SII HIT PhD Candidate",
     avatar: "/nnq.png",
     bio: "",
     email: "2063930662@qq.com",

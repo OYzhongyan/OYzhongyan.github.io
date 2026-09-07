@@ -2,8 +2,6 @@
 
 Hello, welcome to my personal academic homepage.
 
-I am a researcher in the field of AI, I like to observe and think about some problems.
-
 ## Contact
 
 - 📧 Email: `2063930662@qq.com`
