@@ -50,8 +50,8 @@ $$
 $$
 \nabla_\theta J(\theta)=\mathbb{E}\left[\sum_{t=0}^{T-1}\nabla_\theta\log\pi_\theta(a_t|s_t)G_t\right]
 $$
-根据动作价值函数的定义 $Q^\pi(s_t,a_t)=\mathbb{E}[G_t|s_t,a_t]$，可以进一步写成 $\nabla_\theta J(\theta)=\mathbb{E}_{s_t,a_t\sim\pi_\theta}[\nabla_\theta\log\pi_\theta(a_t|s_t)Q^\pi(s_t,a_t)]$，这就是 ==Policy Gradient Theorem== 的基本形式。于是可以利用随机梯度上升更新策略参数 $\theta\leftarrow\theta+\alpha\nabla_\theta\log\pi_\theta(a_t|s_t)Q^\pi(s_t,a_t)$。实际中 $Q^\pi$ 未知，可以直接使用采样得到的 $G_t$，即 $\theta\leftarrow\theta+\alpha\nabla_\theta\log\pi_\theta(a_t|s_t)G_t$，这就是 REINFORCE。
-直接使用 $G_t$ 或 $Q^\pi(s_t,a_t)$ 的一个主要问题是==梯度估计方差较大==，因此考虑引入一个只依赖状态的 baseline $b(s)$。注意 
+根据动作价值函数的定义 $Q^\pi(s_t,a_t)=\mathbb{E}[G_t|s_t,a_t]$，可以进一步写成 $\nabla_\theta J(\theta)=\mathbb{E}_{s_t,a_t\sim\pi_\theta}[\nabla_\theta\log\pi_\theta(a_t|s_t)Q^\pi(s_t,a_t)]$，这就是 Policy Gradient Theorem 的基本形式。于是可以利用随机梯度上升更新策略参数 $\theta\leftarrow\theta+\alpha\nabla_\theta\log\pi_\theta(a_t|s_t)Q^\pi(s_t,a_t)$。实际中 $Q^\pi$ 未知，可以直接使用采样得到的 $G_t$，即 $\theta\leftarrow\theta+\alpha\nabla_\theta\log\pi_\theta(a_t|s_t)G_t$，这就是 REINFORCE。
+直接使用 $G_t$ 或 $Q^\pi(s_t,a_t)$ 的一个主要问题是梯度估计方差较大，因此考虑引入一个只依赖状态的 baseline $b(s)$。注意 
 $$
 \mathbb{E}_{a\sim\pi_\theta}[\nabla_\theta\log\pi_\theta(a|s)b(s)]=b(s)\sum_a\pi_\theta(a|s)\nabla_\theta\log\pi_\theta(a|s)
 $$
@@ -74,7 +74,7 @@ $$
 \hat A_t^{\mathrm{GAE}}=\delta_t+\gamma\lambda\delta_{t+1}+(\gamma\lambda)^2\delta_{t+2}+\cdots=\sum_{l=0}^{T-t-1}(\gamma\lambda)^l\delta_{t+l}
 $$
 其中 $0\leq\lambda\leq1$。当 $\lambda=0$ 时有 $\hat A_t=\delta_t$，退化为 TD(0)；当 $\lambda\rightarrow1$ 时，Advantage 估计逐渐接近 Monte Carlo return，因此 $\lambda$ 控制 **bias-variance tradeoff**。
-接下来考虑==**策略更新过程中数据分布发生变化的问题**==。假设使用旧策略 $\pi_{\theta_{\mathrm{old}}}$ 与环境交互并收集一批数据 $\mathcal D=\{s_t,a_t,r_t,s_{t+1}\}$，其中 $a_t\sim\pi_{\theta_{\mathrm{old}}}(a_t|s_t)$。如果只进行一次非常小的梯度更新，则新旧策略比较接近，但如果对同一批数据进行多次梯度更新，**当前策略 $\pi_\theta$ 就可能逐渐偏离产生这些数据的旧策略** $\pi_{\theta_{\mathrm{old}}}$（从而导致使用旧策略$\pi_{\theta_{\text{old}}}$的数据对新策略进行$\pi_{\theta}$更新），因此需要==使用 importance sampling 对策略分布变化进行修正==。对于任意函数 $f(a)$，有 
+接下来考虑**策略更新过程中数据分布发生变化的问题**。假设使用旧策略 $\pi_{\theta_{\mathrm{old}}}$ 与环境交互并收集一批数据 $\mathcal D=\{s_t,a_t,r_t,s_{t+1}\}$，其中 $a_t\sim\pi_{\theta_{\mathrm{old}}}(a_t|s_t)$。如果只进行一次非常小的梯度更新，则新旧策略比较接近，但如果对同一批数据进行多次梯度更新，**当前策略 $\pi_\theta$ 就可能逐渐偏离产生这些数据的旧策略** $\pi_{\theta_{\mathrm{old}}}$（从而导致使用旧策略$\pi_{\theta_{\text{old}}}$的数据对新策略进行$\pi_{\theta}$更新），因此需要使用 importance sampling 对策略分布变化进行修正。对于任意函数 $f(a)$，有 
 $$
 \mathbb{E}_{a\sim\pi_\theta}[f(a)]=\sum_a\pi_\theta(a|s)f(a)=\sum_a\pi_{\theta_{\mathrm{old}}}(a|s)\frac{\pi_\theta(a|s)}{\pi_{\theta_{\mathrm{old}}}(a|s)}f(a)=\mathbb{E}_{a\sim\pi_{\theta_{\mathrm{old}}}}[\frac{\pi_\theta(a|s)}{\pi_{\theta_{\mathrm{old}}}(a|s)}f(a)]
 $$
